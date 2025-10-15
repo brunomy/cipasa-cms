@@ -1,0 +1,61 @@
+title: construtora
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        display: 'Dados da construtora'
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              localizable: false
+              validate:
+                - required
+          -
+            handle: descricao
+            field:
+              type: text
+              display: Descrição
+              localizable: false
+          -
+            handle: logo
+            field:
+              type: assets
+              display: Logo
+              container: assets
+              max_files: 1
+              mode: grid
+              restrict: true
+              instructions: 'Tamanho: 160x160'
+              localizable: false
+          -
+            handle: banner
+            field:
+              type: assets
+              display: Banner
+              container: assets
+              max_files: 1
+              mode: grid
+              restrict: true
+              instructions: 'Tamanho: 270x350'
+              localizable: false
+          -
+            handle: ativo
+            field:
+              type: toggle
+              display: Ativo
+              localizable: false
+              listable: true
+  sidebar:
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

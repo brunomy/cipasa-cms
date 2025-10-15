@@ -1,0 +1,19 @@
+title: Empreendimentos
+sites:
+  - cipasa
+propagate: false
+template: default
+layout: layout
+revisions: false
+route: '/empreendimentos/{slug}'
+sort_dir: asc
+date_behavior:
+  past: public
+  future: private
+preview_targets:
+  -
+    label: Entry
+    url: '{permalink}'
+    refresh: true
+structure:
+  root: false

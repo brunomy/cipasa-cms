@@ -1,0 +1,312 @@
+title: Empreendimento
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              localizable: false
+              validate:
+                - required
+          -
+            handle: subtitulo
+            field:
+              type: text
+              display: Subtítulo
+              localizable: false
+          -
+            handle: descricao
+            field:
+              type: textarea
+              display: Descrição
+              localizable: false
+          -
+            handle: construtora
+            field:
+              type: entries
+              display: Construtora
+              collections:
+                - construtoras
+              max_items: 1
+              mode: select
+              validate:
+                - required
+              localizable: false
+              width: 33
+          -
+            handle: diferenciais
+            field:
+              mode: select
+              collections:
+                - diferenciais
+              type: entries
+              display: Diferenciais
+              localizable: false
+              width: 66
+  imagens:
+    display: Imagens
+    sections:
+      -
+        fields:
+          -
+            handle: banner
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: Banner
+              instructions: 'Tamanho da imagem: 1920x400'
+              localizable: false
+          -
+            handle: galeria
+            field:
+              type: replicator
+              display: Galeria
+              localizable: false
+              sets:
+                novo_grupo_de_conjuntos:
+                  display: 'Novo grupo de conjuntos'
+                  sets:
+                    galeria:
+                      display: Galeria
+                      instructions: 'Tamanho da imagem: 900x450'
+                      icon: media-image-picture-gallery
+                      fields:
+                        -
+                          handle: nome_da_galeria
+                          field:
+                            type: text
+                            display: 'Nome da galeria'
+                            localizable: false
+                        -
+                          handle: imagens
+                          field:
+                            container: assets
+                            type: assets
+                            display: Imagens
+                            localizable: false
+                            instructions: 'Tamanho da imagem: 900x450'
+  ficha_tecnica:
+    display: 'Ficha Técnica'
+    sections:
+      -
+        fields:
+          -
+            handle: area_bruta
+            field:
+              type: integer
+              display: 'Área bruta (m²)'
+              localizable: false
+              width: 50
+              default: '0'
+          -
+            handle: area_de_lotes
+            field:
+              type: integer
+              display: 'Área de lotes (m²)'
+              localizable: false
+              width: 50
+              default: '0'
+          -
+            handle: numero_de_lotes_residenciais
+            field:
+              type: integer
+              display: 'Número de lotes residenciais'
+              localizable: false
+              width: 50
+              default: '0'
+          -
+            handle: numero_de_lotes_comerciais
+            field:
+              type: integer
+              display: 'Número de lotes comerciais'
+              localizable: false
+              width: 50
+              default: '0'
+          -
+            handle: tamanho_minimo_dos_lotes_m
+            field:
+              type: integer
+              display: 'Tamanho mínimo dos lotes (m²)'
+              localizable: false
+              width: 50
+              default: '0'
+          -
+            handle: tamanho_maximo_dos_lotes_m
+            field:
+              type: integer
+              display: 'Tamanho máximo dos lotes (m²)'
+              localizable: false
+              width: 50
+              default: '0'
+  obras:
+    display: Obras
+    sections:
+      -
+        fields:
+          -
+            handle: terraplanagem
+            field:
+              default: 0
+              type: range
+              display: Terraplanagem
+              localizable: false
+              width: 50
+          -
+            handle: drenagem
+            field:
+              default: 0
+              type: range
+              display: Drenagem
+              localizable: false
+              width: 50
+          -
+            handle: saneamento
+            field:
+              default: 0
+              type: range
+              display: Saneamento
+              localizable: false
+              width: 50
+          -
+            handle: pavimentacao
+            field:
+              default: 0
+              type: range
+              display: Pavimentação
+              localizable: false
+              width: 50
+          -
+            handle: rede_eletrica
+            field:
+              default: 0
+              type: range
+              display: 'Rede elétrica'
+              localizable: false
+              width: 50
+          -
+            handle: obras_civis
+            field:
+              default: 0
+              type: range
+              display: 'Obras civis'
+              localizable: false
+              width: 50
+  nova_aba:
+    display: Endereço
+    sections:
+      -
+        fields:
+          -
+            handle: cep
+            field:
+              type: text
+              display: CEP
+              localizable: false
+              width: 33
+          -
+            handle: estado
+            field:
+              type: select
+              display: Estado
+              placeholder: 'Selecione o estado'
+              options:
+                AC: Acre
+                AL: Alagoas
+                AP: Amapá
+                AM: Amazonas
+                BA: Bahia
+                CE: Ceará
+                DF: 'Distrito Federal'
+                ES: 'Espírito Santo'
+                GO: Goiás
+                MA: Maranhão
+                MT: 'Mato Grosso'
+                MS: 'Mato Grosso do Sul'
+                MG: 'Minas Gerais'
+                PA: Pará
+                PB: Paraíba
+                PR: Paraná
+                PE: Pernambuco
+                PI: Piauí
+                RJ: 'Rio de Janeiro'
+                RN: 'Rio Grande do Norte'
+                RS: 'Rio Grande do Sul'
+                RO: Rondônia
+                RR: Roraima
+                SC: 'Santa Catarina'
+                SP: 'São Paulo'
+                SE: Sergipe
+                TO: Tocantins
+              validate:
+                - required
+              localizable: false
+              width: 33
+          -
+            handle: cidade
+            field:
+              type: text
+              display: Cidade
+              localizable: false
+              width: 33
+          -
+            handle: rua
+            field:
+              type: text
+              display: Rua
+              localizable: false
+              width: 66
+          -
+            handle: numero
+            field:
+              type: text
+              display: Número
+              localizable: false
+              width: 33
+          -
+            handle: complemento
+            field:
+              type: text
+              display: Complemento
+              localizable: false
+          -
+            handle: revelador
+            field:
+              type: revealer
+              display: Revelador
+              localizable: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: lancamento
+            field:
+              type: date
+              display: 'Data de lançamento'
+              localizable: false
+          -
+            handle: parent
+            field:
+              type: entries
+              collections:
+                - empreendimentos
+              max_items: 1
+              listable: false
+              localizable: true
+      -
+        display: SEO
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

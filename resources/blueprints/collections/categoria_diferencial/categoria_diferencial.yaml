@@ -1,0 +1,26 @@
+title: 'Categoria Diferencial'
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              localizable: false
+              validate:
+                - required
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

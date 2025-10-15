@@ -1,0 +1,8 @@
+title: 'Categoria Diferencial'
+sites:
+  - cipasa
+propagate: false
+revisions: false
+date_behavior:
+  past: public
+  future: private

@@ -1,0 +1,49 @@
+title: Diferenciais
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              localizable: false
+              validate:
+                - required
+          -
+            handle: icone
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: Ícone
+              instructions: 'Tamanho da imagem: 55x45'
+              localizable: false
+              listable: true
+              mode: grid
+          -
+            handle: categoria
+            field:
+              mode: select
+              collections:
+                - categoria_diferencial
+              type: entries
+              display: Categoria
+              localizable: false
+              listable: true
+              max_items: 1
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
