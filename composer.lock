@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a27c873bb55a4589c124b6dce4f4c2cf",
+    "content-hash": "4955204d64f8c9a77bd42deb068fdc77",
     "packages": [
         {
             "name": "ajthinking/archetype",
@@ -4397,17 +4397,11 @@
         },
         {
             "name": "statamic/cms",
-            "version": "v5.66.0",
+            "version": "dev-main",
             "source": {
                 "type": "git",
-                "url": "https://github.com/statamic/cms.git",
-                "reference": "d43fc152606f67acf309bd89f57e5f02634c5f44"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/statamic/cms/zipball/d43fc152606f67acf309bd89f57e5f02634c5f44",
-                "reference": "d43fc152606f67acf309bd89f57e5f02634c5f44",
-                "shasum": ""
+                "url": "git@github.com:brunomy/statamic.git",
+                "reference": "ba95360887dba6b41abe7a2128ac7744094ec414"
             },
             "require": {
                 "ajthinking/archetype": "^1.0.3 || ^2.0",
@@ -4449,14 +4443,6 @@
             },
             "type": "library",
             "extra": {
-                "laravel": {
-                    "aliases": {
-                        "Statamic": "Statamic\\Statamic"
-                    },
-                    "providers": [
-                        "Statamic\\Providers\\StatamicServiceProvider"
-                    ]
-                },
                 "download-dist": [
                     {
                         "url": "https://github.com/statamic/cms/releases/download/{$version}/dist.tar.gz",
@@ -4466,17 +4452,25 @@
                         "url": "https://github.com/statamic/cms/releases/download/{$version}/dist-frontend.tar.gz",
                         "path": "resources/dist-frontend"
                     }
-                ]
+                ],
+                "laravel": {
+                    "providers": [
+                        "Statamic\\Providers\\StatamicServiceProvider"
+                    ],
+                    "aliases": {
+                        "Statamic": "Statamic\\Statamic"
+                    }
+                }
             },
             "autoload": {
+                "psr-4": {
+                    "Statamic\\": "src/"
+                },
                 "files": [
                     "src/helpers.php",
                     "src/namespaced_helpers.php",
                     "src/View/Blade/helpers.php"
                 ],
-                "psr-4": {
-                    "Statamic\\": "src/"
-                },
                 "exclude-from-classmap": [
                     "tests/Auth/Eloquent/__migrations__/**",
                     "tests/StarterKits/__fixtures__/**",
@@ -4485,7 +4479,12 @@
                     "src/Console/Please/app-kernel.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\": "tests",
+                    "Foo\\Bar\\": "tests/Fixtures/Addon"
+                }
+            },
             "license": [
                 "proprietary"
             ],
@@ -4496,17 +4495,60 @@
                 "laravel",
                 "statamic"
             ],
-            "support": {
-                "issues": "https://github.com/statamic/cms/issues",
-                "source": "https://github.com/statamic/cms/tree/v5.66.0"
+            "time": "2025-10-15T16:02:40+00:00"
+        },
+        {
+            "name": "statamic/eloquent-driver",
+            "version": "v4.33.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/statamic/eloquent-driver.git",
+                "reference": "d03371d6a546d612e81acc3ae10e7917b549e55e"
             },
-            "funding": [
-                {
-                    "url": "https://github.com/statamic",
-                    "type": "github"
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/statamic/eloquent-driver/zipball/d03371d6a546d612e81acc3ae10e7917b549e55e",
+                "reference": "d03371d6a546d612e81acc3ae10e7917b549e55e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.1",
+                "statamic/cms": "^5.48"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^3.8",
+                "laravel/pint": "^1.0",
+                "orchestra/testbench": "^8.28 || ^9.6.1 || ^10.0",
+                "phpunit/phpunit": "^10.5.35 || ^11.0",
+                "spatie/laravel-ray": "^1.40"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Statamic\\Eloquent\\ServiceProvider"
+                    ]
+                },
+                "statamic": {
+                    "name": "Eloquent Driver",
+                    "description": "Allows you to store Statamic data in a database."
                 }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Statamic\\Eloquent\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
             ],
-            "time": "2025-10-03T18:37:00+00:00"
+            "description": "Allows you to store Statamic data in a database.",
+            "support": {
+                "issues": "https://github.com/statamic/eloquent-driver/issues",
+                "source": "https://github.com/statamic/eloquent-driver/tree/v4.33.0"
+            },
+            "time": "2025-10-14T05:56:38+00:00"
         },
         {
             "name": "statamic/stringy",
@@ -10702,9 +10744,18 @@
             "time": "2024-03-03T12:36:25+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "package": "statamic/cms",
+            "version": "dev-main",
+            "alias": "5.x-dev",
+            "alias_normalized": "5.9999999.9999999.9999999-dev"
+        }
+    ],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "statamic/cms": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

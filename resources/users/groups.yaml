@@ -1,4 +1,4 @@
-# admin:
-#   title: Administrators
-#   roles:
-#     - admin
+editores:
+  title: Editores
+  roles:
+    - empreendimentos

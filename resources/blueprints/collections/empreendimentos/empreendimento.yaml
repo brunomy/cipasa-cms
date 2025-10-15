@@ -276,11 +276,14 @@ tabs:
               display: Complemento
               localizable: false
           -
-            handle: revelador
+            handle: localizacao
             field:
-              type: revealer
-              display: Revelador
-              localizable: false
+              type: mapa
+              display: Localização
+              instructions: 'Clique no mapa para definir a localização.'
+              default_lat: -15.7801
+              default_lng: -47.9292
+              default_zoom: 5
   sidebar:
     display: Sidebar
     sections:

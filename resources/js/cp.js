@@ -12,3 +12,10 @@ Statamic.booting(() => {
 });
 
 */
+
+
+import MapaFieldtype from './components/fieldtypes/Mapa.vue'
+
+Statamic.booting(() => {
+  Statamic.$components.register('mapa-fieldtype', MapaFieldtype)
+})

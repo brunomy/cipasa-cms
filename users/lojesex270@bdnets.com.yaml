@@ -1,0 +1,7 @@
+name: Editor
+roles:
+  - empreendimentos
+groups:
+  - editores
+id: 56c0bdcb-6846-4a79-b5d3-a6ad3bad5cb0
+password_hash: $2y$12$xLfOBf7BrOTAwWZ.UftKRejsM5828qWRcUBs5qrQqodLEn3Zht/F.

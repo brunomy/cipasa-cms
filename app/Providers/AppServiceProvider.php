@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Statamic\Statamic;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -10,6 +11,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Sem Statamic::vite aqui
+        // Registra seu JS do painel (Control Panel)
+        Statamic::vite('statamic-cp', ['resources/js/cp.js']);
     }
 }
