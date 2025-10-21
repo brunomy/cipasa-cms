@@ -6,19 +6,15 @@ return [
     'table_prefix' => env('STATAMIC_ELOQUENT_PREFIX', ''),
 
     'asset_containers' => [
-        'driver' => 'eloquent',
-        'model' => \Statamic\Eloquent\Assets\AssetContainerModel::class,
+        'driver' => 'file',
     ],
 
     'assets' => [
-        'driver' => 'eloquent',
-        'model' => \Statamic\Eloquent\Assets\AssetModel::class,
-        'asset' => \Statamic\Eloquent\Assets\Asset::class,
+        'driver' => 'file',
     ],
 
     'blueprints' => [
-        'driver' => 'eloquent',
-        'model' => \Statamic\Eloquent\Fields\BlueprintModel::class,
+        'driver' => 'file',
         'namespaces' => 'all',
     ],
 

@@ -1,0 +1,39 @@
+@use './../../Mixins.scss' as *;
+
+.not_found{
+  padding: 120px 0 50px;
+  position: relative;
+
+  &:before, &:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 100vw;
+    height: 2px;
+    background: rgb(0, 90, 69);
+  }
+
+  &:after{
+    top: initial;
+    bottom: 0;
+  }
+
+  .container{
+    h1{
+      @include Title();
+      font-weight: bold;
+      text-align: center;
+      font-size: 50px;
+      margin: 0 0 20px;
+    }
+    p{
+      @include Text();
+      font-weight: normal;
+      text-align: center;
+      font-size: 16px;
+      margin: 0;
+    }
+  }
+}

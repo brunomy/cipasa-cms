@@ -1,0 +1,55 @@
+
+@use './Fonts.scss' as fonts;
+
+body {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+
+  #root{
+    width: 100%;
+    max-width: 1920px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  *{
+    font-family: fonts.$WorkSans !important;
+    box-sizing: border-box;
+  }
+}
+
+.container{
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.swiper-pagination-bullet{
+  width: 10px !important;
+  height: 10px !important;
+  background: #C6A557 !important;
+  margin: 0 10px !important;
+}
+
+.swiper{
+
+  padding-bottom: 45px;
+
+  .swiper-slide {
+    height: auto !important;
+
+    >div{
+      height: 100%;
+    }
+  }
+}
+
+.MuiGrid-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  width: 100%;
+}
+.MuiGrid-item {
+  box-sizing: border-box;
+}

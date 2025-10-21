@@ -1,0 +1,307 @@
+@use './../../../../Mixins.scss' as *;
+
+.have_land_form{
+  position: relative;
+  padding: 60px 0;
+
+  &::before{
+    content: '';
+    position: absolute;
+    left: calc(50% - 1px);
+    top: 0;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100%;
+    background: #FFFAF3;
+  }
+
+  .content{
+    position: relative;
+
+    h2{
+      @include Title();
+    }
+    >p{
+      color: #555454;
+      font-size: 18px;
+      line-height: 27px;
+      margin: 0 0 20px;
+    }
+    form{
+      .info_content{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 0 0 20px;
+
+        input{
+          height: 48px;
+          border: 1px solid #005A45;
+          border-radius: 50px;
+          padding: 0 32px;
+          font-size: 14px;
+          color: #005A45;
+          background: #fff;
+          width: 100%;
+          max-width: 260px;
+          font-weight: bold;
+
+          &::placeholder{
+            color: #666;
+            opacity: .6;
+          }
+        }
+      }
+      h3{
+        @include Title();
+        font-size: 20px;
+
+      }
+      .address_content{
+        .area_map{
+          position: relative;
+          height: 400px;
+          margin: 0 0 20px;
+
+          .map{
+            position: absolute;
+            top: 0;
+            left: calc(50% - 1px);
+            transform: translateX(-50%);
+            width: calc(100vw + 1px);
+            height: 100%;
+            border-top: 3px solid #112a25;
+            border-bottom: 3px solid #112a25;
+
+            >div{
+              height: 100% !important;
+
+              .leaflet-interactive{
+                fill: #62BB46;
+                stroke: #62BB46;
+                stroke-opacity: 1;
+                fill-opacity: .4;
+              }
+            }
+          }
+
+        }
+        .search_control{
+          position: absolute;
+          top: 10px;
+          width: 100%;
+          max-width: 1290px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 99999;
+          padding: 0 20px;
+          pointer-events: none;
+
+          >div{
+            background: #fff;
+            padding: 5px 5px;
+            border-radius: 4px;
+            max-width: 250px;
+            pointer-events: all;
+          }
+          
+        }
+        .controllers_content{
+          margin: 0 0 20px;
+
+          .info_text{
+            text-align: center;
+            line-height: 26px;
+          }
+          .meter_info{
+            text-align: center;
+            font-weight: 400;
+            color: #112a25;
+            font-size: 20px;
+            line-height: 26px;
+          }
+        }
+        .action_buttons{
+          max-width: 360px;
+          margin: 20px auto 0;
+          display: flex;
+          gap: 10px;
+
+          button {
+            width: calc(100% - 100px);
+            margin: 0;
+            height: 40px;
+
+            &.error{
+              width: 100px;
+            }
+          }
+        }
+      }
+
+      .document_content{
+        h3{}
+        p{
+          margin: 0;
+          color: #666;
+          font-size: 13px;
+        }
+
+
+        .document_list{
+          display: flex;
+          flex-wrap: wrap;
+          gap: 5px;
+          margin: 10px 0;
+
+          .document_item{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 8px 12px;
+            background-color: #fff;
+            gap: 10px;
+
+            p{
+              font-size: 14px;
+
+              span{
+                color: #666;
+                font-size: 10px;
+              }
+            }
+            button{
+              font-size: 12px;
+              min-width: initial;
+              padding: 0;
+            }
+          }
+
+        }
+        .input_file{
+          margin: 0 0 20px;
+
+          label{
+            display: block;
+            border: 1px solid #005A45 !important;
+            color: #005A45 !important;
+            font-weight: bold !important;
+            letter-spacing: 1px;
+            padding: 5px 20px 6px !important;
+            border-radius: 50px !important;
+            background: #fff !important;
+            font-size: 14px;
+            width: fit-content;
+            cursor: pointer;
+          }
+        }
+      }
+
+      textarea.informacoes{
+        width: 100%;
+        background: #fff;
+        border: 1px solid #005A45;
+        border-radius: 4px;
+        padding: 15px 15px;
+        margin: 0 0 20px;
+        min-height: 100px;
+        color: #005A45;
+
+        &::placeholder{
+          color: #666;
+          opacity: .6;
+        }
+      }
+
+      button.submit_button{
+        background: #005A45 !important;
+        color: #fff !important;
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 1400px){
+    .content{
+      form{
+        .address_content{
+          .search_control{
+            padding: 0 60px;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 1100px){
+    .content{
+      >p{
+        font-size: 16px;
+      }
+      form{
+        .info_content{
+          input{
+            max-width: calc((100% - 20px)/3);
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 850px){
+    padding: 40px 0;
+
+    .content{
+      >p{
+        font-size: 14px;
+        line-height: 18px;
+        margin: 5px 0 20px;
+      }
+      form{
+        .info_content{
+          flex-direction: column;
+
+          input{
+            max-width: 350px;
+          }
+        }
+        h3{
+          font-size: 18px;
+          line-height: 36px;
+        }
+      }
+    }
+  }
+  @media (max-width: 550px){
+    .content{
+      form{
+        .address_content{
+          .area_map{
+            height: 300px;
+
+            .map{
+              height: 300px;
+            }
+
+          }
+          .controllers_content{
+            .info_text{
+              font-size: 14px;
+              line-height: 26px;
+            }
+            .meter_info{
+              font-size: 16px;
+              line-height: 26px;
+            }
+          }
+        }
+
+        .document_content{
+          p{
+            font-size: 11px;
+          }
+        }
+      }
+    }
+  }
+}

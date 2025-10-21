@@ -1,0 +1,46 @@
+@use './../../../Mixins.scss' as *;
+
+.modal_login{
+  
+  .MuiPaper-root{
+    background-color: transparent !important;
+    box-shadow: none !important;
+    width: 100%;
+    max-width: 400px !important;
+  }
+  .content{
+    overflow: hidden;
+    padding: 20px;
+    border-radius: 4px;
+    background-color: #fff;
+    width: 100%;
+
+    h6{
+      @include Title(#005A45);
+      font-size: 22px;
+      margin: 0 0 10px;
+    }
+    form{
+      width: 100%;
+      max-width: initial;
+
+      fieldset{
+        width: 100%;
+        max-width: initial;
+
+        &:focus{
+          border: 1px solid #005A45 !important;
+        }
+      }
+      button{
+        color: #005A45 !important;
+
+        &.button1{
+          margin-top: 20px;
+          background-color: #005A45 !important;
+          color: #fff !important;
+        }
+      }
+    }
+  }
+}

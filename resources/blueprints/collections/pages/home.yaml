@@ -1,0 +1,148 @@
+title: Home
+tabs:
+  main:
+    display: Conheça
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              localizable: false
+              validate:
+                - required
+          -
+            handle: info_1
+            field:
+              input_type: number
+              type: text
+              display: 'História e Realizações'
+              localizable: false
+              width: 33
+          -
+            handle: info_2
+            field:
+              input_type: number
+              type: text
+              display: 'Cidades com Nossa Presença'
+              localizable: false
+              width: 33
+          -
+            handle: info_3
+            field:
+              input_type: number
+              type: text
+              display: 'Condomínios Lançados'
+              localizable: false
+              width: 33
+          -
+            handle: transformando_sonhos_em_realidade
+            field:
+              type: textarea
+              display: 'Transformando sonhos em realidade'
+              localizable: false
+  destaques:
+    display: Destaques
+    sections:
+      -
+        fields:
+          -
+            handle: lista_1
+            field:
+              max_items: 6
+              collections:
+                - empreendimentos
+              type: entries
+              display: 'Lista 1'
+              localizable: false
+              width: 50
+              create: false
+              mode: select
+          -
+            handle: lista_2
+            field:
+              max_items: 6
+              collections:
+                - empreendimentos
+              type: entries
+              display: 'Lista 2'
+              localizable: false
+              width: 50
+              create: false
+              mode: select
+  seo:
+    display: SEO
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+              display: 'URL Amigável'
+              width: 33
+          -
+            handle: meta_title
+            field:
+              type: text
+              display: Título
+              width: 66
+              localizable: false
+          -
+            handle: breve_descricao
+            field:
+              type: textarea
+              display: 'Breve descrição'
+              localizable: false
+          -
+            handle: keywords
+            field:
+              type: list
+              display: Palavras-chave
+              localizable: false
+              width: 33
+          -
+            handle: og_image
+            field:
+              type: assets
+              display: 'Imagem de Destaque'
+              container: assets
+              max_files: 1
+              width: 66
+              localizable: false
+              instructions: 'Tamanho da imagem: 1200×630'
+              mode: grid
+          -
+            handle: meta_robots
+            field:
+              type: select
+              display: Indexação
+              options:
+                'index,follow': 'Indexar e seguir links'
+                'noindex,nofollow': 'Não indexar nem seguir links'
+              default: 'index,follow'
+              localizable: false
+          -
+            handle: scripts
+            field:
+              type: code
+              display: Scripts
+              localizable: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: parent
+            field:
+              type: entries
+              collections:
+                - pages
+              max_items: 1
+              listable: false
+              localizable: true

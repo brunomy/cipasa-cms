@@ -1,0 +1,19 @@
+@use './../../../Fonts.scss' as fonts;
+
+.button1{
+  height: 48px;
+  border: 1px solid #005A45 !important;
+  color: #005A45 !important;
+  font-family: fonts.$WorkSans !important;
+  font-weight: bold !important;
+  letter-spacing: 1px;
+  padding: 0 29px !important;
+  border-radius: 50px !important;
+  background: #fff !important;
+
+  &.error{
+    background: #ffbf00 !important;
+    border-color: #ffbf00 !important;
+    color: #fff !important;
+  }
+}

@@ -14,7 +14,6 @@ tabs:
               validate:
                 - required
   sidebar:
-    display: Sidebar
     sections:
       -
         fields:

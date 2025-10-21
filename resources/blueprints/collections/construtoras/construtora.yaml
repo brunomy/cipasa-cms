@@ -31,6 +31,7 @@ tabs:
               restrict: true
               instructions: 'Tamanho: 160x160'
               localizable: false
+              listable: true
           -
             handle: banner
             field:
@@ -42,14 +43,8 @@ tabs:
               restrict: true
               instructions: 'Tamanho: 270x350'
               localizable: false
-          -
-            handle: ativo
-            field:
-              type: toggle
-              display: Ativo
-              localizable: false
-              listable: true
   sidebar:
+    display: Sidebar
     sections:
       -
         fields:

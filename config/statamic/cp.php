@@ -158,4 +158,8 @@ return [
         // 'medium' => 800,
     ],
 
+    'middleware' => [
+        \App\Http\Middleware\HandleInertiaRequests::class,
+    ],
+
 ];

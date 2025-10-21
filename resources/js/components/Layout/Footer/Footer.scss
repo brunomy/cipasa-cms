@@ -1,0 +1,333 @@
+@use './../../../Fonts.scss' as fonts;
+
+.footer{
+  padding: 100px 0 0;
+
+  .footer_top{
+    padding: 0 20px;
+
+    >.container{
+      display: flex;
+      padding: 0 0 100px;
+  
+      .left{
+        width: 305px;
+        border-right: 1px solid #DBD3D3;
+  
+        .logo_content{
+          width: 235px;
+          margin: 0 0 20px;
+        }
+        >p{
+          color: #555454;
+          margin: 0 0 40px;
+          font-size: 13px;
+          max-width: 225px;
+          width: 100%;
+        }
+        .contato{
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+  
+          .item{
+            p{
+              font-size: 13px;
+              color: #555454;
+              margin: 0;
+            }
+            h3{
+              font-size: 18px;
+              font-weight: 400;
+              color: #005A45;
+              margin: 0;
+            }
+          }
+        }
+      }
+      .right{
+        width: calc(100% - 305px);
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0 0 0 85px;
+  
+        .pages{
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          width: 100%;
+          margin: 0 0 15px;
+  
+          >div{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+  
+            h4{
+              font-size: 18px;
+              font-family: fonts.$Montserrat !important;
+              font-weight: 500;
+              color: #005A45;
+              margin: 0 0 10px;
+            }
+            a{
+              font-weight: 400;
+              font-size: 13px;
+              color: #555454;
+              padding: 0;
+              margin: 0 0 6px;
+              min-width: initial;
+              text-transform: initial;
+            }
+          }
+          .social{
+            h4{
+              font-size: 13px;
+              color: #555454;
+              font-family: fonts.$Montserrat !important;
+            }
+            div{
+              display: flex;
+              gap: 20px;
+              
+              a{
+                color: #005A45;
+                
+                svg{
+                  width: auto;
+                  height: 30px;
+                }
+              }
+            }
+          }
+        }
+        .newsletter{
+          width: 100%;
+          display: flex;
+          justify-content: flex-end;
+          
+          div{
+            width: 415px;
+            
+            h4{
+              font-family: fonts.$Montserrat !important;
+              font-weight: 500;
+              font-size: 18px;
+              color: #005A45;
+              margin: 0 0 8px;
+            }
+            form{
+              display: flex;
+              overflow: hidden;
+              border-radius: 8px;
+  
+              input{
+                background: #F5F5F5;
+                color: #555454;
+                height: 40px;
+                width: calc(100% - 83px);
+                padding: 0 20px;
+                border: none;
+                
+                &::placeholder{
+                  color: #555454;
+                }
+              }
+              button{
+                height: 40px;
+                width: 83px;
+                background: #61BA46;
+                color: #fff;
+                text-transform: initial;
+                font-size: 13px;
+                border-radius: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .footer_bottom{
+    background: #000;
+
+    >div{
+      padding: 0 20px;
+
+      .container{
+        height: 75px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+  
+        p{
+          color: #F5F5F5;
+          font-size: 16px;
+          margin: 0;
+        }
+        button{
+          background: transparent;
+          color: #F5F5F5;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          text-transform: initial;
+  
+          span.icon{
+            background: #F5F5F5;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #62BB46;
+  
+            svg{
+              height: auto;
+              width: 18px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1100px){
+    padding: 50px 0 0;
+
+    .footer_top{
+      >.container{
+        flex-wrap: wrap;
+        padding: 0 0 50px;
+
+        .left{
+          width: 100%;
+          border-right: none;
+          border-bottom: 1px solid #DBD3D3;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          padding: 0 0 25px;
+
+          .logo_content{
+            height: 60px;
+            width: 100%;
+          }
+          >p{
+            max-width: 450px;
+            margin: 0;
+          }
+          .contato{
+            margin: -80px 0 0;
+          }
+        }
+        .right{
+          padding: 25px 0 0;
+          width: 100%;
+        }
+      }
+    }
+    .footer_bottom{
+      >div{
+        .container{
+          height: 55px;
+        }
+      }
+    }
+  }
+  @media (max-width: 700px){
+    .footer_top{
+      >.container{
+        padding: 0 0 15px;
+
+        .left{
+          >p{
+            margin: 0 0 20px;
+          }
+          .contato{
+            width: 100%;
+            margin: 0;
+          }
+        }
+        .right{
+          position: relative;
+
+          .pages{
+            padding: 40px 0 0;
+
+            .social{
+              position: absolute;
+              right: 0;
+              top: 40px;
+              width: 130px;
+            }
+          }
+          .newsletter{
+            order: -1;
+            width: calc(100% - 170px);
+
+            div{
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+    .footer_bottom{
+      >div{
+        .container{
+          height: 45px;
+
+          p{
+            font-size: 11px;
+          }
+          button{
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 550px){
+    .footer_top{
+      >.container{
+        .right{
+          padding: 100px 0 0;
+
+          .pages{
+            padding: 25px 0 0;
+
+            >div{
+              width: 100%;
+
+              &.has_in_menu{
+                display: none;
+              }
+            }
+            .social{
+              width: 100%;
+              top: 20px;
+            }
+          }
+          .newsletter{
+            width: 100%;
+            max-width: initial;
+          }
+        }
+      }
+    }
+    .footer_bottom{
+      >div{
+        .container{
+          p{
+            width: 100%;
+          }
+          button{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

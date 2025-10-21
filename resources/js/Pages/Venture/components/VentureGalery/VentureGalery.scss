@@ -1,0 +1,230 @@
+@use './../../../../Mixins.scss' as *;
+
+.venture_galery{
+  padding: 40px 0 70px;
+  position: relative;
+
+  .content{
+    display: flex;
+
+    .left{
+      width: calc(100% - 900px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h2{
+        @include Title();
+        font-weight: bold;
+        margin: 0 0 30px;
+      }
+      .filters{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        padding: 0 0 0 10px;
+      }
+    }
+    .right{
+      width: 900px;
+
+      .galery_content{
+        position: relative;
+
+        .swiper{
+          border-radius: 4px;
+          overflow: hidden;
+
+          .swiper_item{
+            .item{
+              position: relative;
+              width: 100%;
+              height: 450px;
+
+              img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+              p{
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                color: white;
+                margin: 0;
+                text-align: center;
+                font-size: 16px;
+                height: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
+          }
+        }
+        .arrows{
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 1;
+          display: flex;
+          justify-content: space-between;
+          width: calc(100% + 90px);
+          pointer-events: none;
+
+          button{
+            min-width: initial;
+            padding: 10px 11px;
+            pointer-events: all;
+
+            &.next{
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+    }
+    .logo{
+      position: absolute;
+      right: -290px;
+      bottom: 0;
+      overflow: hidden;
+      height: 295px;
+    }
+  }
+
+  @media (max-width: 1350px) {
+    padding: 30px 0 40px;
+
+    .content{
+      flex-direction: column;
+      align-items: center;
+
+      .left{
+        width: 100%;
+        padding: 0 0 20px;
+        
+        h2{
+          text-align: center;
+          margin: 0 0 10px;
+        }
+        .filters{
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 10px;
+        }
+      }
+      .logo{
+        right: -100px;
+        height: 295px;
+      }
+    }
+  }
+  @media (max-width: 1100px) {
+    padding: 20px 0 30px;
+
+    .content{
+      align-items: initial;
+
+      .right{
+        position: relative;
+        width: calc(100% + 40px);
+        left: -20px;
+
+        .galery_content{
+          .swiper{
+            padding: 0 20px;
+            border-radius: 0;
+
+            .swiper_item{
+              width: 800px;
+              margin: 0 10px 45px 0;
+
+              .item{
+                border-radius: 4px;
+                overflow: hidden;
+                height: 400px;
+              }
+            }
+          }
+          .arrows{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 850px) {
+    .content{
+      .right{
+        .galery_content{
+          .swiper{
+            .swiper_item{
+              width: 500px;
+
+              .item{
+                height: 250px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 550px) {
+    padding: 15px 0 50px;
+
+    .content{
+      .left{
+        h2{
+          text-align: left;
+        }
+        .filters{
+          flex-direction: column;
+          padding: 0;
+          gap: 0px;
+        }
+      }
+      .right{
+        width: calc(100% + 43px);
+        left: -22px;
+
+        .galery_content{
+          .swiper{
+            padding: 0;
+
+            .swiper_item{
+              margin: 0 5px 0 0;
+              width: calc(100vw - 20px);
+
+              .item{
+                height: calc((100vw - 20px) / 2);
+
+                p{
+                  font-size: 12px;
+                  height: 30px;
+                }
+              }
+            }
+            .swiper-pagination{
+              display: none;
+            }
+          }
+        }
+      }
+      .logo{
+        right: -50px;
+        height: 135px;
+
+        img{
+          width: 200px;
+          height: auto;
+        }
+      }
+    }
+  }
+}

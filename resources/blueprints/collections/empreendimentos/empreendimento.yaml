@@ -13,6 +13,24 @@ tabs:
               localizable: false
               validate:
                 - required
+              width: 66
+          -
+            handle: tipo
+            field:
+              options:
+                -
+                  key: 0
+                  value: Comercial
+                -
+                  key: 1
+                  value: Incorporação
+                -
+                  key: 2
+                  value: 'Uso misto'
+              type: select
+              display: Tipo
+              localizable: false
+              width: 33
           -
             handle: subtitulo
             field:
@@ -38,6 +56,7 @@ tabs:
                 - required
               localizable: false
               width: 33
+              listable: true
           -
             handle: diferenciais
             field:
@@ -151,6 +170,19 @@ tabs:
       -
         fields:
           -
+            handle: estagio_da_obra
+            field:
+              options:
+                -
+                  key: 0
+                  value: 'Em andamento'
+                -
+                  key: 1
+                  value: 'Pronto para construir'
+              type: select
+              display: 'Estágio da obra'
+              localizable: false
+          -
             handle: terraplanagem
             field:
               default: 0
@@ -198,7 +230,7 @@ tabs:
               display: 'Obras civis'
               localizable: false
               width: 50
-  nova_aba:
+  endereco:
     display: Endereço
     sections:
       -
@@ -217,37 +249,92 @@ tabs:
               display: Estado
               placeholder: 'Selecione o estado'
               options:
-                AC: Acre
-                AL: Alagoas
-                AP: Amapá
-                AM: Amazonas
-                BA: Bahia
-                CE: Ceará
-                DF: 'Distrito Federal'
-                ES: 'Espírito Santo'
-                GO: Goiás
-                MA: Maranhão
-                MT: 'Mato Grosso'
-                MS: 'Mato Grosso do Sul'
-                MG: 'Minas Gerais'
-                PA: Pará
-                PB: Paraíba
-                PR: Paraná
-                PE: Pernambuco
-                PI: Piauí
-                RJ: 'Rio de Janeiro'
-                RN: 'Rio Grande do Norte'
-                RS: 'Rio Grande do Sul'
-                RO: Rondônia
-                RR: Roraima
-                SC: 'Santa Catarina'
-                SP: 'São Paulo'
-                SE: Sergipe
-                TO: Tocantins
+                -
+                  key: AC
+                  value: Acre
+                -
+                  key: AL
+                  value: Alagoas
+                -
+                  key: AP
+                  value: Amapá
+                -
+                  key: AM
+                  value: Amazonas
+                -
+                  key: BA
+                  value: Bahia
+                -
+                  key: CE
+                  value: Ceará
+                -
+                  key: DF
+                  value: 'Distrito Federal'
+                -
+                  key: ES
+                  value: 'Espírito Santo'
+                -
+                  key: GO
+                  value: Goiás
+                -
+                  key: MA
+                  value: Maranhão
+                -
+                  key: MT
+                  value: 'Mato Grosso'
+                -
+                  key: MS
+                  value: 'Mato Grosso do Sul'
+                -
+                  key: MG
+                  value: 'Minas Gerais'
+                -
+                  key: PA
+                  value: Pará
+                -
+                  key: PB
+                  value: Paraíba
+                -
+                  key: PR
+                  value: Paraná
+                -
+                  key: PE
+                  value: Pernambuco
+                -
+                  key: PI
+                  value: Piauí
+                -
+                  key: RJ
+                  value: 'Rio de Janeiro'
+                -
+                  key: RN
+                  value: 'Rio Grande do Norte'
+                -
+                  key: RS
+                  value: 'Rio Grande do Sul'
+                -
+                  key: RO
+                  value: Rondônia
+                -
+                  key: RR
+                  value: Roraima
+                -
+                  key: SC
+                  value: 'Santa Catarina'
+                -
+                  key: SP
+                  value: 'São Paulo'
+                -
+                  key: SE
+                  value: Sergipe
+                -
+                  key: TO
+                  value: Tocantins
               validate:
                 - required
               localizable: false
               width: 33
+              listable: true
           -
             handle: cidade
             field:
@@ -255,6 +342,7 @@ tabs:
               display: Cidade
               localizable: false
               width: 33
+              listable: true
           -
             handle: rua
             field:
@@ -275,15 +363,84 @@ tabs:
               type: text
               display: Complemento
               localizable: false
+      -
+        display: Coordenadas
+        instructions: 'Busque as coordenadas do empreendimento em https://www.google.com/maps/'
+        fields:
           -
-            handle: localizacao
+            handle: latitude
             field:
-              type: mapa
-              display: Localização
-              instructions: 'Clique no mapa para definir a localização.'
-              default_lat: -15.7801
-              default_lng: -47.9292
-              default_zoom: 5
+              type: text
+              display: Latitude
+              localizable: false
+              width: 50
+          -
+            handle: longitude
+            field:
+              type: text
+              display: Longitude
+              localizable: false
+              width: 50
+  seo:
+    display: SEO
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+              display: 'URL Amigável'
+              width: 33
+          -
+            handle: meta_title
+            field:
+              type: text
+              display: Título
+              width: 66
+              localizable: false
+          -
+            handle: breve_descricao
+            field:
+              type: textarea
+              display: 'Breve descrição'
+              localizable: false
+          -
+            handle: keywords
+            field:
+              type: list
+              display: Palavras-chave
+              localizable: false
+              width: 33
+          -
+            handle: og_image
+            field:
+              type: assets
+              display: 'Imagem de Destaque'
+              container: assets
+              max_files: 1
+              width: 66
+              localizable: false
+              instructions: 'Tamanho da imagem: 1200×630'
+              mode: grid
+          -
+            handle: meta_robots
+            field:
+              type: select
+              display: Indexação
+              options:
+                'index,follow': 'Indexar e seguir links'
+                'noindex,nofollow': 'Não indexar nem seguir links'
+              default: 'index,follow'
+              localizable: false
+          -
+            handle: scripts
+            field:
+              type: code
+              display: Scripts
+              localizable: false
   sidebar:
     display: Sidebar
     sections:
@@ -304,12 +461,3 @@ tabs:
               max_items: 1
               listable: false
               localizable: true
-      -
-        display: SEO
-        fields:
-          -
-            handle: slug
-            field:
-              type: slug
-              localizable: true
-              validate: 'max:200'

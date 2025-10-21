@@ -1,0 +1,26 @@
+button.button_filter{
+  position: relative;
+  display: block;
+  text-align: left;
+  width: fit-content;
+  padding: 3px 10px 3px 36px;
+  text-transform: initial;
+  font-size: 16px;
+  color: #555454;
+
+  &::before{
+    content: '';
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 14px;
+    height: 14px;
+    border: 1px solid #C1C1C1;
+  }
+
+  &.active::before{
+    border-color: #005A45;
+    background: #005A45;
+  }
+}

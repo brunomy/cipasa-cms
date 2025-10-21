@@ -1,0 +1,234 @@
+@use './../../../../Mixins.scss' as *;
+@use './../../../../Fonts.scss' as fonts;
+
+.venture_status{
+  padding: 95px 0;
+
+  .content{
+    display: flex;
+
+    .left{
+      width: calc(100% - 460px);
+      padding: 0 50px 0 0;
+
+      >h2{
+        @include Title();
+        font-weight: bold;
+        margin: 0 0 30px;
+      }
+      >p{
+        font-size: 18px;
+        line-height: 29px;
+        color: #555454;
+
+        margin: 0 0 40px;
+      }
+      .list_status{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .item{
+          position: relative;
+          width: 100%;
+          height: 70px;
+          border-radius: 4px;
+          background: #112A25;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 25px 0 30px;
+          overflow: hidden;
+          box-shadow: 6px 0 0 #EEEEEE;
+
+          .progress{
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            background: #78BA4B;
+            border-radius: 0 3px 3px 0;
+          }
+          .title{
+            position: relative;
+            font-size: 18px;
+            line-height: 29px;
+            color: #fff;
+            margin: 0;
+          }
+          .percentage{
+            position: relative;
+            font-family: fonts.$Montserrat !important;
+            font-weight: bold;
+            font-size: 18px;
+            color: #fff;
+          }
+        }
+      }
+    }
+    .right{
+      width: 460px;
+
+      .technical_sheet{
+        background: #F5F5F5;
+        border: 1px solid #EEEEEE;
+        border-radius: 4px;
+
+        h3{
+          font-family: fonts.$Montserrat !important;
+          font-weight: bold;
+          font-size: 24px;
+          width: 100%;
+          height: 105px;
+          padding: 0 40px;
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          color: #fff;
+          background: #78BA4B;
+          margin: 0;
+        }
+        .list{
+          padding: 10px 40px;
+
+          .item{
+            padding: 20px 0;
+            border-bottom: 1px dashed #D9D9D9;
+
+            &:last-child{
+              border-bottom: none;
+            }
+
+            h4{
+              font-family: fonts.$Montserrat !important;
+              font-weight: bold;
+              font-size: 20px;
+              line-height: 30px;
+              margin: 0 0 5px;
+              color: #000;
+            }
+            p{
+              font-size: 16px;
+              line-height: 20px;
+              color: #000;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1100px) {
+    padding: 60px 0;
+
+    .content{
+      .left{
+        width: calc(100% - 350px);
+
+        >h2{
+          margin: 0 0 20px;
+        }
+        >p{
+          margin: 0 0 30px;
+        }
+        .list_status{
+          gap: 10px;
+
+          .item{
+            padding: 0 20px 0 20px;
+            height: 55px;
+          }
+        }
+      }
+      .right{
+        width: 350px;
+
+        .technical_sheet{
+          h3{
+            font-size: 18px;
+            height: 65px;
+            padding: 0 20px;
+          }
+          .list{
+            padding: 0 20px;
+
+            .item{
+              h4{
+                font-size: 18px;
+                line-height: 26px;
+                margin: 0 0 3px;
+              }
+              p{
+                line-height: 18px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 850px) {
+    .content{
+      flex-direction: column;
+      gap: 50px;
+
+      .left{
+        width: 100%;
+        padding: 0;
+      }
+      .right{
+        width: 100%;
+      }
+    }
+  }
+  @media (max-width: 550px) {
+    padding: 50px 0 0;
+
+    .content{
+      gap: 30px;
+
+      .left{
+        >p{
+          font-size: 16px;
+          line-height: 27px;
+        }
+        .list_status{
+          .item{
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 15px;
+            height: 78px;
+
+            .title{
+              width: 100%;
+              text-align: left;
+              font-size: 18px;
+            }
+            .percentage{
+              width: 100%;
+              text-align: left;
+              margin: 0;
+              font-size: 18px;
+            }
+          }
+        }
+      }
+      .right{
+        position: relative;
+        left: -21px;
+        width: calc(100% + 42px);
+
+        .technical_sheet{
+          border-radius: 0;
+
+          h3{
+            height: 75px;
+            padding: 0 21px;
+            border-radius: 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,159 @@
+.contact_form_page{
+  position: relative;
+
+  &::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -2px;
+    width: 100vw;
+    height: 100%;
+    background: #fffaf3;
+    border: 2px solid #dec99a;
+  }
+
+  .content{
+    position: relative;
+    display: flex;
+
+    .left{
+      width: calc(100% - 695px);
+      padding: 50px 20px 50px 0;
+      border-right: 1px solid #dec99a;
+
+      .form{
+        >div{
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+
+          >div{
+            width: calc((100% - 10px) / 2);
+
+            &.full{
+              width: 100%;
+            }
+          
+            fieldset{
+              border: 1px solid #cab07a !important;
+            }
+            input, .MuiSelect-select, .MuiInputBase-root{
+              background: #fff;
+            }
+            label{
+              color: #112A25 !important;
+              opacity: .6;
+            }
+            button{
+              width: 100%;
+              background: #005A45 !important;
+              color: #fff !important;
+
+            }
+          }
+        }
+      }
+    }
+    .right{
+      width: 695px;
+
+      .venture_map{
+        height: 100%;
+
+        .content{
+          height: 100%;
+          
+          .map{
+            left: 0;
+            top: 0;
+            transform: initial;
+            width: calc((100vw - 1250px) / 2 + 695px);
+
+            .leaflet-container{
+              border-radius: 0 !important;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1250px) {
+    .content{
+      .left{
+        width: calc(100% - 350px);
+      }
+      .right{
+        width: 350px;
+
+        .venture_map{
+          .content{
+            .map{
+              width: calc(100% + 20px);
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 850px) {
+    .content{
+      flex-wrap: wrap;
+
+      .left{
+        width: 100%;
+        padding: 40px 0 50px 0;
+        border-right: none;
+        padding-right: 0;
+        order: 1;
+      }
+      .right{
+        width: 100%;
+        height: 250px;
+        order: 0;
+
+        .venture_map{
+          .content{
+            .map{
+              left: -20px;
+              width: calc(100% + 40px);
+              border-bottom: 1px solid #dec99a;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 550px) {
+    .content{
+      .left{
+        .form{
+          >div{
+            >div{
+              &.full_mobile{
+                width: 100%;
+              }
+              fieldset{
+              }
+              label{
+              }
+              button{
+              }
+            }
+          }
+        }
+      }
+      .right{
+        .venture_map{
+          .content{
+            .map{
+              .leaflet-container{
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

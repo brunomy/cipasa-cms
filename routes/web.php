@@ -1,18 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use App\Http\Controllers\EmpreendimentoController;
 
-Route::post('/cp/license', function () {
-  dd('ai pai');
-    return response()->json([
-        'site' => [
-            'valid' => true,
-            'reason' => 'unknown_site'
-        ],
-        'statamic' => [
-            'valid' => true,
-            'reason' => 'unlicensed'
-        ],
-        'packages' => []
-    ]);
-});
+Route::get('/', [EmpreendimentoController::class, 'index'])->name('home');
+Route::get('/sobre', fn() => Inertia::render('AboutUs/AboutUs'))->name('about');
+Route::get('/empreendimentos', fn() => Inertia::render('Ventures/Ventures'))->name('ventures');
+Route::get('/empreendimento/{slug}', [EmpreendimentoController::class, 'show'])->name('venture');
+Route::get('/tenho-uma-area', fn() => Inertia::render('HaveLand/HaveLand'))->name('have-land');
+Route::get('/ri', fn() => Inertia::render('RI/RI'))->name('ri');
+Route::get('/contato', fn() => Inertia::render('Contact/Contact'))->name('contact');
+

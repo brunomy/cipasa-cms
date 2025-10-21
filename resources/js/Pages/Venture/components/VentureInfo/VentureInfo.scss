@@ -1,0 +1,116 @@
+@use './../../../../Fonts.scss' as *;
+
+.venture_info{
+  padding: 60px 0 35px;
+
+  .content{
+    display: flex;
+    justify-content: space-between;
+
+    .left{
+      width: calc(100% - 350px);
+      padding: 0 65px 0 0;
+
+      p.locale{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 16px;
+        color: #555454;
+        margin: 0 0 20px;
+
+        img{}
+      }
+      h2{
+        font-family: $Montserrat !important;
+        font-size: 21px;
+        line-height: 25px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #000000;
+        margin: 0 0 40px;
+      }
+      p.description{
+        font-size: 18px;
+        line-height: 27px;
+        color: #555454;
+        margin: 0;
+      }
+    }
+    .right{
+      width: 350px;
+      height: 215px;
+      background: #FAFAFA;
+      border: 1px solid #EEEEEE;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+
+      h3{
+        font-family: $Montserrat !important;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 29px;
+        color: #000000;
+        margin: 0;
+        text-align: center;
+        width: 100%;
+      }
+      button{}
+    }
+  }
+  
+
+  @media (max-width: 1100px) {
+    padding: 35px 0;
+
+    .content{
+      flex-wrap: wrap;
+
+      .left{
+        width: 100%;
+        margin: 0 0 30px;
+        padding: 0 30px 0 0;
+
+        h2{
+          margin: 0 0 25px;
+        }
+      }
+      .right{
+        width: 100%;
+      }
+    }
+  }
+  @media (max-width: 850px) {
+    .content{
+      .left{
+        padding: 0;
+
+        h2{
+          font-size: 19px;
+          line-height: 23px;
+        }
+        p.description{
+          font-size: 16px;
+          line-height: 27px;
+        }
+      }
+      .right{
+        height: 175px;
+      }
+    }
+  }
+  @media (max-width: 550px) {
+    .content{
+      .right{
+        h3{
+          font-size: 20px;
+          line-height: 25px;
+        }
+      }
+    }
+  }
+}

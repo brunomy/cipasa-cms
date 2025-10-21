@@ -1,0 +1,81 @@
+@use './../../Fonts.scss' as fonts;
+
+.title_breadcrumbs{
+  h1{
+    position: relative;
+    z-index: 1;
+    font-family: fonts.$Montserrat !important;
+    font-weight: 400;
+    font-size: 42px;
+    color: #112A25;
+    margin: 0 0 30px;
+
+    *{
+      font-family: fonts.$Montserrat !important;
+    }
+  }
+  nav{
+    ol{
+      display: flex;
+      gap: 5px;
+      margin: 0;
+      padding: 0;
+
+      li{
+        list-style: none;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: #000;
+        font-weight: 500;
+        gap: 5px;
+
+        &:last-child{
+          &:after{
+            display: none;
+          }
+        }
+
+        &:after{
+          content: '';
+          display: block;
+          width: 15px;
+          height: 15px;
+          background-image: url(./icon/arrow.svg);
+          background-repeat: no-repeat;
+          background-position: center;
+          margin-top: 2px;
+        }
+
+        &.disabled{
+          color: #C1C1C1;
+          pointer-events: none;
+        }
+        a{
+          color: #000;
+          text-decoration: underline;
+          padding: 0;
+          min-width: initial;
+          text-transform: initial;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 1100px){
+    padding: 0 0 35px;
+
+    h1{
+      font-size: 36px;
+      margin: 0 0 15px;
+    }
+  }
+  @media (max-width: 550px){
+    padding: 0 0 30px;
+
+    h1{
+      font-size: 28px;
+      margin: 0 0 10px;
+    }
+  }
+}

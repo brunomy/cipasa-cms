@@ -1,19 +1,21 @@
 import { defineConfig } from 'vite'
 import laravel from 'laravel-vite-plugin'
-import vue from '@vitejs/plugin-vue'
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [
     laravel({
-      input: [
-        'resources/css/site.css',
-        'resources/js/site.js',
-        'resources/js/cp.js',
-      ],
+      input: ['resources/js/main.jsx'],
       refresh: true,
     }),
-    vue(),
+    react(),
   ],
+  server: {
+    host: '127.0.0.1',
+    port: 5174,
+    cors: true,
+    origin: 'http://127.0.0.1:5174',
+  },
   build: {
     outDir: 'public/build',
   },

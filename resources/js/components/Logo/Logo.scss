@@ -1,0 +1,57 @@
+$delay: 0.8s;
+
+.logo{
+  &.notLoaded{
+    *{
+      fill: #dfdfdf;
+      transition: all 0.5s ease-in-out;
+      transition-delay: 0s !important;
+      opacity: 0;
+      transform: translateY(5px);
+    }
+    .part2{
+      transform: translateX(-10px);
+    }
+    .part3, .part4{
+      transform: translateX(10px);
+    }
+    .name{
+      transform: translateY(0);
+    }
+  }
+  &.loaded{
+    *{
+      fill: color;
+      transition: all 0.5s ease-in-out;
+    }
+  }
+
+  .part1{
+    transition-delay: calc($delay * 0);
+  }
+  .part2{
+    transition-delay: calc($delay * 0.25);
+  }
+  .part3{
+    transition-delay: calc($delay * 0.5);
+  }
+  .part4{
+    transition-delay: calc($delay * 0.5);
+  }
+  .part5{
+    transition-delay: calc($delay * 1.25);
+  }
+
+  .name{
+    transition-delay: calc($delay * 1.25);
+    opacity: 1 !important;
+    transform: initial !important;
+    transform: translateY(0px) !important;
+
+  }
+  .subname{
+    transition-delay: calc($delay * 1.25);
+    opacity: 1 !important;
+    transform: initial !important;
+  }
+}

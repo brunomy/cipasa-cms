@@ -1,0 +1,160 @@
+@use './../../../../Mixins.scss' as mixins;
+
+.projects{
+  position: relative;
+  padding: 70px 0 15px;
+
+  &::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100%;
+    background: #FAFAFA;
+  }
+  .content{
+    display: flex;
+    justify-content: space-between;
+
+    .left{
+      width: calc(100% - 42px - 293px);
+
+      .swiper{
+        padding: 0px 0 45px 20px;
+        margin: 0 0 0 -20px;
+      }
+
+      .item{
+        width: 210px;
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+        height: 100%;
+        margin: 0 19px 0 0;
+
+        .image{
+          width: 100%;
+          height: 350px;
+          margin: 0 0 10px;
+
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .item_content{
+          width: 100%;
+          border: 1px solid #EEEEEE;
+          padding: 30px;
+          height: calc(100% - 350px - 10px);
+          background: #fff;
+
+          .logo{
+            width: 80px;
+            height: 80px;
+            margin: 0 0 20px;
+
+            img{
+              width: 100%;
+              height: 100%;
+              object-fit: contain;
+            }
+          }
+          p{
+            text-transform: initial;
+            font-size: 16px;
+            line-height: 19px;
+            color: #555454;
+            margin: 0;
+          }
+        }
+      }
+    }
+    .right{
+      position: relative;
+      width: 330px;
+      padding: 100px 0 0;
+
+      h2{
+        @include mixins.Title();
+      }
+      img{
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+      }
+    }
+  }
+
+  @media (max-width: 1100px){
+    .content{
+      .left{
+        width: calc(100% - 20px - 260px);
+      }
+      .right{
+        width: 260px;
+      }
+    }
+  }
+  @media (max-width: 850px){
+    .content{
+      flex-direction: column-reverse;
+
+      .left{
+        padding: 0;
+        width: calc(100% + 20px);
+
+        .item{
+          width: 270px;
+          margin: 0 10px 0 0;
+
+          .image{
+            height: 180px;
+          }
+          .item_content{
+            height: calc(100% - 180px - 10px);
+
+            .logo{
+              width: 60px;
+              height: 60px;
+              margin: 0 0 10px;
+            }
+            p{
+              font-size: 14px;
+              line-height: 20px;
+            }
+          }
+        }
+      }
+      .right{
+        width: 100%;
+        padding: 0;
+
+        h2{
+          margin: 0 0 20px;
+        }
+        img{
+          left: initial;
+          right: 0;
+          bottom: 0;
+          width: 260px;
+        }
+      }
+    }
+  }
+  @media (max-width: 550px){
+    .content{
+      .right{
+        img{
+          left: initial;
+          right: -110px;
+          bottom: 0;
+          width: 230px;
+        }
+      }
+    }
+  }
+}

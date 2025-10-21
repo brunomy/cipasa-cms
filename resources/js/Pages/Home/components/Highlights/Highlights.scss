@@ -1,0 +1,197 @@
+@use './../../../../Mixins.scss' as mixins;
+
+.highlights{
+  padding: 100px 0 50px;
+
+  .content{
+    position: relative;
+
+    .carousel_component{
+      z-index: 1;
+
+      .item{
+        width: 100%;
+        height: inherit;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+
+        h2{
+          @include mixins.Title();
+          overflow: hidden;
+          margin: 0 0 15px;
+        }
+        .dados{
+          display: flex;
+          align-items: center;
+          gap: 30px;
+
+          >div{
+            width: 600px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 22px;
+            background: #FFFAF3;
+            border: 2px solid #dec99a;
+            border-bottom: 0;
+
+            >div{
+              display: flex;
+              align-items: center;
+              gap: 5px;
+              font-size: 16px;
+              color: #2C2C2C;
+
+              .icon{
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+            }
+          }
+          a{
+            font-size: 15px;
+            font-weight: bold;
+            color: #2C2C2C;
+            text-transform: uppercase;
+            text-decoration: underline;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+        }
+        .image_content{
+          width: 100%;
+          height: 450px;
+
+          img{
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+
+    .arrows{
+      position: absolute;
+      right: 0;
+      bottom: 460px;
+      display: flex;
+      gap: 25px;
+      z-index: 20;
+
+      button{
+        width: 30px;
+        height: 55px;
+        background: #DEC99A;
+        border-radius: 50px;
+        min-width: 0;
+
+        &.next{
+          transform: rotate(180deg);
+        }
+      }
+    }
+
+    .carousel_dots{
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+
+      .dot_content{
+        &:before{
+          background: #ece2cb;
+        }
+      }
+      span.indicator{
+        &:before{
+          background: #C6A557;
+        }
+      }
+    }
+
+    >img.icon{
+      position: absolute;
+      bottom: 40px;
+      right: -130px;
+      z-index: 0;
+    }
+  }
+
+  @media (max-width: 1100px){
+    padding: 70px 0 50px;
+
+    .content{
+      .carousel_component{
+        .item{
+          h2{
+            margin: 0 0 10px;
+          }
+          .dados{
+            >div{
+              width: 100%;
+              height: 55px;
+            }
+          }
+          .image_content{
+            height: 300px;
+          }
+        }
+      }
+
+      .arrows{ display: none; }
+
+      >img.icon{ display: none; }
+    }
+  }
+  @media (max-width: 850px){
+    .content{
+      .carousel_component{
+        .item{
+          .dados{
+            >div{
+              flex-direction: column;
+              gap: 4px;
+              height: 71px;
+              align-items: baseline;
+              padding: 0 0 0 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: 550px){
+    padding: 50px 0 50px;
+
+    .content{
+      .carousel_component{
+        .item{
+          .dados{
+            gap: 10px;
+            flex-direction: column;
+            padding: 0 0 10px;
+            align-items: baseline;
+
+            >div{
+              height: auto;
+              border: none;
+              background: transparent;
+              padding: 0;
+            }
+          }
+          .image_content{
+            height: 230px;
+          }
+        }
+      }
+    }
+  }
+}
