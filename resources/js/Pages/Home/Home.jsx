@@ -19,8 +19,6 @@ export default function Home() {
     list_2,
     construtoras,
   } } = usePage();
-  console.log('home', home);
-  console.log('construtoras', construtoras);
 
   return (
     <AppLayout>

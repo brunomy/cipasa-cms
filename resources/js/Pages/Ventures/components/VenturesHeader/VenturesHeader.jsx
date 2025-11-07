@@ -1,29 +1,38 @@
 import './VenturesHeader.scss';
-import { useState, useEffect } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import { Box, Button, TextField, Autocomplete } from '@mui/material';
+import { router } from '@inertiajs/react';
 import TitleBreadcrumbs from '../../../../components/TitleBreadcrumbs/TitleBreadcrumbs';
 import HeaderPadding from '../../../../components/HeaderPadding/HeaderPadding';
 
+function useDebouncedEffect(fn, deps, delay = 300) {
+  useEffect(() => {
+    const id = setTimeout(fn, delay);
+    return () => clearTimeout(id);
+  }, [...deps, delay]);
+}
 
-
-export default function VenturesHeader() {
+export default function VenturesHeader({ ventures, states, setData, currentFilters = {} }) {
   return (
     <Box className="ventures_header" component="section">
       <HeaderPadding>
         <Box className="content">
           <Box className="left">
-            <TitleBreadcrumbs title={<>Nossos <b>Empreendimentos</b></>} breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Nossos Empreendimentos' }]} />
+            <TitleBreadcrumbs
+              title={<>Nossos <b>Empreendimentos</b></>}
+              breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Nossos Empreendimentos' }]}
+            />
           </Box>
           <Box className="right">
-            <Filter />
+            <Filter states={states} currentFilters={currentFilters} />
           </Box>
         </Box>
       </HeaderPadding>
     </Box>
-  )
+  );
 }
 
-function Filter() {
+function Filter({ states, currentFilters = {} }) {
   const orderList = [
     { label: 'Mais recentes', value: 'recentes' },
     { label: 'Nome A-Z', value: 'nome-az' },
@@ -31,46 +40,49 @@ function Filter() {
     { label: 'Menor área', value: 'menor-area' },
     { label: 'Maior área', value: 'maior-area' },
   ];
-  const [selectedOrder, setSelectedOrder] = useState(orderList[0]);
+  const [selectedOrder, setSelectedOrder] =
+    useState(orderList.find(o => o.value === currentFilters.order) ?? orderList[0]);
 
-  const stateList = [
-    { label: 'Estado', value: '' },
-    { label: 'Goiás', value: 'GO' },
-    { label: 'São Paulo', value: 'SP' },
-    { label: 'Minas Gerais', value: 'MG' },
-    { label: 'Rio de Janeiro', value: 'RJ' },
-  ];
   const statusList = [
-    { label: 'Em andamento', value: 'andamento' },
-    { label: 'Pronto para construir', value: 'pronto' },
+    { label: 'Em andamento', value: 0 },
+    { label: 'Pronto para construir', value: 1 },
   ];
-
   const typeList = [
-    { label: 'Comercial', value: 'comercial' },
-    { label: 'Incorporação', value: 'incorporacao' },
-    { label: 'Uso misto', value: 'uso-misto' },
+    { label: 'Comercial', value: 0 },
+    { label: 'Incorporação', value: 1 },
+    { label: 'Uso misto', value: 2 },
   ];
 
   const [filterOpen, setFilterOpen] = useState(false);
   const [filter, setFilter] = useState({
-    status: null,
-    state: null,
-    type: null,
+    status: statusList.find(s => s.value === currentFilters.status) ?? null,
+    state:  states?.find(s => s.value === currentFilters.state)     ?? null,
+    type:   typeList.find(t => t.value === currentFilters.type)    ?? null,
   });
+
+  const firstRun = useRef(true);
+  useDebouncedEffect(() => {
+    if (firstRun.current) { firstRun.current = false; return; }
+
+    const params = {
+      order:  selectedOrder?.value,
+      state:  filter.state?.value  ?? '',
+      status: filter.status?.value ?? '',
+      type:   filter.type?.value   ?? '',
+    };
+
+    router.get('/empreendimentos', params, {
+      preserveScroll: true,
+      preserveState: true,
+      replace: true,
+      only: ['ventures', 'currentFilters'],
+    });
+  }, [selectedOrder, filter]);
 
   return (
     <Box className="filter">
-      <Button className="filtrar" onClick={() => setFilterOpen(!filterOpen)}>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <mask id="mask0_531_496" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-          <rect x="0.341797" y="0.389359" width="23.4734" height="23.4734" fill="#D9D9D9"/>
-          </mask>
-          <g mask="url(#mask0_531_496)">
-          <path d="M5.23199 19.9506V13.1042H3.27588V11.148H9.14423V13.1042H7.18811V19.9506H5.23199ZM5.23199 9.19193V4.30164H7.18811V9.19193H5.23199ZM9.14423 9.19193V7.23581H11.1003V4.30164H13.0565V7.23581H15.0126V9.19193H9.14423ZM11.1003 19.9506V11.148H13.0565V19.9506H11.1003ZM16.9687 19.9506V17.0164H15.0126V15.0603H20.8809V17.0164H18.9248V19.9506H16.9687ZM16.9687 13.1042V4.30164H18.9248V13.1042H16.9687Z" fill="white"/>
-          </g>
-        </svg>
-        Filtrar
-      </Button>
+      <Button className="filtrar" onClick={() => setFilterOpen(!filterOpen)}>Filtrar</Button>
+
       <Box className="order_content">
         <Autocomplete
           className="order_filter"
@@ -78,58 +90,39 @@ function Filter() {
           options={orderList}
           value={selectedOrder}
           size="small"
-          onChange={(e, newValue) => {
-            if(!newValue) return;
-            setSelectedOrder(newValue);
-          }}
+          onChange={(e, v) => v && setSelectedOrder(v)}
+          isOptionEqualToValue={(o, v) => o.value === v.value}
           renderInput={(params) => <TextField {...params} label="" />}
         />
       </Box>
-      <Box className={"dropdown " + (filterOpen ? 'open' : '')}>
-        {
-          (filter.status || filter.state) && (<Button className="clear" onClick={() => { setFilter({ status: null, state: null }); setFilterOpen(false); }}>Limpar</Button>)
-        }
-        
+
+      <Box className={'dropdown ' + (filterOpen ? 'open' : '')}>
+        {(filter.status || filter.state || filter.type) && (
+          <Button className="clear" onClick={() => { setFilter({ status: null, state: null, type: null }); setFilterOpen(false); }}>
+            Limpar
+          </Button>
+        )}
+
         <Box className="item">
           <Autocomplete
             disablePortal
             options={statusList}
             value={filter.status}
             size="small"
-            onChange={(e, newValue) => {
-              if(!newValue){
-                setFilter({ ...filter, status: null }); return;
-              }
-              setFilter({ ...filter, status: newValue });
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder="Andamento da obra"
-                size="small"
-              />
-            )}
+            onChange={(e, v) => setFilter(f => ({ ...f, status: v ?? null }))}
+            isOptionEqualToValue={(o, v) => o?.value === v?.value}
+            renderInput={(p) => <TextField {...p} placeholder="Andamento da obra" size="small" />}
           />
         </Box>
         <Box className="item">
           <Autocomplete
             disablePortal
-            options={stateList}
+            options={states}
             value={filter.state}
             size="small"
-            onChange={(e, newValue) => {
-              if(!newValue){
-                setFilter({ ...filter, state: null }); return;
-              }
-              setFilter({ ...filter, state: newValue });
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder="Estado"
-                size="small"
-              />
-            )}
+            onChange={(e, v) => setFilter(f => ({ ...f, state: v ?? null }))}
+            isOptionEqualToValue={(o, v) => o?.value === v?.value}
+            renderInput={(p) => <TextField {...p} placeholder="Estado" size="small" />}
           />
         </Box>
         <Box className="item">
@@ -138,22 +131,12 @@ function Filter() {
             options={typeList}
             value={filter.type}
             size="small"
-            onChange={(e, newValue) => {
-              if(!newValue){
-                setFilter({ ...filter, type: null }); return;
-              }
-              setFilter({ ...filter, type: newValue });
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                placeholder="Tipo"
-                size="small"
-              />
-            )}
+            onChange={(e, v) => setFilter(f => ({ ...f, type: v ?? null }))}
+            isOptionEqualToValue={(o, v) => o?.value === v?.value}
+            renderInput={(p) => <TextField {...p} placeholder="Tipo" size="small" />}
           />
         </Box>
       </Box>
     </Box>
-  )
+  );
 }

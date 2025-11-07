@@ -3,51 +3,22 @@ import { Box, Button, Pagination } from '@mui/material';
 import { Link } from '@inertiajs/react';
 import { useState, useEffect } from 'react';
 
-import img1 from './../../../Home/components/Ventures/images/img1.png';
-import img2 from './../../../Home/components/Ventures/images/img2.png'
-import img3 from './../../../Home/components/BannerCarousel/images/banner1.png';
-import img4 from './../../../Home/components/BannerCarousel/images/banner2.png';
-import img5 from './../../../Home/components/BannerCarousel/images/banner3.png';
-
-import verana from './../../../Home/components/Ventures/images/verana.png';
-import altavis from './../../../Home/components/Ventures/images/altavis.png';
-import alvora from './../../../Home/components/Ventures/images/alvora.png';
-
 import category from './icons/category.svg';
 import meters from './icons/meters.svg';
 import location from './icons/location.svg';
 import buttonArrow from './icons/button_arrow.svg';
 
-export default function VenturesList() {
+export default function VenturesList({ ventures, construtoras }) {
   const [page, setPage] = useState(1);
-  const itensPerPage = 6;
+  const itensPerPage = 9;
   const handleChange = (event, value) => {
     setPage(value);
   };
-  const [ventures, setVentures] = useState([
-    {
-      id: 0, 
-      image: img1,
-      logo: verana,
-      title: "Verana Condomínio Fechado",
-      category: "Residencial/loteamento",
-      meters: 300,
-      location: "Várzea Grande - MT"
-    },
-    { id: 1, image: img2, logo: altavis, title: "Altavis Aldeia", category: "Residencial/loteamento", meters: 300, location: "Várzea Grande - MT" },
-    { id: 2, image: img3, logo: alvora, title: "Reserva do Cipó", category: "Residencial/loteamento", meters: 300, location: "Brumadinho - MG" },
-    { id: 3, image: img4, logo: alvora, title: "Loteamento Alphaville", category: "Residencial/loteamento", meters: 300, location: "Cuiabá - MT" },
-    { id: 4, image: img5, logo: alvora, title: "Loteamento Alphaville 2", category: "Residencial/loteamento", meters: 300, location: "Cuiabá - MT" },
-    { id: 5, image: img1, logo: verana, title: "Verana Condomínio Fechado", category: "Residencial/loteamento", meters: 300, location: "Várzea Grande - MT" },
-    { id: 6, image: img2, logo: altavis, title: "Altavis Aldeia", category: "Residencial/loteamento", meters: 300, location: "Várzea Grande - MT" },
-    { id: 7, image: img3, logo: alvora, title: "Reserva do Cipó", category: "Residencial/loteamento", meters: 300, location: "Brumadinho - MG" },
-    { id: 8, image: img4, logo: alvora, title: "Loteamento Alphaville", category: "Residencial/loteamento", meters: 300, location: "Cuiabá - MT" },
-  ]);
 
   const venturesPage = () => {
     const start = (page - 1) * itensPerPage;
     const end = start + itensPerPage;
-    return ventures.slice(start, end);
+    return ventures?.slice(start, end);
   }
 
   useEffect(() => {
@@ -58,10 +29,10 @@ export default function VenturesList() {
     <Box className="ventures_list" component="section">
       <Box className="content">
         <Box className="list_content">
-          {venturesPage().map((item, index) =>  <VentureItem item={item} key={index} /> )}
+          {venturesPage()?.map((item, index) =>  <VentureItem item={item} construtora={construtoras.filter(c => c.id === item?.construtora.id)} key={index} /> )}
         </Box>
         <Box className="pagination_content">
-          <Pagination count={Math.ceil(ventures.length / itensPerPage)} page={page} onChange={handleChange} shape="rounded" />
+          <Pagination count={Math.ceil(ventures?.length / itensPerPage)} page={page} onChange={handleChange} shape="rounded" />
         </Box>
       </Box>
     </Box>
@@ -74,7 +45,7 @@ export function VentureItem({ item, construtora, key }) {
       <Button component={'a'} href={item.permalink} className="image">
         <img src={item.banner.permalink} alt={item.title} />
         <Box className="logo">
-          <img src={construtora[0].logo?.permalink} alt="" />
+          <img src={construtora[0]?.logo?.permalink} alt="" />
         </Box>
       </Button>
       <Box className="item_content">

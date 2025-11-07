@@ -33,15 +33,15 @@ export default function Header({ ref }) {
     <header className="header" ref={ref}>
       <Box className={`header_fixed ${scrolled ? 'scrolled' : ''}`}>
         <Box className={"container" + (open ? " open" : " closed")}>
-          <Button onClick={() => setOpen(false)} component={Link} to="/" className="logo_content">
+          <Button onClick={() => setOpen(false)} component={Link} href="/" className="logo_content">
             <Logo />
           </Button>
           <Box className="content">
-            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/empreendimentos') || isActive('/empreendimento') ? 'active' : ''} to="/empreendimentos">Empreendimentos</Button>
-            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/sobre') ? 'active' : ''} to="/sobre">Sobre nós</Button>
-            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/tenho-uma-area') ? 'active' : ''} to="/tenho-uma-area">Tenho uma área</Button>
-            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/ri') ? 'active' : ''} to="/ri">R.I</Button>
-            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/contato') ? 'active' : ''} to="/contato">Contato</Button>
+            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/empreendimentos') || isActive('/empreendimento') ? 'active' : ''} href="/empreendimentos">Empreendimentos</Button>
+            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/sobre') ? 'active' : ''} href="/sobre">Sobre nós</Button>
+            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/tenho-uma-area') ? 'active' : ''} href="/tenho-uma-area">Tenho uma área</Button>
+            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/ri') ? 'active' : ''} href="/ri">R.I</Button>
+            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/contato') ? 'active' : ''} href="/contato">Contato</Button>
             <PortalButton />
           </Box>
           <Button className="menu" onClick={() => setOpen(!open)}>
@@ -82,9 +82,9 @@ function PortalButton() {
       </Button>
 
       <Box className={`portal_dropdown ${open ? 'open' : 'closed'}`}>
-        <Button onClick={() => setOpen(false)} component={Link} to="/cliente">Cliente</Button>
-        <Button onClick={() => setOpen(false)} component={Link} to="/parceiro">Parceiro</Button>
-        <Button onClick={() => setOpen(false)} component={Link} to="/corretor">Corretor</Button>
+        <Button onClick={() => setOpen(false)} component={Link} href="/cliente">Cliente</Button>
+        <Button onClick={() => setOpen(false)} component={Link} href="/parceiro">Parceiro</Button>
+        <Button onClick={() => setOpen(false)} component={Link} href="/corretor">Corretor</Button>
       </Box>
     </Box>
   );
