@@ -38,11 +38,95 @@ tabs:
               localizable: false
               width: 33
           -
-            handle: transformando_sonhos_em_realidade
+            handle: info_text
             field:
               type: textarea
               display: 'Transformando sonhos em realidade'
               localizable: false
+  banner:
+    display: Banners
+    sections:
+      -
+        fields:
+          -
+            handle: banner
+            field:
+              type: replicator
+              display: Banner
+              localizable: false
+              sets:
+                novo_grupo_de_conjuntos:
+                  display: 'Novo grupo de conjuntos'
+                  sets:
+                    novo_conjunto:
+                      display: Banner
+                      fields:
+                        -
+                          handle: empreendimento
+                          field:
+                            max_items: 1
+                            mode: select
+                            collections:
+                              - empreendimentos
+                            type: entries
+                            display: Empreendimento
+                            localizable: false
+                        -
+                          handle: titulo_banner
+                          field:
+                            buttons:
+                              - h2
+                              - bold
+                            remove_empty_nodes: false
+                            type: bard
+                            display: 'Título banner'
+                            localizable: false
+                            character_limit: 50
+                            save_html: true
+                        -
+                          handle: texto_banner
+                          field:
+                            type: textarea
+                            display: 'Texto banner'
+                            localizable: false
+                        -
+                          handle: link
+                          field:
+                            type: text
+                            display: Link
+                            localizable: false
+                            width: 50
+                        -
+                          handle: title_button
+                          field:
+                            type: text
+                            display: Título
+                            localizable: false
+                            width: 25
+                        -
+                          handle: target
+                          field:
+                            options:
+                              -
+                                key: _self
+                                value: Não
+                              -
+                                key: _blank
+                                value: Sim
+                            max_items: 1
+                            type: select
+                            display: 'Nova aba?'
+                            localizable: false
+                            width: 25
+                            default: _self
+                        -
+                          handle: imagem
+                          field:
+                            container: assets
+                            type: assets
+                            display: Imagem
+                            instructions: 'Tamanho: 950x600'
+                            localizable: false
   destaques:
     display: Destaques
     sections:

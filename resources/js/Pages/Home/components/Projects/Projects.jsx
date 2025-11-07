@@ -19,14 +19,7 @@ import logo3 from './images/logo3.png';
 import logo4 from './images/logo4.png';
 
 
-export default function Projects() {
-  const [items, setItems] = useState([
-    { image: img1, logo: logo1, url: '/teste', description: "Quero investir em qualidade de vida e retorno garantido" },
-    { image: img2, logo: logo2, url: '/teste', description: "Quero investir em um loteamento exclusivo e promissor" },
-    { image: img3, logo: logo3, url: '/teste', description: "Quero um terreno onde meu investimento e meu tempo rendem" },
-    { image: img4, logo: logo4, url: '/teste', description: "Quero um loteamento com propósito e valorização" }
-  ]);
-
+export default function Projects({ list }) {
   return (
     <Box component="section" className="projects">
       <Box className="content">
@@ -38,7 +31,7 @@ export default function Projects() {
               pagination={{ clickable: true }}
             >
              
-            {items.map((item, index) =>  <SwiperSlide className="item"><Item item={item} key={index} /></SwiperSlide> )}
+            {list.map((item, index) =>  <SwiperSlide className="item"><Item item={item} key={index} /></SwiperSlide> )}
             </Swiper>
         </Box>
         <Box className="right">
@@ -56,15 +49,15 @@ export default function Projects() {
 
 function Item({ item, key }) {
   return (
-    <Button className="item" key={key} component={Link} to={item.url} draggable={false}>
+    <Button className="item" componenr="a" key={key} draggable={false}>
       <Box className="image">
-        <img src={item.image} alt="" />
+        <img src={item.banner.permalink} alt="" />
       </Box>
       <Box className="item_content">
         <Box className="logo">
-          <img src={item.logo} alt="" />
+          <img src={item.logo.permalink} alt="" />
         </Box>
-        <p>{item.description}</p>
+        <p>{item.descricao}</p>
       </Box>
     </Button>
   )

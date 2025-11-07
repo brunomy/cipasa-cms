@@ -9,7 +9,7 @@ import Button1 from '../../../../components/Buttons/Button1/Button1';
 import SwipeListener from '../../../../components/SwipeListener';
 import Dots from '../../../../components/Dots/Dots';
 
-export default function BannerCarousel() {
+export default function BannerCarousel({ banners }) {
   const [loaded, setLoaded] = useState(false);
   const [currentBanner, setCurrentBanner] = useState(0);
   const [seconds, setSeconds] = useState(0);
@@ -17,33 +17,6 @@ export default function BannerCarousel() {
   useEffect(() => {
     setTimeout(() => setLoaded(true), 500);
   }, []);
-
-  const [banners, setBanners] = useState([
-    {
-      image: banner1,
-      title: 'Excelência em<br/><b>desenvolvimento urbano</b>',
-      text: 'Projetos que respeitam o lugar, valorizam pessoas e conectam comunidades.',
-      url: '/teste',
-      urlTitle: 'Conheça a cipasa',
-      target: ''
-    },
-    {
-      image: banner2,
-      title: 'Imóveis com<br/><b>Arquitetura moderna</b>',
-      text: 'Projetados com a mais alta qualidade para oferecer conforto, segurança e bem-estar.',
-      url: '/teste2',
-      urlTitle: 'Saiba mais',
-      target: ''
-    },
-    {
-      image: banner3,
-      title: 'Condomínios fechados<br/><b>com toda segurança</b>',
-      text: 'Projetos que priorizam a segurança e o bem-estar dos moradores.',
-      url: '/teste3',
-      urlTitle: 'Saiba mais',
-      target: '_blank'
-    },
-  ]);
 
   const next = () => {
     setCurrentBanner((currentBanner + 1) % banners.length);
@@ -76,12 +49,16 @@ export default function BannerCarousel() {
               key={"banner-"+index}
               className={`content-layer ${index === currentBanner ? 'active' : ''}`}
             >
-              <h2 dangerouslySetInnerHTML={{ __html: banner.title }} />
-              <p>{banner.text}</p>
+              { banner.titulo_banner != '<p></p>' ? (
+                <div dangerouslySetInnerHTML={{ __html: banner.titulo_banner }} />
+              ) : (
+                <h2>{banner.empreendimento.title}</h2>
+              )}
+              <p>{banner.texto_banner ?? banner.empreendimento.subtitulo}</p>
               {
-                banner.url && (
-                  <Button1 component={Link} to={banner.url} target={banner.target}>
-                    {banner.urlTitle ? banner.urlTitle : 'Saiba mais'}
+                (banner.link || banner.empreendimento.permalink) && (
+                  <Button1 component="a" href={banner.link ?? banner.empreendimento.permalink} target={banner.target.value}>
+                    {banner.title_button ? banner.title_button : 'Saiba mais'}
                   </Button1>
                 )
               }
@@ -100,7 +77,7 @@ export default function BannerCarousel() {
             <Box
               key={"bannerImage-"+index}
               className={`bg-image ${index === currentBanner ? 'active' : ''}`}
-              style={{ backgroundImage: `url(${banner.image})` }}
+              style={{ backgroundImage: `url(${banner.imagem[0]?.permalink ?? banner.empreendimento.og_image.permalink})` }}
             />
           ))}
         </Box>

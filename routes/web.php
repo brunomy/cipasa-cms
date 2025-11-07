@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EmpreendimentoController;
 
-Route::get('/', [EmpreendimentoController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/sobre', fn() => Inertia::render('AboutUs/AboutUs'))->name('about');
 Route::get('/empreendimentos', fn() => Inertia::render('Ventures/Ventures'))->name('ventures');
 Route::get('/empreendimento/{slug}', [EmpreendimentoController::class, 'show'])->name('venture');

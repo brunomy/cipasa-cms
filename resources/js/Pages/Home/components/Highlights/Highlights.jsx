@@ -14,37 +14,13 @@ import locale from './icons/locale.svg'
 import meters from './icons/meters.svg'
 import icon from './icons/icon.svg'
 
-export default function Highlights() {
+export default function Highlights({ list }) {
   const [loaded, setLoaded] = useState(false);
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     setTimeout(() => setLoaded(true), 500);
   }, []);
-
-  const [list, setList] = useState([
-    {
-      image: img1,
-      title: 'Verdana condomínio fechado',
-      locale: 'Várzea Grande - MT',
-      meters: '300',
-      url: '/teste',
-    },
-    {
-      image: img2,
-      title: 'Altavis Aldeia',
-      locale: 'Goiânia - GO',
-      meters: '300',
-      url: '/teste2',
-    },
-    {
-      image: img3,
-      title: 'Alvorá parque novo',
-      locale: 'Nova Iguaçu - RJ',
-      meters: '300',
-      url: '/teste3',
-    },
-  ]);
 
   const next = () => {
     setCurrent((current + 1) % list.length);
@@ -74,13 +50,13 @@ function Item({ data }) {
       <h2>{data.title}</h2>
       <Box className="dados">
         <Box>
-          <Box className="locale"><Box className="icon"><img src={locale} alt="" /></Box><span>{data.locale}</span></Box>
-          <Box className="meters"><Box className="icon"><img src={meters} alt="" /></Box><span>Lotes a partir de <b>{data.meters}m²</b></span></Box>
+          <Box className="locale"><Box className="icon"><img src={locale} alt="" /></Box><span>{data.cidade}/{data.estado.value}</span></Box>
+          <Box className="meters"><Box className="icon"><img src={meters} alt="" /></Box><span>Lotes a partir de <b>{data.meters_min}m²</b></span></Box>
         </Box>
-        <Button component={Link} to={data.url}><span className="icon"><img src={arrow} alt="" /></span> Conheça</Button>
+        <Button component={'a'} href={data.permalink}><span className="icon"><img src={arrow} alt="" /></span> Conheça</Button>
       </Box>
       <Box className="image_content">
-        <img src={data.image} alt="" />
+        <img src={data.og_image.permalink} alt="" />
       </Box>
     </Box>
   )

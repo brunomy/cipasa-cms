@@ -162,4 +162,8 @@ return [
         \App\Http\Middleware\HandleInertiaRequests::class,
     ],
 
+    'navigation' => [
+        'enabled' => true,
+    ],
+
 ];

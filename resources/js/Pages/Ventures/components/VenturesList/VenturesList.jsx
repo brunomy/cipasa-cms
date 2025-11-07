@@ -68,13 +68,13 @@ export default function VenturesList() {
   )
 }
 
-export function VentureItem({ item, key }) {
+export function VentureItem({ item, construtora, key }) {
   return (
     <Box className="venture_item" key={key}>
-      <Button component={Link} to={`/empreendimento/${item.id}/${item.title}`} className="image">
-        <img src={item.image} alt={item.title} />
+      <Button component={'a'} href={item.permalink} className="image">
+        <img src={item.banner.permalink} alt={item.title} />
         <Box className="logo">
-          <img src={item.logo} alt="" />
+          <img src={construtora[0].logo?.permalink} alt="" />
         </Box>
       </Button>
       <Box className="item_content">
@@ -82,19 +82,19 @@ export function VentureItem({ item, key }) {
         <Box className="info">
           <Box>
             <Box className="icon"><img src={category} /></Box>
-            <p>{item.category}</p>
+            <p>{item.tipo.label}</p>
           </Box>
           <Box>
             <Box className="icon"><img src={meters} /></Box>
-            <p>Lotes a partir de {item.meters}m²</p>
+            <p>Lotes a partir de {item.meters_min}m²</p>
           </Box>
           <Box>
             <Box className="icon"><img src={location} /></Box>
-            <p>{item.location}</p>
+            <p>{item.cidade}/{item.estado.value}</p>
           </Box>
         </Box>
         <Box className="button_content">
-          <Button component={Link} to={`/ventures/${item.id}`}><img src={buttonArrow} /> Conheça</Button>
+          <Button component={'a'} href={item.permalink}><img src={buttonArrow} /> Conheça</Button>
         </Box>
       </Box>
     </Box>

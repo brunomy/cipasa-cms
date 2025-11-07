@@ -1,0 +1,21 @@
+title: Painel
+sections:
+  conteudo:
+    display: Conteúdo
+    items:
+      - collection: empreendimentos
+      - collection: construtoras
+      - collection: diferenciais
+      - collection: categoria_diferencial
+      - collection: paginas
+
+  estrutura:
+    display: Estrutura do Site
+    items:
+      - nav: navegacao
+      - taxonomy: categorias
+
+  configuracoes:
+    display: Configurações
+    items:
+      - globals: configuracoes_site

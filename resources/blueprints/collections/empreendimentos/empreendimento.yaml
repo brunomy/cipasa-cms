@@ -149,7 +149,7 @@ tabs:
               width: 50
               default: '0'
           -
-            handle: tamanho_minimo_dos_lotes_m
+            handle: meters_min
             field:
               type: integer
               display: 'Tamanho mínimo dos lotes (m²)'

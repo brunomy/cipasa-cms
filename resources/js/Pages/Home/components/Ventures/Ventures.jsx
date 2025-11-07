@@ -21,24 +21,8 @@ import flower from './icons/flower.svg';
 import arrow from './icons/arrow.svg';
 import { VentureItem } from '../../../Ventures/components/VenturesList/VenturesList';
 
-export default function Ventures() {
+export default function Ventures({ list, construtoras }) {
   const swiperRef = useRef(null);
-
-  const [ventures, setVentures] = useState([
-    {
-      id: 0, 
-      image: img1,
-      logo: verana,
-      title: "Verana Condomínio Fechado",
-      category: "Residencial/loteamento",
-      meters: 300,
-      location: "Várzea Grande - MT"
-    },
-    { id: 1, image: img2, logo: altavis, title: "Altavis Aldeia", category: "Residencial/loteamento", meters: 300, location: "Várzea Grande - MT" },
-    { id: 2, image: img3, logo: alvora, title: "Reserva do Cipó", category: "Residencial/loteamento", meters: 300, location: "Brumadinho - MG" },
-    { id: 3, image: img4, logo: alvora, title: "Loteamento Alphaville", category: "Residencial/loteamento", meters: 300, location: "Cuiabá - MT" },
-    { id: 4, image: img5, logo: alvora, title: "Loteamento Alphaville 2", category: "Residencial/loteamento", meters: 300, location: "Cuiabá - MT" }
-  ]);
 
   return (
     <Box className="ventures" component="section">
@@ -61,7 +45,7 @@ export default function Ventures() {
               slidesPerView={'auto'}
               pagination={{ clickable: true }}
             >
-            {ventures.map((item, index) =>  <SwiperSlide className="item"><VentureItem item={item} key={index} /></SwiperSlide> )}
+            {list.map((item, index) =>  <SwiperSlide className="item"><VentureItem item={item} construtora={construtoras.filter(c => c.id === item.construtora[0])} key={index} /></SwiperSlide> )}
             </Swiper>
             <Box className="arrows">
               <Button className="prev" onClick={() => swiperRef.current.slidePrev()}>

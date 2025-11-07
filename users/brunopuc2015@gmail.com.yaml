@@ -1,7 +1,7 @@
 name: 'Bruno Yosimura'
 super: true
-id: 2e41551b-3347-4179-bf15-4566091da2c5
 email: brunopuc2015@gmail.com
+id: 2e41551b-3347-4179-bf15-4566091da2c5
 password_hash: $2y$12$nYf8o/2Fkox7TgD1eri0fONd1HMTUp540jc3fDUCUdTVs1hR3atsy
 preferences:
   locale: pt_BR
