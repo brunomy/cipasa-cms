@@ -45,33 +45,33 @@ function BrazilMap() {
     <Box className="brazil_map">
       <img src={mapa} alt="Mapa do Brasil" />
       <Box className="pin_content">
-        <Button className="RS" component={Link} to="/"><IconLogo /></Button>
-        <Button className="SC" component={Link} to="/"><IconLogo /></Button>
-        <Button className="PR" component={Link} to="/"><IconLogo /></Button>
-        <Button className="SP" component={Link} to="/"><IconLogo /></Button>
-        <Button className="RJ" component={Link} to="/"><IconLogo /></Button>
-        <Button className="ES" component={Link} to="/"><IconLogo /></Button>
-        <Button className="MG" component={Link} to="/"><IconLogo /></Button>
-        <Button className="MS" component={Link} to="/"><IconLogo /></Button>
-        <Button className="GO" component={Link} to="/"><IconLogo /></Button>
-        <Button className="DF" component={Link} to="/"><IconLogo /></Button>
-        <Button className="MT" component={Link} to="/"><IconLogo /></Button>
-        <Button className="BA" component={Link} to="/"><IconLogo /></Button>
-        <Button className="RO" component={Link} to="/"><IconLogo /></Button>
-        <Button className="AC" component={Link} to="/"><IconLogo /></Button>
-        <Button className="AM" component={Link} to="/"><IconLogo /></Button>
-        <Button className="RR" component={Link} to="/"><IconLogo /></Button>
-        <Button className="PA" component={Link} to="/"><IconLogo /></Button>
-        <Button className="AP" component={Link} to="/"><IconLogo /></Button>
-        <Button className="TO" component={Link} to="/"><IconLogo /></Button>
-        <Button className="MA" component={Link} to="/"><IconLogo /></Button>
-        <Button className="PI" component={Link} to="/"><IconLogo /></Button>
-        <Button className="CE" component={Link} to="/"><IconLogo /></Button>
-        <Button className="RN" component={Link} to="/"><IconLogo /></Button>
-        <Button className="PB" component={Link} to="/"><IconLogo /></Button>
-        <Button className="PE" component={Link} to="/"><IconLogo /></Button>
-        <Button className="AL" component={Link} to="/"><IconLogo /></Button>
-        <Button className="SE" component={Link} to="/"><IconLogo /></Button>
+        <Button className="RS" component={Link} href="/"><IconLogo /></Button>
+        <Button className="SC" component={Link} href="/"><IconLogo /></Button>
+        <Button className="PR" component={Link} href="/"><IconLogo /></Button>
+        <Button className="SP" component={Link} href="/"><IconLogo /></Button>
+        <Button className="RJ" component={Link} href="/"><IconLogo /></Button>
+        <Button className="ES" component={Link} href="/"><IconLogo /></Button>
+        <Button className="MG" component={Link} href="/"><IconLogo /></Button>
+        <Button className="MS" component={Link} href="/"><IconLogo /></Button>
+        <Button className="GO" component={Link} href="/"><IconLogo /></Button>
+        <Button className="DF" component={Link} href="/"><IconLogo /></Button>
+        <Button className="MT" component={Link} href="/"><IconLogo /></Button>
+        <Button className="BA" component={Link} href="/"><IconLogo /></Button>
+        <Button className="RO" component={Link} href="/"><IconLogo /></Button>
+        <Button className="AC" component={Link} href="/"><IconLogo /></Button>
+        <Button className="AM" component={Link} href="/"><IconLogo /></Button>
+        <Button className="RR" component={Link} href="/"><IconLogo /></Button>
+        <Button className="PA" component={Link} href="/"><IconLogo /></Button>
+        <Button className="AP" component={Link} href="/"><IconLogo /></Button>
+        <Button className="TO" component={Link} href="/"><IconLogo /></Button>
+        <Button className="MA" component={Link} href="/"><IconLogo /></Button>
+        <Button className="PI" component={Link} href="/"><IconLogo /></Button>
+        <Button className="CE" component={Link} href="/"><IconLogo /></Button>
+        <Button className="RN" component={Link} href="/"><IconLogo /></Button>
+        <Button className="PB" component={Link} href="/"><IconLogo /></Button>
+        <Button className="PE" component={Link} href="/"><IconLogo /></Button>
+        <Button className="AL" component={Link} href="/"><IconLogo /></Button>
+        <Button className="SE" component={Link} href="/"><IconLogo /></Button>
       </Box>
     </Box>
   );

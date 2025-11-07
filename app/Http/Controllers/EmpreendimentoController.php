@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Statamic\Facades\Entry;
 use Statamic\Facades\Collection;
+use Statamic\Facades\Site;
 
 class EmpreendimentoController extends Controller
 {
@@ -77,6 +78,59 @@ class EmpreendimentoController extends Controller
                 'status' => ($status !== null && $status !== '') ? (int) $status : null,
                 'type'   => ($type   !== null && $type   !== '') ? (int) $type   : null,
             ],
+        ]);
+    }
+
+    public function show(string $slug, Request $request)
+    {
+        $site = Site::current()->handle();
+
+        $entry = Entry::findByUri("/empreendimentos/{$slug}", $site);
+
+        if (! $entry) {
+            $entry = Entry::query()
+                ->whereCollection('empreendimentos')
+                ->where('slug', $slug)
+                ->first();
+        }
+
+        if (! $entry) {
+            abort(404);
+        }
+
+        $venture = $entry->toAugmentedArray();
+
+        $related = Entry::query()
+            ->whereCollection('empreendimentos')
+            ->where('id', '!=', $entry->id())
+            ->when(!empty($venture['estado']['value'] ?? $venture['estado'] ?? null), function ($q) use ($venture) {
+                $estado = is_array($venture['estado'])
+                    ? ($venture['estado']['value'] ?? $venture['estado']['key'] ?? null)
+                    : $venture['estado'];
+                if ($estado !== null && $estado !== '') {
+                    $q->where('estado', $estado);
+                }
+            })
+            ->orderBy('id', 'desc')
+            ->limit(6)
+            ->get()
+            ->map(fn ($e) => $e->toAugmentedArray())
+            ->all();
+
+        $categoriesDif = Entry::query()
+            ->whereCollection('categoria_diferencial')
+            ->get()
+            ->mapWithKeys(function ($e) {
+                $id = $e->id();
+                $title = $e->get('title');
+                return [$id => $title];
+            })
+            ->all();
+
+        return Inertia::render('Venture/Venture', [
+            'venture' => $venture,
+            'related' => $related,
+            'categoriesDif'    => $categoriesDif,
         ]);
     }
 }

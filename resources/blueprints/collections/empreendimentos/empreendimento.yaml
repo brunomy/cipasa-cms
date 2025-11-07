@@ -133,7 +133,7 @@ tabs:
               width: 50
               default: '0'
           -
-            handle: numero_de_lotes_residenciais
+            handle: numero_residenciais
             field:
               type: integer
               display: 'Número de lotes residenciais'
@@ -141,7 +141,7 @@ tabs:
               width: 50
               default: '0'
           -
-            handle: numero_de_lotes_comerciais
+            handle: numero_comerciais
             field:
               type: integer
               display: 'Número de lotes comerciais'
@@ -157,7 +157,7 @@ tabs:
               width: 50
               default: '0'
           -
-            handle: tamanho_maximo_dos_lotes_m
+            handle: meters_max
             field:
               type: integer
               display: 'Tamanho máximo dos lotes (m²)'

@@ -44,9 +44,9 @@ export default function ContactHeader(){
               <Box className="social">
                 <h4>Redes sociais</h4>
                 <Box>
-                  <Button component={Link} target="_blank" to="/sobre"><FacebookRoundedIcon /></Button>
-                  <Button component={Link} target="_blank" to="/servicos"><InstagramIcon /></Button>
-                  <Button component={Link} target="_blank" to="/contato"><LinkedInIcon /></Button>
+                  <Button component={Link} target="_blank" href="/sobre"><FacebookRoundedIcon /></Button>
+                  <Button component={Link} target="_blank" href="/servicos"><InstagramIcon /></Button>
+                  <Button component={Link} target="_blank" href="/contato"><LinkedInIcon /></Button>
                 </Box>
               </Box>
 

@@ -1,31 +1,40 @@
 import './VentureStatus.scss';
 import { Box } from '@mui/material';
 
-export default function VentureStatus() {
+const formatDate = (dateString) => {
+  if (!dateString) return '-';
+
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return dateString;
+
+  return date.toLocaleDateString('pt-BR');
+};
+
+export default function VentureStatus({ venture }) {
   const status = [
     {
       title: 'Terraplanagem',
-      percentage: 100,
+      percentage: venture.terraplanagem,
     },
     {
       title: 'Drenagem',
-      percentage: 90,
+      percentage: venture.drenagem,
     },
     {
       title: 'Saneamento',
-      percentage: 75,
+      percentage: venture.saneamento,
     },
     {
       title: 'Pavimentação',
-      percentage: 40,
+      percentage: venture.pavimentacao,
     },
     {
       title: 'Rede elétrica',
-      percentage: 50,
+      percentage: venture.rede_eletrica,
     },
     {
       title: 'Obras civis',
-      percentage: 65,
+      percentage: venture.obras_civis,
     },
   ]
 
@@ -46,12 +55,12 @@ export default function VentureStatus() {
         </Box>
         <Box className="right">
           <TechnicalSheet
-            empreendimento="Verana Condomínio Fechado"
-            dataLancamento="11/2015"
-            areaBruta="5262.699"
-            areaLotes="126.604"
-            numeroLotes="464 lotes residenciais e 4 comerciais"
-            tamanhoLotes="250 m² a 400 m²"
+            empreendimento={venture.title}
+            dataLancamento={formatDate(venture.lancamento)}
+            areaBruta={venture.area_bruta}
+            areaLotes={venture.area_de_lotes}
+            numeroLotes={`${venture.numero_residenciais} lotes residenciais e ${venture.numero_comerciais} comerciais`}
+            tamanhoLotes={`${venture.meters_min}m² a ${venture.meters_max}m²`}
           />
         </Box>
       </Box>
@@ -96,7 +105,7 @@ function TechnicalSheet({ empreendimento, dataLancamento, areaBruta, areaLotes, 
         </Box>
         <Box className="item">
           <h4>Tamanho dos lotes:</h4>
-          <p>A partir de {tamanhoLotes}m²</p>
+          <p>A partir de {tamanhoLotes}</p>
         </Box>
       </Box>
     </Box>

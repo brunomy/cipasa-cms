@@ -42,7 +42,7 @@ export default function VenturesList({ ventures, construtoras }) {
 export function VentureItem({ item, construtora, key }) {
   return (
     <Box className="venture_item" key={key}>
-      <Button component={'a'} href={item.permalink} className="image">
+      <Button component={Link} href={item.permalink} className="image">
         <img src={item.banner.permalink} alt={item.title} />
         <Box className="logo">
           <img src={construtora[0]?.logo?.permalink} alt="" />
@@ -65,7 +65,7 @@ export function VentureItem({ item, construtora, key }) {
           </Box>
         </Box>
         <Box className="button_content">
-          <Button component={'a'} href={item.permalink}><img src={buttonArrow} /> Conheça</Button>
+          <Button component={Link} href={item.permalink}><img src={buttonArrow} /> Conheça</Button>
         </Box>
       </Box>
     </Box>

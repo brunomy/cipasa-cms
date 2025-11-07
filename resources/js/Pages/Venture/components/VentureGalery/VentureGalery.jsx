@@ -1,51 +1,36 @@
 import './VentureGalery.scss';
 import { Box, Button } from '@mui/material';
-import { useState, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, EffectFade } from 'swiper/modules';
 
 import arrow from './icons/arrow.svg';
 import logo from './icons/logo.svg';
 
-import img1 from './images/img1[900x450].png';
-import img2 from './images/img2[900x450].png';
-import img3 from './images/img3[900x450].png';
-import img4 from './images/img4[900x450].png';
-import img5 from './images/img5[900x450].png';
-import img6 from './images/img6[900x450].png';
-import img7 from './images/img7[900x450].png';
-import img8 from './images/img8[900x450].png';
-import img9 from './images/img9[900x450].png';
-import img10 from './images/img10[900x450].png';
-import img11 from './images/img11[900x450].png';
-import img12 from './images/img12[900x450].png';
 import ButtonFilter from '../../../../components/Buttons/ButtonFilter/ButtonFilter';
 
-export default function VentureGalery() {
+export default function VentureGalery({ venture }) {
   const swiperRef = useRef(null);
 
   const [selectedGalery, setSelectedGalery] = useState(null);
 
-  const [images, setImages] = useState([
-    {
-      id: 0,
-      img: img1,
-      title: 'Imagem 1',
-      id_galery: 1,
-      name_galery: 'Perspectivas'
-    },
-    { id: 1, img: img2, title: 'Imagem 2', id_galery: 1, name_galery: 'Perspectivas' },
-    { id: 2, img: img3, title: 'Imagem 3', id_galery: 1, name_galery: 'Perspectivas' },
-    { id: 3, img: img4, title: 'Imagem 4', id_galery: 1, name_galery: 'Perspectivas' },
-    { id: 4, img: img5, title: 'Imagem 5', id_galery: 1, name_galery: 'Perspectivas' },
-    { id: 5, img: img6, title: 'Imagem 6', id_galery: 1, name_galery: 'Perspectivas' },
-    { id: 6, img: img7, title: 'Imagem 7', id_galery: 1, name_galery: 'Perspectivas' },
-    { id: 7, img: img8, title: 'Imagem 8', id_galery: 2, name_galery: 'Lazer' },
-    { id: 8, img: img9, title: 'Imagem 9', id_galery: 2, name_galery: 'Lazer' },
-    { id: 9, img: img10, title: 'Imagem 10', id_galery: 2, name_galery: 'Lazer' },
-    { id: 10, img: img11, title: 'Imagem 11', id_galery: 2, name_galery: 'Lazer' },
-    { id: 11, img: img12, title: 'Imagem 12', id_galery: 2, name_galery: 'Lazer' },
-  ]);
+  const [images, setImages] = useState([]);
+  
+  useEffect(() => {
+    const arr = (venture?.galeria ?? []).flatMap(g =>
+      (g?.imagens ?? [])
+        .filter(img => img && (img.permalink || img.url))
+        .map(img => ({
+          id: `${g.id}:${img.id ?? img.path}`,
+          img: img.permalink ?? img.url,
+          title: img.alt ?? '',
+          id_galery: g.id,
+          name_galery: g.nome_da_galeria ?? '',
+        }))
+    );
+
+    setImages(arr);
+  }, [venture]);
 
   const uniqueGaleries = images.reduce((acc, current) => {
     const exists = acc.find(item => item.id_galery === current.id_galery);
@@ -57,7 +42,6 @@ export default function VentureGalery() {
     }
     return acc;
   }, []).sort((a, b) => a.id_galery - b.id_galery);
-
 
 
   return (
@@ -116,7 +100,7 @@ function Item({ item }) {
   return (
     <Box className="item">
       <img src={item.img} alt={item.title} />
-      <p>{item.title}</p>
+      { item.title && <p>{item.title}</p> }
     </Box>
   )
 }

@@ -7,13 +7,15 @@ use App\Http\Controllers\EmpreendimentoController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/empreendimentos', [EmpreendimentoController::class, 'index'])->name('empreendimentos');
+Route::get('/empreendimentos', [EmpreendimentoController::class, 'index'])
+    ->name('empreendimentos.index');
+
+Route::get('/empreendimentos/{slug}', [EmpreendimentoController::class, 'show'])
+    ->name('empreendimentos.show');
 
 
 
 Route::get('/sobre', fn() => Inertia::render('AboutUs/AboutUs'))->name('about');
-// Route::get('/empreendimentos', fn() => Inertia::render('Ventures/Ventures'))->name('ventures');
-Route::get('/empreendimento/{slug}', [EmpreendimentoController::class, 'show'])->name('venture');
 Route::get('/tenho-uma-area', fn() => Inertia::render('HaveLand/HaveLand'))->name('have-land');
 Route::get('/ri', fn() => Inertia::render('RI/RI'))->name('ri');
 Route::get('/contato', fn() => Inertia::render('Contact/Contact'))->name('contact');

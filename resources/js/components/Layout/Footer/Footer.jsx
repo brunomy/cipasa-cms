@@ -18,7 +18,7 @@ export default function Footer({ ref }) {
         <Box className="container">
           <Box className="left">
             <Box className="logo_content"><Logo /></Box>
-            <p>Edifício Ministro Jesuíno Cardoso Rua Ministro Jesuíno Cardoso, 633 10º andar, Sala 102 | Vila Olímpia CEP: 04544-051 São Paulo | SP</p>
+            <p>Edifício Ministro Jesuíno Cardoso Rua Ministro Jesuíno Cardoso, 633 10º andar, Sala 102 | Vila OlímpiaCEP: 04544-051 São Paulo | SP</p>
             <Box className="contato">
               <Box className="item">
                 <p>Entre em contato - São Paulo</p>
@@ -35,30 +35,30 @@ export default function Footer({ ref }) {
             <Box className="pages">
               <Box className="has_in_menu">
                 <h4>Mapa do site</h4>
-                <Button component={Link} to="/sobre">Empreendimentos</Button>
-                <Button component={Link} to="/servicos">Sobre nós</Button>
-                <Button component={Link} to="/tenho-uma-area">Tenho uma área </Button>
-                <Button component={Link} to="/contato">R.I</Button>
-                <Button component={Link} to="/contato">Contato</Button>
+                <Button component={Link} href="/sobre">Empreendimentos</Button>
+                <Button component={Link} href="/servicos">Sobre nós</Button>
+                <Button component={Link} href="/tenho-uma-area">Tenho uma área </Button>
+                <Button component={Link} href="/contato">R.I</Button>
+                <Button component={Link} href="/contato">Contato</Button>
               </Box>
               <Box className="has_in_menu">
                 <h4>Portal do cliente</h4>
-                <Button component={Link} to="/sobre">Cliente</Button>
-                <Button component={Link} to="/servicos">Parceiro</Button>
-                <Button component={Link} to="/contato">Corretor</Button>
+                <Button component={Link} href="/sobre">Cliente</Button>
+                <Button component={Link} href="/servicos">Parceiro</Button>
+                <Button component={Link} href="/contato">Corretor</Button>
               </Box>
               <Box>
                 <h4>Quero Comprar</h4>
-                <Button component={Link} to="/sobre">Condomínios Fechados</Button>
-                <Button component={Link} to="/servicos">Loteamento fechado </Button>
-                <Button component={Link} to="/contato">Loteamentos</Button>
+                <Button component={Link} href="/sobre">Condomínios Fechados</Button>
+                <Button component={Link} href="/servicos">Loteamento fechado </Button>
+                <Button component={Link} href="/contato">Loteamentos</Button>
               </Box>
               <Box className="social">
                 <h4>Redes sociais</h4>
                 <Box>
-                  <Button component={Link} target="_blank" to="/sobre"><FacebookRoundedIcon /></Button>
-                  <Button component={Link} target="_blank" to="/servicos"><InstagramIcon /></Button>
-                  <Button component={Link} target="_blank" to="/contato"><LinkedInIcon /></Button>
+                  <Button component={Link} target="_blank" href="/sobre"><FacebookRoundedIcon /></Button>
+                  <Button component={Link} target="_blank" href="/servicos"><InstagramIcon /></Button>
+                  <Button component={Link} target="_blank" href="/contato"><LinkedInIcon /></Button>
                 </Box>
               </Box>
             </Box>

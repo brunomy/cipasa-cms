@@ -23,7 +23,7 @@ export default function ContactBanner() {
             <b>o que procurava?</b>
           </h2>
           <p>Não se preocupe! Estamos aqui para ajudar você a encontrar a solução perfeirta</p>
-          <Button1 component={Link} to="/contato">Entre em contato</Button1>
+          <Button1 component={Link} href="/contato">Entre em contato</Button1>
         </Box>
         <Box className="icon"><img src={icon} /></Box>
       </Box>

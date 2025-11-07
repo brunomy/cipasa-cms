@@ -73,7 +73,7 @@ function Item({ item }) {
       <p className="data">{formatDate(item.data)}</p>
       <h3 className="title">{item.title}</h3>
       <p className="description">{item.description}</p>
-      <Button component={Link} to={`/blog/${item.id}`}>Leia mais</Button>
+      <Button component={Link} href={`/blog/${item.id}`}>Leia mais</Button>
     </Box>
   )
 }

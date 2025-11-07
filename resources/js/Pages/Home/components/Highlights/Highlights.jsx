@@ -53,10 +53,10 @@ function Item({ data }) {
           <Box className="locale"><Box className="icon"><img src={locale} alt="" /></Box><span>{data.cidade}/{data.estado.value}</span></Box>
           <Box className="meters"><Box className="icon"><img src={meters} alt="" /></Box><span>Lotes a partir de <b>{data.meters_min}m²</b></span></Box>
         </Box>
-        <Button component={'a'} href={data.permalink}><span className="icon"><img src={arrow} alt="" /></span> Conheça</Button>
+        <Button component={Link} href={data?.permalink}><span className="icon"><img src={arrow} alt="" /></span> Conheça</Button>
       </Box>
       <Box className="image_content">
-        <img src={data.og_image.permalink} alt="" />
+        <img src={data.banner?.permalink} alt="" />
       </Box>
     </Box>
   )

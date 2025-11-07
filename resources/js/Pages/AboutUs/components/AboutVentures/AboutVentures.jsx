@@ -52,7 +52,7 @@ export default function AboutVentures() {
 
 function Item({ item }) {
   return (
-    <Button className="item" component={Link} to={item.url}>
+    <Button className="item" component={Link} href={item.url}>
       <Box className="logo">
         <Box><img src={item.logo} /></Box>
       </Box>

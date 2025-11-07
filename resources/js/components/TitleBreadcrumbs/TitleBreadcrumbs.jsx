@@ -13,7 +13,7 @@ export default function TitleBreadcrumbs({ title, breadcrumbs }) {
               {!crumb.href ? (
                 crumb.label
               ) : (
-                <Button component={Link} to={crumb.href}>{crumb.label}</Button>
+                <Button component={Link} href={crumb.href}>{crumb.label}</Button>
               )}
             </li>
           ))}
