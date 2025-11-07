@@ -42,7 +42,6 @@ class HomeController extends Controller
             ->all();
 
         return Inertia::render('Home/Home', [
-            'home' => $home,
             'banners' => $banners,
             'info' => $info,
             'list_1' => $list_1,

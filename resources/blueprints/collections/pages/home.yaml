@@ -1,3 +1,4 @@
+hide: true
 title: Home
 tabs:
   main:
@@ -217,7 +218,6 @@ tabs:
               display: Scripts
               localizable: false
   sidebar:
-    display: Sidebar
     sections:
       -
         fields:

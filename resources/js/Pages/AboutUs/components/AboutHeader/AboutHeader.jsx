@@ -7,7 +7,7 @@ import HeaderDescription from '../../../../components/HeaderDescription/HeaderDe
 import HeaderPadding from '../../../../components/HeaderPadding/HeaderPadding';
 import HeaderBanner from '../../../../components/HeaderBanner/HeaderBanner';
 
-export default function AboutHeader() {
+export default function AboutHeader({ sobre }) {
   return (
     <Box className="about_header" component="section">
       <HeaderBanner

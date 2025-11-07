@@ -1,0 +1,273 @@
+title: Sobre
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              localizable: false
+              validate:
+                - required
+          -
+            handle: text_1
+            field:
+              buttons:
+                - bold
+              remove_empty_nodes: false
+              type: bard
+              display: 'Texto topo'
+              localizable: false
+          -
+            handle: banner_1
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: 'Banner 1'
+              instructions: 'Tamanho: 1920x400px'
+              localizable: false
+          -
+            handle: dado_1
+            field:
+              type: integer
+              display: 'Dado 1'
+              instructions: 'anos de história'
+              localizable: false
+              width: 50
+          -
+            handle: dado_2
+            field:
+              type: integer
+              display: 'Dado 2'
+              instructions: 'projetos lançados ou em desenvolvimento'
+              localizable: false
+              width: 50
+          -
+            handle: dado_3
+            field:
+              type: integer
+              display: 'Dado 3'
+              instructions: estados
+              localizable: false
+              width: 50
+          -
+            handle: dado_4
+            field:
+              type: integer
+              display: 'Dado 4'
+              instructions: 'milhões de m² urbanizados'
+              localizable: false
+              width: 50
+          -
+            handle: missao
+            field:
+              buttons:
+                - h2
+                - bold
+              remove_empty_nodes: false
+              type: bard
+              display: Missão
+              localizable: false
+          -
+            handle: visao
+            field:
+              buttons:
+                - h2
+                - bold
+              remove_empty_nodes: false
+              type: bard
+              display: Visão
+              localizable: false
+          -
+            handle: valores
+            field:
+              type: text
+              display: Valores
+              localizable: false
+          -
+            handle: valor_1
+            field:
+              type: text
+              display: 'Valor 1'
+              localizable: false
+              width: 33
+          -
+            handle: valor_2
+            field:
+              type: text
+              display: 'Valor 2'
+              localizable: false
+              width: 33
+          -
+            handle: valor_3
+            field:
+              type: text
+              display: 'Valor 3'
+              localizable: false
+              width: 33
+          -
+            handle: icone_1
+            field:
+              max_files: 1
+              min_files: 1
+              mode: grid
+              container: assets
+              type: assets
+              display: 'Icone 1'
+              instructions: 'Tamanho: 80x80px'
+              localizable: false
+              width: 33
+          -
+            handle: icone_2
+            field:
+              max_files: 1
+              min_files: 1
+              mode: grid
+              container: assets
+              type: assets
+              display: 'Icone 2'
+              instructions: 'Tamanho: 80x80px'
+              localizable: false
+              width: 33
+          -
+            handle: icone_3
+            field:
+              max_files: 1
+              min_files: 1
+              mode: grid
+              container: assets
+              type: assets
+              display: 'Icone 3'
+              instructions: 'Tamanho: 80x80px'
+              localizable: false
+              width: 33
+          -
+            handle: text_2
+            field:
+              buttons:
+                - bold
+              remove_empty_nodes: false
+              type: bard
+              display: 'Texto (Tipos de Empreendimentos)'
+              localizable: false
+          -
+            handle: construtoras
+            field:
+              collections:
+                - construtoras
+              type: entries
+              display: Construtoras
+              localizable: false
+              mode: select
+          -
+            handle: banner_2
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: 'Banner 2'
+              instructions: 'Tamanho: 1920x300px'
+              localizable: false
+          -
+            handle: text_3
+            field:
+              buttons:
+                - bold
+              remove_empty_nodes: false
+              type: bard
+              display: 'Texto (Sustentabilidade para você viver melhor)'
+              localizable: false
+              width: 75
+          -
+            handle: text_3_image
+            field:
+              max_files: 1
+              min_files: 1
+              mode: grid
+              container: assets
+              type: assets
+              display: Imagem
+              instructions: 'Tamanho: 170x170'
+              localizable: false
+              width: 25
+  seo:
+    display: SEO
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+              display: 'URL Amigável'
+              width: 33
+          -
+            handle: meta_title
+            field:
+              type: text
+              display: Título
+              width: 66
+              localizable: false
+          -
+            handle: breve_descricao
+            field:
+              type: textarea
+              display: 'Breve descrição'
+              localizable: false
+          -
+            handle: keywords
+            field:
+              type: list
+              display: Palavras-chave
+              localizable: false
+              width: 33
+          -
+            handle: og_image
+            field:
+              type: assets
+              display: 'Imagem de Destaque'
+              container: assets
+              max_files: 1
+              width: 66
+              localizable: false
+              instructions: 'Tamanho da imagem: 1200×630'
+              mode: grid
+          -
+            handle: meta_robots
+            field:
+              type: select
+              display: Indexação
+              options:
+                'index,follow': 'Indexar e seguir links'
+                'noindex,nofollow': 'Não indexar nem seguir links'
+              default: 'index,follow'
+              localizable: false
+          -
+            handle: scripts
+            field:
+              type: code
+              display: Scripts
+              localizable: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: parent
+            field:
+              type: entries
+              collections:
+                - pages
+              max_items: 1
+              listable: false
+              localizable: true

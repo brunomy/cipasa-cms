@@ -64,14 +64,11 @@ return [
     ],
 
     'navigations' => [
-        'driver' => 'eloquent',
-        'model' => \Statamic\Eloquent\Structures\NavModel::class,
+        'driver' => 'file',
     ],
 
     'navigation_trees' => [
-        'driver' => 'eloquent',
-        'model' => \Statamic\Eloquent\Structures\TreeModel::class,
-        'tree' => \Statamic\Eloquent\Structures\NavTree::class,
+        'driver' => 'file',
     ],
 
     'revisions' => [

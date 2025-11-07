@@ -12,7 +12,6 @@ import Ventures from './components/Ventures/Ventures';
 
 export default function Home() {
   const { props: { 
-    home,
     banners,
     info,
     list_1,
