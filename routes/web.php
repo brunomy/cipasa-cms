@@ -16,6 +16,7 @@ Route::post('empreendimentos/leads', [EmpreendimentoController::class, 'store'])
 Route::get('/sobre', [SobreController::class, 'index'])->name('sobre');
 
 Route::get('/contato', [ContatoController::class, 'index'])->name('contato');
+Route::post('/contato/enviar', [ContatoController::class, 'send'])->name('contato.leads.enviar');
 
 Route::get('/tenho-uma-area', fn() => Inertia::render('HaveLand/HaveLand'))->name('have-land');
 Route::get('/ri', fn() => Inertia::render('RI/RI'))->name('ri');

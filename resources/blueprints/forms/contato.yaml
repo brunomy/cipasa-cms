@@ -1,0 +1,84 @@
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        display: Mensagem
+        fields:
+          -
+            handle: subject
+            field:
+              type: text
+              display: Assunto
+              localizable: false
+              listable: true
+          -
+            handle: message
+            field:
+              type: text
+              display: Mensagem
+              localizable: false
+      -
+        display: 'Dados do lead'
+        fields:
+          -
+            handle: first_name
+            field:
+              type: text
+              display: Nome
+              localizable: false
+              width: 50
+              listable: true
+          -
+            handle: last_name
+            field:
+              type: text
+              display: Sobrenome
+              localizable: false
+              width: 50
+              listable: true
+          -
+            handle: email
+            field:
+              type: text
+              display: Email
+              localizable: false
+              listable: true
+          -
+            handle: phone
+            field:
+              type: text
+              display: Telefone
+              localizable: false
+              width: 50
+              listable: true
+          -
+            handle: mobile
+            field:
+              type: text
+              display: Celular
+              localizable: false
+              width: 50
+              listable: true
+          -
+            handle: cep
+            field:
+              type: text
+              display: CEP
+              localizable: false
+              width: 33
+          -
+            handle: state
+            field:
+              type: text
+              display: Estado
+              localizable: false
+              width: 33
+              listable: true
+          -
+            handle: city
+            field:
+              type: text
+              display: Cidade
+              localizable: false
+              width: 33

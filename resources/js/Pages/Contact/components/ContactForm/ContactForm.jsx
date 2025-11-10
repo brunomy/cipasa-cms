@@ -10,6 +10,9 @@ import {
   Button,
   Typography,
 } from "@mui/material";
+import { router } from '@inertiajs/react';
+import { route } from 'ziggy-js';
+
 
 export default function ContactForm({ contato }) {
   return (
@@ -40,6 +43,10 @@ function FormComponent() {
     mensagem: "",
   });
 
+  const [sending, setSending] = useState(false);
+  const [errors, setErrors] = useState({});
+  const [ok, setOk] = useState(false);
+
   const estados = [
     "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT",
     "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS",
@@ -53,7 +60,6 @@ function FormComponent() {
     "Outros",
   ];
 
-  // 🧠 Funções de máscara manuais
   const maskCep = (value) => {
     return value
       .replace(/\D/g, "")
@@ -62,29 +68,25 @@ function FormComponent() {
   };
 
   const maskCelular = (value) => {
-    return value
-      .replace(/\D/g, "")
-      .replace(/^(\d{2})(\d)/g, "($1) $2")
-      .replace(/(\d{5})(\d{4})$/, "$1-$2")
-      .slice(0, 15);
+    const d = value.replace(/\D/g, '').slice(0, 11);
+    const isCell = d.length > 10; // 11 = celular
+    const dd = d.slice(0, 2);
+    const p2 = isCell ? d.slice(2, 7) : d.slice(2, 6);
+    const p3 = isCell ? d.slice(7, 11) : d.slice(6, 10);
+
+    if (d.length === 0) return '';
+    if (d.length <= 2) return `(${dd}`;
+    if (d.length <= (isCell ? 7 : 6)) return `(${dd}) ${d.slice(2)}`;
+    return `(${dd}) ${p2}-${p3}`;
   };
 
-  const maskTelefone = (value) => {
-    return value
-      .replace(/\D/g, "")
-      .replace(/^(\d{2})(\d)/g, "($1) $2")
-      .replace(/(\d{4})(\d{4})$/, "$1-$2")
-      .slice(0, 14);
-  };
-
-  // Atualiza campos com máscaras aplicadas conforme o tipo
   const handleChange = (e) => {
     const { name, value } = e.target;
     let newValue = value;
 
     if (name === "cep") newValue = maskCep(value);
     if (name === "celular") newValue = maskCelular(value);
-    if (name === "telefone") newValue = maskTelefone(value);
+    if (name === "telefone") newValue = maskCelular(value);
 
     setForm((prev) => ({ ...prev, [name]: newValue }));
   };
@@ -115,7 +117,31 @@ function FormComponent() {
   // Envio do formulário
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("📩 Dados enviados:", form);
+    setSending(true);
+    setErrors({});
+    setOk(false);
+    router.post(route('contato.leads.enviar'), {
+      first_name: form.nome,
+      last_name: form.sobrenome,
+      email: form.email,
+      mobile: form.celular,
+      phone: form.telefone,
+      cep: form.cep,
+      state: form.estado,
+      city: form.cidade,
+      subject: form.assunto,
+      message: form.mensagem,
+    }, {
+      onSuccess: () => {
+        setOk(true);
+      },
+      onError: (err) => {
+        setErrors(err);
+      },
+      onFinish: () => {
+        setSending(false);
+      },
+    });
   };
 
   return (
@@ -254,7 +280,13 @@ function FormComponent() {
 
         {/* Botão Enviar */}
         <Box className="full">
-          <Button1 type="submit">Enviar</Button1>
+          <Button1 type="submit" disabled={sending}>{sending ? 'Enviando...' : 'Enviar'}</Button1>
+          {ok && <Typography sx={{mt:1}}>Mensagem enviada com sucesso.</Typography>}
+          {errors && Object.values(errors).length > 0 && (
+            <Typography color="error" sx={{mt:1}}>
+              Verifique os campos destacados.
+            </Typography>
+          )}
         </Box>
       </Box>
     </Box>
