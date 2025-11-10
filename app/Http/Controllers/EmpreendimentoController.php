@@ -8,6 +8,14 @@ use Statamic\Facades\Entry;
 use Statamic\Facades\Collection;
 use Statamic\Facades\Site;
 
+use Illuminate\Support\Arr;
+use App\Http\Requests\StoreLeadRequest;
+use App\Models\Lead;
+use Statamic\Facades\Form as StatamicForm;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\LeadSubmitted;
+use Statamic\Eloquent\Forms\FormModel;
+
 class EmpreendimentoController extends Controller
 {
     public function index(Request $request)
@@ -132,5 +140,99 @@ class EmpreendimentoController extends Controller
             'related' => $related,
             'categoriesDif'    => $categoriesDif,
         ]);
+    }
+
+    public function store(StoreLeadRequest $request)
+    {
+        $lead = Lead::create([
+            'venture_id'   => $request->venture_id,
+            'venture_slug' => $request->venture_slug,
+            'venture_name' => $request->venture_name,
+            'name'         => $request->name,
+            'phone'        => $request->phone,
+            'email'        => $request->email,
+            'cep'          => $request->cep,
+            'consent_at'   => now(),
+            'consent_ip'   => $request->ip(),
+            'user_agent'   => (string) $request->header('User-Agent'),
+        ]);
+
+        if ($form = StatamicForm::find('empreendimento')) {
+            $form->makeSubmission()->data([
+                'venture_id'   => $lead->venture_id,
+                'venture_slug' => $lead->venture_slug,
+                'venture_name' => $lead->venture_name,
+                'name'         => $lead->name,
+                'phone'        => $lead->phone,
+                'email'        => $lead->email,
+                'cep'          => $lead->cep,
+                'consent_at'   => $lead->consent_at,
+                'consent_ip'   => $lead->consent_ip,
+                'user_agent'   => $lead->user_agent,
+            ])->save();
+
+            $emails = collect();
+
+            $record = FormModel::where('handle', $form->handle())->first();
+            if ($record) {
+                $settings = $record->getAttribute('settings');
+
+                if (is_string($settings)) {
+                    $settings = json_decode($settings, true) ?? [];
+                }
+
+                $emails = collect(data_get($settings, 'email', []));
+            }
+
+            if ($emails->isEmpty()) {
+                $arr = method_exists($form, 'toArray') ? $form->toArray() : [];
+                $emails = collect(data_get($arr, 'email', []));
+            }
+
+            if ($emails->isEmpty()) {
+                $record = FormModel::where('handle', $form->handle())->first();
+                if ($record) {
+                    $attrs = $record->getAttributes();      // pega as colunas cruas do model
+
+                    foreach (['email', 'emails', 'config.email', 'config.emails', 'data.email'] as $path) {
+                        $emails = collect(data_get($attrs, $path, []));
+                        if ($emails->isNotEmpty()) break;
+                    }
+                }
+            }
+
+            $emails->each(function ($cfg) use ($lead) {
+                $wrap = fn ($v) => collect(Arr::wrap($v))
+                    ->flatMap(fn ($s) => is_string($s) ? preg_split('/\s*[,;]\s*/', $s, -1, PREG_SPLIT_NO_EMPTY) : [$s])
+                    ->filter()->values()->all();
+
+                $to      = $wrap(data_get($cfg, 'to'));
+                $cc      = $wrap(data_get($cfg, 'cc'));
+                $bcc     = $wrap(data_get($cfg, 'bcc'));
+                $from    = data_get($cfg, 'from');
+                $reply   = data_get($cfg, 'reply_to');
+                $subject = data_get($cfg, 'subject', 'Novo lead');
+                $mailer  = data_get($cfg, 'mailer');
+
+                if (empty($to)) {
+                    return;
+                }
+
+                $mailable = (new LeadSubmitted($lead))->subject($subject);
+                if ($from)  $mailable->from($from);
+                if ($reply) $mailable->replyTo($reply);
+
+                $sender = $mailer ? Mail::mailer($mailer) : Mail::mailer();
+
+                $sender = $sender->to($to);
+                if (!empty($cc))  $sender->cc($cc);
+                if (!empty($bcc)) $sender->bcc($bcc);
+
+                $sender->send($mailable);
+            });
+        }
+
+
+        return back(303)->with('success', 'Lead cadastrado e e-mail enviado.');
     }
 }

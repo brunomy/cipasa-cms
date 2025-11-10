@@ -13,6 +13,7 @@ Route::get('/empreendimentos', [EmpreendimentoController::class, 'index'])
 
 Route::get('/empreendimentos/{slug}', [EmpreendimentoController::class, 'show'])
 ->name('empreendimentos.show');
+Route::post('empreendimentos/leads', [EmpreendimentoController::class, 'store'])->name('empreendimentos.leads.store');
 
 Route::get('/sobre', [SobreController::class, 'index'])->name('sobre');
 

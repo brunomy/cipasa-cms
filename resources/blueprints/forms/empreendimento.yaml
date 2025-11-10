@@ -1,0 +1,70 @@
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: venture_id
+            field:
+              type: text
+              display: 'Id Emrpeendimento'
+              localizable: false
+          -
+            handle: venture_slug
+            field:
+              type: text
+              display: Slug
+              localizable: false
+          -
+            handle: venture_name
+            field:
+              type: text
+              display: Empreendimento
+              localizable: false
+              listable: true
+          -
+            handle: name
+            field:
+              type: text
+              display: Nome
+              localizable: false
+              listable: true
+          -
+            handle: phone
+            field:
+              type: text
+              display: Telefone
+              localizable: false
+              listable: true
+          -
+            handle: email
+            field:
+              type: text
+              display: Email
+              localizable: false
+              listable: true
+          -
+            handle: cep
+            field:
+              type: text
+              display: CEP
+              localizable: false
+          -
+            handle: consent_at
+            field:
+              type: text
+              display: consent_at
+              localizable: false
+          -
+            handle: consent_ip
+            field:
+              type: text
+              display: consent_ip
+              localizable: false
+          -
+            handle: user_agent
+            field:
+              type: text
+              display: user_agent
+              localizable: false
