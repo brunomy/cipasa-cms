@@ -10,21 +10,20 @@ class SobreController extends Controller
 {
     public function index()
     {
-        $siteHandle = Site::current()->handle();
+        $site = Site::current()->handle();
 
-        $entry = Entry::findByUri('/', $siteHandle);
+        $entry = Entry::findByUri('/sobre', $site);
 
         if (! $entry) {
             $entry = Entry::query()
                 ->whereCollection('pages')
-                ->where('slug', 'sobre')
+                ->where('site', $site)
+                ->where('blueprint', 'sobre')
                 ->first();
         }
 
-        $sobre = $entry ? $entry->toAugmentedArray() : null;
-
         return Inertia::render('AboutUs/AboutUs', [
-            'sobre' => $sobre,
+            'sobre' => $entry?->toAugmentedArray(),
         ]);
     }
 }

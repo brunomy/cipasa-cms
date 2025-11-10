@@ -1,3 +1,4 @@
+hide: true
 title: Sobre
 tabs:
   main:
@@ -68,21 +69,41 @@ tabs:
             handle: missao
             field:
               buttons:
-                - h2
+                - h3
                 - bold
               remove_empty_nodes: false
               type: bard
               display: Missão
               localizable: false
           -
+            handle: missao_banner
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: 'Missão banner'
+              instructions: 'Tamanho: 1250x350px'
+              localizable: false
+          -
             handle: visao
             field:
               buttons:
-                - h2
+                - h3
                 - bold
               remove_empty_nodes: false
               type: bard
               display: Visão
+              localizable: false
+          -
+            handle: visao_banner
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: 'Visão banner'
+              instructions: 'Tamanho: 585x350px'
               localizable: false
           -
             handle: valores

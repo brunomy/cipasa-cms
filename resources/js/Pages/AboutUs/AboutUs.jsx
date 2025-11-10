@@ -16,10 +16,10 @@ export default function AboutUs() {
     <AppLayout>
       <Box className="container">
         <AboutHeader sobre={sobre} />
-        <AboutData />
-        <MissionVisionValues />
-        <AboutVentures />
-        <Sustainability />
+        <AboutData sobre={sobre} />
+        <MissionVisionValues sobre={sobre} />
+        <AboutVentures sobre={sobre} />
+        <Sustainability sobre={sobre} />
       </Box>
     </AppLayout>
   );

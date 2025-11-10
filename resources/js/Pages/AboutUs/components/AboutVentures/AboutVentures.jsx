@@ -17,22 +17,23 @@ import logo3 from './../../../Home/components/Projects/images/logo3.png';
 import logo4 from './../../../Home/components/Projects/images/logo4.png';
 
 import icon1 from './icons/icon1.svg'
+import { decodeBasic } from '../../../../Util';
 
 
-export default function AboutVentures() {
-  const [items, setItems] = useState([
-    { image: img1, logo: logo1, url: '/teste'},
-    { image: img2, logo: logo2, url: '/teste'},
-    { image: img3, logo: logo3, url: '/teste'},
-    { image: img4, logo: logo4, url: '/teste'}
-  ]);
+export default function AboutVentures({ sobre }) {
+  const items = (sobre?.construtoras ?? [])
+    .map(c => ({
+      image: c.banner?.permalink ?? c.banner?.url ?? c.banner?.[0]?.permalink ?? null,
+      logo:  c.logo?.permalink  ?? c.logo?.url  ?? c.logo?.[0]?.permalink  ?? null,
+    }))
+    .filter(i => i.image || i.logo);
 
   return (
     <Box className="about_ventures" component="section">
       <Box className="content">
         <Box className="top">
           <h2>Tipos de <b>Empreendimentos</b></h2>
-          <p>Pode parecer muita ambição, mas sabemos que podemos impactar positivamente o mundo. Por isso, acreditamos que a nossa missão como desenvolvedora de projetos imobiliários urbanos é aliar a alta qualidade urbanística ao respeito às características locais e à natureza. Desta forma, por meio de nossos empreendimentos, contribuimos com o aumento da qualidade de vida de nossos clientes e com o desenvolvimento do seu entorno.</p>
+          <div dangerouslySetInnerHTML={{ __html: decodeBasic(sobre?.text_2 || '') }} />
         </Box>
         <Box className="bottom">
           <Swiper
@@ -52,7 +53,7 @@ export default function AboutVentures() {
 
 function Item({ item }) {
   return (
-    <Button className="item" component={Link} href={item.url}>
+    <Button className="item">
       <Box className="logo">
         <Box><img src={item.logo} /></Box>
       </Box>

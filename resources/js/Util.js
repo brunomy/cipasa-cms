@@ -19,3 +19,12 @@ export function smoothScrollTo(targetY, duration = 500) {
 
   requestAnimationFrame(animateScroll);
 }
+
+export function decodeBasic(html='') {
+  return html
+    .replaceAll('&lt;','<')
+    .replaceAll('&gt;','>')
+    .replaceAll('&amp;','&')
+    .replaceAll('&quot;','"')
+    .replaceAll('&#39;',"'");
+}
