@@ -7,13 +7,9 @@ import MissionVisionValues from './components/MissionVisionValues/MissionVisionV
 import AboutVentures from './components/AboutVentures/AboutVentures';
 import Sustainability from './components/Sustainability/Sustainability';
 
-export default function AboutUs() {
-    const { props: { 
-    sobre,
-  } } = usePage();
-
+export default function AboutUs({ sobre, contato }) {
   return (
-    <AppLayout>
+    <AppLayout contato={contato}>
       <Box className="container">
         <AboutHeader sobre={sobre} />
         <AboutData sobre={sobre} />

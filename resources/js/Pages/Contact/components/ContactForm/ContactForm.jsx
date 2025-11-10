@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
-export default function ContactForm() {
+export default function ContactForm({ contato }) {
   return (
     <Box className="contact_form_page" component="section">
       <Box className="content">
@@ -19,7 +19,7 @@ export default function ContactForm() {
           <FormComponent />
         </Box>
         <Box className="right">
-          <VentureMap position={[-23.681531, -46.875496]} />
+          <VentureMap position={[contato?.latitude, contato?.longitude]} />
         </Box>
       </Box>
     </Box>

@@ -7,8 +7,7 @@ import Blog from '../Home/components/Blog/Blog';
 import VenturesHeader from './components/VenturesHeader/VenturesHeader';
 import VenturesList from './components/VenturesList/VenturesList';
 
-export default function Ventures() {
-  const { props: { ventures, construtoras, states, currentFilters } } = usePage();
+export default function Ventures({ ventures, construtoras, states, contato, currentFilters }) {
 
   const [data, setData] = useState({
     ventures: ventures.filter(v => v.published === true) ?? [],
@@ -23,7 +22,7 @@ export default function Ventures() {
   }, [ventures, construtoras]);
 
   return (
-    <AppLayout>
+    <AppLayout contato={contato}>
       <Box className="container">
         <VenturesHeader
           ventures={data.ventures}

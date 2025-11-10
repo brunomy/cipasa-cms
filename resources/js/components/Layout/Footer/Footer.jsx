@@ -8,25 +8,22 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 import { smoothScrollTo } from '../../../Util';
 
-export default function Footer({ ref }) {
-  
-
-
+export default function Footer({ contato, ref }) {
   return (
     <footer className="footer" ref={ref}>
       <Box className="footer_top">
         <Box className="container">
           <Box className="left">
             <Box className="logo_content"><Logo /></Box>
-            <p>Edifício Ministro Jesuíno Cardoso Rua Ministro Jesuíno Cardoso, 633 10º andar, Sala 102 | Vila OlímpiaCEP: 04544-051 São Paulo | SP</p>
+            <p>{contato?.rua}, {contato?.numero}, {contato?.complemento}, {contato?.bairro}, {contato?.cidade}/{contato?.estado?.value} - CEP: {contato?.cep}</p>
             <Box className="contato">
               <Box className="item">
                 <p>Entre em contato - São Paulo</p>
-                <h3>(11) 4096-0500</h3>
+                <h3>{contato?.telefone_sao_paulo}</h3>
               </Box>
               <Box className="item">
                 <p>Entre em contato - Goiânia</p>
-                <h3>(62) 3255-8416</h3>
+                <h3>{contato?.telefone_goiania}</h3>
               </Box>
             </Box>
           </Box>
@@ -35,10 +32,10 @@ export default function Footer({ ref }) {
             <Box className="pages">
               <Box className="has_in_menu">
                 <h4>Mapa do site</h4>
-                <Button component={Link} href="/sobre">Empreendimentos</Button>
-                <Button component={Link} href="/servicos">Sobre nós</Button>
+                <Button component={Link} href="/empreendimentos">Empreendimentos</Button>
+                <Button component={Link} href="/sobre">Sobre nós</Button>
                 <Button component={Link} href="/tenho-uma-area">Tenho uma área </Button>
-                <Button component={Link} href="/contato">R.I</Button>
+                <Button component={Link} href="/ri">R.I</Button>
                 <Button component={Link} href="/contato">Contato</Button>
               </Box>
               <Box className="has_in_menu">
@@ -53,14 +50,22 @@ export default function Footer({ ref }) {
                 <Button component={Link} href="/servicos">Loteamento fechado </Button>
                 <Button component={Link} href="/contato">Loteamentos</Button>
               </Box>
-              <Box className="social">
-                <h4>Redes sociais</h4>
-                <Box>
-                  <Button component={Link} target="_blank" href="/sobre"><FacebookRoundedIcon /></Button>
-                  <Button component={Link} target="_blank" href="/servicos"><InstagramIcon /></Button>
-                  <Button component={Link} target="_blank" href="/contato"><LinkedInIcon /></Button>
+              { (contato?.facebook || contato?.instagram || contato?.linkedin) &&
+                <Box className="social">
+                  <h4>Redes sociais</h4>
+                  <Box>
+                    { contato?.facebook &&
+                      <Button component={"a"} target="_blank" href={contato?.facebook}><FacebookRoundedIcon /></Button>
+                    }
+                    { contato?.instagram &&
+                      <Button component={"a"} target="_blank" href={contato?.instagram}><InstagramIcon /></Button>
+                    }
+                    { contato?.linkedin &&
+                      <Button component={"a"} target="_blank" href={contato?.linkedin}><LinkedInIcon /></Button>
+                    }
+                  </Box>
                 </Box>
-              </Box>
+              }
             </Box>
             <Box className="newsletter">
               <Box>

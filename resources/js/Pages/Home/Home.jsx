@@ -10,17 +10,13 @@ import Projects from './components/Projects/Projects';
 import ProjectsMap from './components/ProjectsMap/ProjectsMap';
 import Ventures from './components/Ventures/Ventures';
 
-export default function Home() {
+export default function Home({ banners, info, list_1, list_2, construtoras, contato }) {
   const { props: { 
-    banners,
-    info,
-    list_1,
-    list_2,
-    construtoras,
+
   } } = usePage();
 
   return (
-    <AppLayout>
+    <AppLayout contato={contato}>
       <Box className="container">
         <BannerCarousel banners={banners} />
         <InfoData info={info} />

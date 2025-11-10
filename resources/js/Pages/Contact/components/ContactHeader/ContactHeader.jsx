@@ -8,7 +8,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
-export default function ContactHeader(){
+export default function ContactHeader({ contato }){
   return (
     <Box className="contact_header" component="section">
       <Box className="content">
@@ -21,48 +21,62 @@ export default function ContactHeader(){
           right={
             <Box className="right_content">
               <Box className="phone_content">
-                <Box className="item">
-                  <Box className="icon">
-                    <LocalPhoneIcon />
+                { contato?.telefone_goiania &&
+                  <Box className="item">
+                    <Box className="icon">
+                      <LocalPhoneIcon />
+                    </Box>
+                    <Box className="text_content">
+                      <h4>São Paulo</h4>
+                      <p>{contato?.telefone_sao_paulo}</p>
+                    </Box>
                   </Box>
-                  <Box className="text_content">
-                    <h4>São Paulo</h4>
-                    <p>(11) 4195-9000</p>
+                }
+                { contato?.telefone_goiania &&
+                  <Box className="item">
+                    <Box className="icon">
+                      <LocalPhoneIcon />
+                    </Box>
+                    <Box className="text_content">
+                      <h4>Goiânia</h4>
+                      <p>{contato?.telefone_goiania}</p>
+                    </Box>
                   </Box>
-                </Box>
-                <Box className="item">
-                  <Box className="icon">
-                    <LocalPhoneIcon />
-                  </Box>
-                  <Box className="text_content">
-                    <h4>Goiânia</h4>
-                    <p>(11) 4195-9000</p>
-                  </Box>
-                </Box>
-              </Box>
-              
-              <Box className="social">
-                <h4>Redes sociais</h4>
-                <Box>
-                  <Button component={Link} target="_blank" href="/sobre"><FacebookRoundedIcon /></Button>
-                  <Button component={Link} target="_blank" href="/servicos"><InstagramIcon /></Button>
-                  <Button component={Link} target="_blank" href="/contato"><LinkedInIcon /></Button>
-                </Box>
+                }
               </Box>
 
-              <Box className="email">
-                <Box className="icon">
-                  <AlternateEmailIcon />
+              { (contato?.facebook || contato?.instagram || contato?.linkedin) &&
+                <Box className="social">
+                  <h4>Redes sociais</h4>
+                  <Box>
+                    { contato?.facebook &&
+                      <Button component={"a"} target="_blank" href={contato?.facebook}><FacebookRoundedIcon /></Button>
+                    }
+                    { contato?.instagram &&
+                      <Button component={"a"} target="_blank" href={contato?.instagram}><InstagramIcon /></Button>
+                    }
+                    { contato?.linkedin &&
+                      <Button component={"a"} target="_blank" href={contato?.linkedin}><LinkedInIcon /></Button>
+                    }
+                  </Box>
                 </Box>
-                <Box className="text_content">
-                  <h4>Email</h4>
-                  <p>contato@cipasa.com.br</p>
+              }
+
+              { contato?.e_mail &&
+                <Box className="email">
+                  <Box className="icon">
+                    <AlternateEmailIcon />
+                  </Box>
+                  <Box className="text_content">
+                    <h4>Email</h4>
+                    <p>{contato?.e_mail}</p>
+                  </Box>
                 </Box>
-              </Box>
+              }
 
               <Box className="addres">
                 <h4>Endereço</h4>
-                <p>Edifício Ministro Jesuíno Cardoso, Rua Ministro Jesuíno Cardoso, 633, 10º andar, Sala 102, Vila Olímpia, São Paulo/SP - CEP: 04544-051</p>
+                <p>{contato?.rua}, {contato?.numero}, {contato?.complemento}, {contato?.bairro}, {contato?.cidade}/{contato?.estado?.value} - CEP: {contato?.cep}</p>
               </Box>
             </Box>
           }

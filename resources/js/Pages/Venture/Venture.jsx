@@ -11,11 +11,9 @@ import VentureStatus from './components/VentureStatus/VentureStatus';
 import VentureContact from './components/VentureContact/VentureContact';
 import VentureMap from './components/VentureMap/VentureMap';
 
-export default function Venture() {
-  const { props: { venture, related, categoriesDif } } = usePage();
-
+export default function Venture({ venture, related, categoriesDif, contato }) {
   return (
-    <AppLayout>
+    <AppLayout contato={contato}>
       <Box className="container">
         <VentureHeader venture={venture} />
         <VentureInfo venture={venture} />

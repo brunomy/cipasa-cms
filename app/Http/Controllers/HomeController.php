@@ -10,9 +10,9 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $siteHandle = Site::current()->handle();
+        $site = Site::current()->handle();
 
-        $entry = Entry::findByUri('/', $siteHandle);
+        $entry = Entry::findByUri('/', $site);
 
         if (! $entry) {
             $entry = Entry::query()
@@ -41,12 +41,22 @@ class HomeController extends Controller
             })
             ->all();
 
+        $contato = Entry::findByUri('/contato', $site);
+        if (!$contato) {
+            $contato = Entry::query()
+                ->whereCollection('pages')
+                ->where('site', $site)
+                ->where('blueprint', 'contato')
+                ->first();
+        }
+
         return Inertia::render('Home/Home', [
             'banners' => $banners,
             'info' => $info,
             'list_1' => $list_1,
             'list_2' => $list_2,
             'construtoras' => $construtoras,
+            'contato' => $contato?->toAugmentedArray(),
         ]);
     }
 }

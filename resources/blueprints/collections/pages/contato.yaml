@@ -1,4 +1,5 @@
-title: Empreendimento
+hide: true
+title: Contato
 tabs:
   main:
     display: Principal
@@ -13,227 +14,58 @@ tabs:
               localizable: false
               validate:
                 - required
-              width: 66
+      -
+        display: 'Dados de contato'
+        fields:
           -
-            handle: tipo
+            handle: telefone_goiania
             field:
-              options:
-                -
-                  key: 0
-                  value: Comercial
-                -
-                  key: 1
-                  value: Incorporação
-                -
-                  key: 2
-                  value: 'Uso misto'
-              type: select
-              display: Tipo
-              localizable: false
-              width: 33
-          -
-            handle: subtitulo
-            field:
+              input_type: tel
               type: text
-              display: Subtítulo
+              display: 'Telefone Goiânia'
               localizable: false
+              width: 50
           -
-            handle: descricao
+            handle: telefone_sao_paulo
             field:
-              type: textarea
-              display: Descrição
+              input_type: tel
+              type: text
+              display: 'Telefone São Paulo'
               localizable: false
+              width: 50
           -
-            handle: construtora
+            handle: e_mail
             field:
-              type: entries
-              display: Construtora
-              collections:
-                - construtoras
-              max_items: 1
-              mode: select
-              validate:
-                - required
+              input_type: email
+              type: text
+              display: E-mail
               localizable: false
-              width: 33
-              listable: true
-          -
-            handle: diferenciais
-            field:
-              mode: select
-              collections:
-                - diferenciais
-              type: entries
-              display: Diferenciais
-              localizable: false
-              width: 66
-  imagens:
-    display: Imagens
-    sections:
       -
+        display: 'Redes sociais'
         fields:
           -
-            handle: banner
+            handle: facebook
             field:
-              max_files: 1
-              min_files: 1
-              container: assets
-              type: assets
-              display: Banner
-              instructions: 'Tamanho da imagem: 1920x400'
+              input_type: url
+              type: text
+              display: Facebook
               localizable: false
           -
-            handle: galeria
+            handle: instagram
             field:
-              type: replicator
-              display: Galeria
+              input_type: url
+              type: text
+              display: Instagram
               localizable: false
-              sets:
-                novo_grupo_de_conjuntos:
-                  display: 'Novo grupo de conjuntos'
-                  sets:
-                    galeria:
-                      display: Galeria
-                      instructions: 'Tamanho da imagem: 900x450'
-                      icon: media-image-picture-gallery
-                      fields:
-                        -
-                          handle: nome_da_galeria
-                          field:
-                            type: text
-                            display: 'Nome da galeria'
-                            localizable: false
-                        -
-                          handle: imagens
-                          field:
-                            container: assets
-                            type: assets
-                            display: Imagens
-                            localizable: false
-                            instructions: 'Tamanho da imagem: 900x450'
-  ficha_tecnica:
-    display: 'Ficha Técnica'
-    sections:
+          -
+            handle: linkedin
+            field:
+              input_type: url
+              type: text
+              display: Linkedin
+              localizable: false
       -
-        fields:
-          -
-            handle: area_bruta
-            field:
-              type: integer
-              display: 'Área bruta (m²)'
-              localizable: false
-              width: 50
-              default: '0'
-          -
-            handle: area_de_lotes
-            field:
-              type: integer
-              display: 'Área de lotes (m²)'
-              localizable: false
-              width: 50
-              default: '0'
-          -
-            handle: numero_residenciais
-            field:
-              type: integer
-              display: 'Número de lotes residenciais'
-              localizable: false
-              width: 50
-              default: '0'
-          -
-            handle: numero_comerciais
-            field:
-              type: integer
-              display: 'Número de lotes comerciais'
-              localizable: false
-              width: 50
-              default: '0'
-          -
-            handle: meters_min
-            field:
-              type: integer
-              display: 'Tamanho mínimo dos lotes (m²)'
-              localizable: false
-              width: 50
-              default: '0'
-          -
-            handle: meters_max
-            field:
-              type: integer
-              display: 'Tamanho máximo dos lotes (m²)'
-              localizable: false
-              width: 50
-              default: '0'
-  obras:
-    display: Obras
-    sections:
-      -
-        fields:
-          -
-            handle: estagio_da_obra
-            field:
-              options:
-                -
-                  key: 0
-                  value: 'Em andamento'
-                -
-                  key: 1
-                  value: 'Pronto para construir'
-              type: select
-              display: 'Estágio da obra'
-              localizable: false
-          -
-            handle: terraplanagem
-            field:
-              default: 0
-              type: range
-              display: Terraplanagem
-              localizable: false
-              width: 50
-          -
-            handle: drenagem
-            field:
-              default: 0
-              type: range
-              display: Drenagem
-              localizable: false
-              width: 50
-          -
-            handle: saneamento
-            field:
-              default: 0
-              type: range
-              display: Saneamento
-              localizable: false
-              width: 50
-          -
-            handle: pavimentacao
-            field:
-              default: 0
-              type: range
-              display: Pavimentação
-              localizable: false
-              width: 50
-          -
-            handle: rede_eletrica
-            field:
-              default: 0
-              type: range
-              display: 'Rede elétrica'
-              localizable: false
-              width: 50
-          -
-            handle: obras_civis
-            field:
-              default: 0
-              type: range
-              display: 'Obras civis'
-              localizable: false
-              width: 50
-  endereco:
-    display: Endereço
-    sections:
-      -
+        display: Endereço
         fields:
           -
             handle: cep
@@ -453,17 +285,11 @@ tabs:
       -
         fields:
           -
-            handle: lancamento
-            field:
-              type: date
-              display: 'Data de lançamento'
-              localizable: false
-          -
             handle: parent
             field:
               type: entries
               collections:
-                - empreendimentos
+                - pages
               max_items: 1
               listable: false
               localizable: true

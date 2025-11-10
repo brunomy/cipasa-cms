@@ -4,7 +4,7 @@ import './Layout.scss';
 import { Box } from '@mui/material';
 import React, { useRef, useEffect, useState } from 'react';
 
-export default function Layout({ children }) {
+export default function Layout({ contato, children }) {
   const headerRef = useRef(null);
   const footerRef = useRef(null);
   const [headerHeight, setHeaderHeight] = useState(0);
@@ -47,7 +47,7 @@ export default function Layout({ children }) {
       <Box className="layout_content" sx={{ minHeight: `calc(100vh - ${headerHeight}px - ${footerHeight}px)` }}>
         {children}
       </Box>
-      <Footer ref={footerRef} />
+      <Footer contato={contato} ref={footerRef} />
     </Box>
   );
 }
