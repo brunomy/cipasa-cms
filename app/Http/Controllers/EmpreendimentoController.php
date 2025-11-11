@@ -88,7 +88,7 @@ class EmpreendimentoController extends Controller
         }
 
         return Inertia::render('Ventures/Ventures', [
-            'ventures'       => $ventures,
+            'dados'       => $ventures,
             'construtoras'   => $construtoras,
             'states'         => $states,
             'contato' => $contato?->toAugmentedArray(),
@@ -157,7 +157,7 @@ class EmpreendimentoController extends Controller
         }
 
         return Inertia::render('Venture/Venture', [
-            'venture' => $venture,
+            'dados' => $venture,
             'related' => $related,
             'categoriesDif'    => $categoriesDif,
             'contato' => $contato?->toAugmentedArray(),

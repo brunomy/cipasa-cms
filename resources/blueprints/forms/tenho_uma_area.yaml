@@ -1,0 +1,67 @@
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        display: Contato
+        fields:
+          -
+            handle: nome
+            field:
+              type: text
+              display: nome
+              localizable: false
+              listable: true
+          -
+            handle: celular
+            field:
+              type: text
+              display: Celular
+              localizable: false
+              listable: true
+          -
+            handle: email
+            field:
+              type: text
+              display: Email
+              localizable: false
+              listable: true
+      -
+        display: 'Dados da área'
+        fields:
+          -
+            handle: cep
+            field:
+              type: text
+              display: Cep
+              localizable: false
+          -
+            handle: coordenadas
+            field:
+              type: text
+              display: coordenadas
+              localizable: false
+          -
+            handle: tamanho_area
+            field:
+              type: text
+              display: 'Tamanho da área'
+              instructions: hectares
+              localizable: false
+              listable: true
+          -
+            handle: informacoes
+            field:
+              type: textarea
+              display: Informações
+              localizable: false
+      -
+        display: Documentos
+        fields:
+          -
+            handle: documentos
+            field:
+              type: assets
+              container: documentos
+              max_files: 15
+              restrict: false

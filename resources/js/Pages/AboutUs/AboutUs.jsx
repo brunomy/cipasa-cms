@@ -7,15 +7,15 @@ import MissionVisionValues from './components/MissionVisionValues/MissionVisionV
 import AboutVentures from './components/AboutVentures/AboutVentures';
 import Sustainability from './components/Sustainability/Sustainability';
 
-export default function AboutUs({ sobre, contato }) {
+export default function AboutUs({ dados, contato }) {
   return (
     <AppLayout contato={contato}>
       <Box className="container">
-        <AboutHeader sobre={sobre} />
-        <AboutData sobre={sobre} />
-        <MissionVisionValues sobre={sobre} />
-        <AboutVentures sobre={sobre} />
-        <Sustainability sobre={sobre} />
+        <AboutHeader sobre={dados} />
+        <AboutData sobre={dados} />
+        <MissionVisionValues sobre={dados} />
+        <AboutVentures sobre={dados} />
+        <Sustainability sobre={dados} />
       </Box>
     </AppLayout>
   );

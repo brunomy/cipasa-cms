@@ -7,19 +7,19 @@ import Blog from '../Home/components/Blog/Blog';
 import VenturesHeader from './components/VenturesHeader/VenturesHeader';
 import VenturesList from './components/VenturesList/VenturesList';
 
-export default function Ventures({ ventures, construtoras, states, contato, currentFilters }) {
+export default function Ventures({ dados, construtoras, states, contato, currentFilters }) {
 
   const [data, setData] = useState({
-    ventures: ventures.filter(v => v.published === true) ?? [],
+    ventures: dados.filter(v => v.published === true) ?? [],
     construtoras: construtoras ?? [],
   });
 
   useEffect(() => {
     setData({
-      ventures: ventures ?? [],
+      ventures: dados ?? [],
       construtoras: construtoras ?? [],
     });
-  }, [ventures, construtoras]);
+  }, [dados, construtoras]);
 
   return (
     <AppLayout contato={contato}>

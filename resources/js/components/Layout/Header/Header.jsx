@@ -40,7 +40,7 @@ export default function Header({ ref }) {
             <Button onClick={() => setOpen(false)} component={Link} className={isActive('/empreendimentos') || isActive('/empreendimento') ? 'active' : ''} href="/empreendimentos">Empreendimentos</Button>
             <Button onClick={() => setOpen(false)} component={Link} className={isActive('/sobre') ? 'active' : ''} href="/sobre">Sobre nós</Button>
             <Button onClick={() => setOpen(false)} component={Link} className={isActive('/tenho-uma-area') ? 'active' : ''} href="/tenho-uma-area">Tenho uma área</Button>
-            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/ri') ? 'active' : ''} href="/ri">R.I</Button>
+            {/* <Button onClick={() => setOpen(false)} component={Link} className={isActive('/ri') ? 'active' : ''} href="/ri">R.I</Button> */}
             <Button onClick={() => setOpen(false)} component={Link} className={isActive('/contato') ? 'active' : ''} href="/contato">Contato</Button>
             <PortalButton />
           </Box>

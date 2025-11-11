@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EmpreendimentoController;
 use App\Http\Controllers\SobreController;
 use App\Http\Controllers\ContatoController;
+use App\Http\Controllers\TenhoUmaAreaController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -18,6 +19,10 @@ Route::get('/sobre', [SobreController::class, 'index'])->name('sobre');
 Route::get('/contato', [ContatoController::class, 'index'])->name('contato');
 Route::post('/contato/enviar', [ContatoController::class, 'send'])->name('contato.leads.enviar');
 
-Route::get('/tenho-uma-area', fn() => Inertia::render('HaveLand/HaveLand'))->name('have-land');
-Route::get('/ri', fn() => Inertia::render('RI/RI'))->name('ri');
+Route::get('/tenho-uma-area', [TenhoUmaAreaController::class, 'index'])->name('tenho-uma-area');
+Route::post('/tenho-uma-area/send', [TenhoUmaAreaController::class, 'send'])->name('tenho-uma-area.send');
+Route::get('/mapa/area/{uuid}', [TenhoUmaAreaController::class, 'show'])->name('map.area.show');
+
+
+// Route::get('/ri', fn() => Inertia::render('RI/RI'))->name('ri');
 

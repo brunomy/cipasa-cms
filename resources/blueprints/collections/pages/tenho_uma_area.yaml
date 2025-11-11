@@ -1,0 +1,152 @@
+hide: true
+title: 'Tenho uma área'
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              localizable: false
+              validate:
+                - required
+      -
+        display: Conteúdo
+        fields:
+          -
+            handle: text_1
+            field:
+              buttons:
+                - bold
+              remove_empty_nodes: false
+              type: bard
+              display: 'Texto topo'
+              localizable: false
+          -
+            handle: banner
+            field:
+              max_files: 1
+              min_files: 1
+              mode: grid
+              container: assets
+              type: assets
+              display: Banner
+              instructions: 'Tamanho: 1920x400px'
+              localizable: false
+  nova_aba:
+    display: 'Passo a passo'
+    sections:
+      -
+        display: Conteúdo
+        fields:
+          -
+            handle: text_2
+            field:
+              type: textarea
+              display: Texto
+              localizable: false
+          -
+            handle: step_by_step
+            field:
+              type: replicator
+              display: 'Passo a passo'
+              localizable: false
+              sets:
+                novo_grupo_de_conjuntos:
+                  display: 'Novo grupo de conjuntos'
+                  sets:
+                    novo_conjunto:
+                      display: 'Novo Conjunto'
+                      fields:
+                        -
+                          handle: step_title
+                          field:
+                            type: text
+                            display: Título
+                            localizable: false
+                            width: 33
+                        -
+                          handle: step_text
+                          field:
+                            type: textarea
+                            display: Descrição
+                            localizable: false
+                            width: 66
+  seo:
+    display: SEO
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+              display: 'URL Amigável'
+              width: 33
+          -
+            handle: meta_title
+            field:
+              type: text
+              display: Título
+              width: 66
+              localizable: false
+          -
+            handle: breve_descricao
+            field:
+              type: textarea
+              display: 'Breve descrição'
+              localizable: false
+          -
+            handle: keywords
+            field:
+              type: list
+              display: Palavras-chave
+              localizable: false
+              width: 33
+          -
+            handle: og_image
+            field:
+              type: assets
+              display: 'Imagem de Destaque'
+              container: assets
+              max_files: 1
+              width: 66
+              localizable: false
+              instructions: 'Tamanho da imagem: 1200×630'
+              mode: grid
+          -
+            handle: meta_robots
+            field:
+              type: select
+              display: Indexação
+              options:
+                'index,follow': 'Indexar e seguir links'
+                'noindex,nofollow': 'Não indexar nem seguir links'
+              default: 'index,follow'
+              localizable: false
+          -
+            handle: scripts
+            field:
+              type: code
+              display: Scripts
+              localizable: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: parent
+            field:
+              type: entries
+              collections:
+                - pages
+              max_items: 1
+              listable: false
+              localizable: true

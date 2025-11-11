@@ -1,0 +1,5 @@
+title: Documentos
+disk: public
+allow_uploads: true
+create_folders: true
+prefix: tenho_uma_area

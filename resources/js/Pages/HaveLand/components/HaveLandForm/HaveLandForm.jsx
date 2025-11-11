@@ -23,9 +23,12 @@ import {
 } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
+import { router } from '@inertiajs/react';
+import { route } from 'ziggy-js';
 
 export default function HaveLandForm() {
   const [arquivos, setArquivos] = useState([]);
+  const [celular, setCelular] = useState("");
 
   const handleFilesChange = (e) => {
     const novosArquivos = Array.from(e.target.files);
@@ -34,39 +37,35 @@ export default function HaveLandForm() {
       return [...prev, ...novosArquivos.filter((a) => !nomes.has(a.name))];
     });
   };
-
+  
   const removerArquivo = (index) => {
     setArquivos((prev) => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const form = e.target;
     const data = new FormData(form);
 
-    // adiciona os arquivos manualmente
-    arquivos.forEach((file) => {
-      data.append("documentos[]", file);
+    arquivos.forEach((file) => data.append('documentos[]', file));
+
+    router.post(route('tenho-uma-area.send'), data, {
+      forceFormData: true,
+      onSuccess: () => {},
     });
+  };
 
-    console.log("📦 Arquivos anexados:", arquivos);
+  const maskCelular = (value) => {
+    const d = value.replace(/\D/g, '').slice(0, 11);
+    const isCell = d.length > 10; // 11 = celular
+    const dd = d.slice(0, 2);
+    const p2 = isCell ? d.slice(2, 7) : d.slice(2, 6);
+    const p3 = isCell ? d.slice(7, 11) : d.slice(6, 10);
 
-    // converte corretamente FormData → objeto, preservando múltiplos valores
-    const formDataObj = {};
-    for (const [key, value] of data.entries()) {
-      if (formDataObj[key]) {
-        // se já existir, transforma em array
-        if (!Array.isArray(formDataObj[key])) {
-          formDataObj[key] = [formDataObj[key]];
-        }
-        formDataObj[key].push(value);
-      } else {
-        formDataObj[key] = value;
-      }
-    }
-
-    console.log("📦 Dados do formulário:", formDataObj);
+    if (d.length === 0) return '';
+    if (d.length <= 2) return `(${dd}`;
+    if (d.length <= (isCell ? 7 : 6)) return `(${dd}) ${d.slice(2)}`;
+    return `(${dd}) ${p2}-${p3}`;
   };
 
   return (
@@ -78,7 +77,7 @@ export default function HaveLandForm() {
         <form onSubmit={handleSubmit}>
           <Box className="info_content">
             <input type="text" name="nome" placeholder="Nome Completo" />
-            <input type="text" name="celular" placeholder="Celular" />
+            <input type="text" name="celular" value={celular} onChange={(e) => setCelular(maskCelular(e.target.value))} placeholder="Celular" />
             <input type="text" name="email" placeholder="E-mail" />
           </Box>
 
@@ -147,8 +146,6 @@ export default function HaveLandForm() {
     </Box>
   );
 }
-
-
 
 function SearchControl({ onResult }) {
   const [query, setQuery] = useState("");

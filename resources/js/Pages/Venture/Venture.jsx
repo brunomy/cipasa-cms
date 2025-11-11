@@ -11,17 +11,17 @@ import VentureStatus from './components/VentureStatus/VentureStatus';
 import VentureContact from './components/VentureContact/VentureContact';
 import VentureMap from './components/VentureMap/VentureMap';
 
-export default function Venture({ venture, related, categoriesDif, contato }) {
+export default function Venture({ dados, related, categoriesDif, contato }) {
   return (
     <AppLayout contato={contato}>
       <Box className="container">
-        <VentureHeader venture={venture} />
-        <VentureInfo venture={venture} />
-        <VentureGalery venture={venture} />
-        <VentureDifferences venture={venture} categoriesDif={categoriesDif} />
-        <VentureStatus venture={venture} />
-        <VentureMap position={[venture.latitude, venture.longitude]} />
-        <VentureContact venture={venture} related={related} />
+        <VentureHeader venture={dados} />
+        <VentureInfo venture={dados} />
+        <VentureGalery venture={dados} />
+        <VentureDifferences venture={dados} categoriesDif={categoriesDif} />
+        <VentureStatus venture={dados} />
+        <VentureMap position={[dados.latitude, dados.longitude]} />
+        <VentureContact venture={dados} related={related} />
       </Box>
     </AppLayout>
   );

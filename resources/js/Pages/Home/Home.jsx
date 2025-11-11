@@ -11,10 +11,6 @@ import ProjectsMap from './components/ProjectsMap/ProjectsMap';
 import Ventures from './components/Ventures/Ventures';
 
 export default function Home({ banners, info, list_1, list_2, construtoras, contato }) {
-  const { props: { 
-
-  } } = usePage();
-
   return (
     <AppLayout contato={contato}>
       <Box className="container">

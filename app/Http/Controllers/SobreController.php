@@ -32,7 +32,7 @@ class SobreController extends Controller
         }
 
         return Inertia::render('AboutUs/AboutUs', [
-            'sobre' => $entry?->toAugmentedArray(),
+            'dados' => $entry?->toAugmentedArray(),
             'contato' => $contato?->toAugmentedArray(),
         ]);
     }
