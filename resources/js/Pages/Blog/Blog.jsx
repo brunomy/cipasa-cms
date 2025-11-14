@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import AppLayout from '../../AppLayout';
 import { useEffect, useState } from 'react';
-import { usePage } from '@inertiajs/react';
+import { usePage, Head } from '@inertiajs/react';
 import BlogHeader from './components/BlogHeader/BlogHeader';
 import BlogList from './components/BlogList/BlogList';
 
@@ -17,6 +17,7 @@ export default function Blog({ dados, contato }) {
 
   return (
     <AppLayout contato={contato}>
+      <Head title="Cipasa - Blog" />
       <Box className="container">
         <BlogHeader />
         <BlogList dados={blogList} />

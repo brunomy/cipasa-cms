@@ -1,6 +1,6 @@
 import AppLayout from '../../AppLayout';
 import { Box } from '@mui/material';
-import { usePage } from '@inertiajs/react';
+import { usePage, Head } from '@inertiajs/react';
 import AboutHeader from './components/AboutHeader/AboutHeader';
 import AboutData from './components/AboutData/AboutData';
 import MissionVisionValues from './components/MissionVisionValues/MissionVisionValues';
@@ -10,6 +10,7 @@ import Sustainability from './components/Sustainability/Sustainability';
 export default function AboutUs({ dados, contato }) {
   return (
     <AppLayout contato={contato}>
+      <Head title="Cipasa - Nossa história" />
       <Box className="container">
         <AboutHeader sobre={dados} />
         <AboutData sobre={dados} />

@@ -1,6 +1,6 @@
 import AppLayout from '../../AppLayout';
 import { Box } from '@mui/material';
-import { usePage } from '@inertiajs/react';
+import { usePage, Head } from '@inertiajs/react';
 import BannerCarousel from './components/BannerCarousel/BannerCarousel';
 import Blog from './components/Blog/Blog';
 import ContactBanner from './components/ContactBanner/ContactBanner';
@@ -13,6 +13,7 @@ import Ventures from './components/Ventures/Ventures';
 export default function Home({ banners, info, list_1, list_2, states, construtoras, contato, blog }) {
   return (
     <AppLayout contato={contato}>
+      <Head title="Cipasa Urbanismo" />
       <Box className="container">
         <BannerCarousel banners={banners} />
         <InfoData info={info} />

@@ -1,12 +1,14 @@
 import AppLayout from '../../AppLayout';
 import { Box, Typography } from '@mui/material';
 import { useMemo, useRef, useState } from 'react';
+import { Head } from '@inertiajs/react';
 
 import { MapContainer, TileLayer, FeatureGroup, Polygon } from 'react-leaflet';
 import { EditControl } from 'react-leaflet-draw';
 
 import HeaderBanner from './../../components/HeaderBanner/HeaderBanner';
 import HaveLandHeader from './components/HaveLandHeader/HaveLandHeader';
+
 
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
@@ -66,6 +68,7 @@ export default function ShowMap({
 
   return (
     <AppLayout contato={contato}>
+      <Head title="Cipasa - Área cadastrada" />
       <Box className="map" component="section">
         <Box className="container">
           {/* <HeaderBanner

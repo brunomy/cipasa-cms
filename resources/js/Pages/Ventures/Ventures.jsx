@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import AppLayout from '../../AppLayout';
 import { useEffect, useState } from 'react';
-import { usePage } from '@inertiajs/react';
+import { usePage, Head } from '@inertiajs/react';
 
 import Blog from '../Home/components/Blog/Blog';
 import VenturesHeader from './components/VenturesHeader/VenturesHeader';
@@ -22,6 +22,7 @@ export default function Ventures({ dados, construtoras, states, blog, contato, c
 
   return (
     <AppLayout contato={contato}>
+      <Head title="Cipasa - Empreendimentos" />
       <Box className="container">
         <VenturesHeader
           ventures={data.ventures}

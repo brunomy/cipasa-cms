@@ -100,9 +100,9 @@ export default function Footer({ contato, ref }) {
               </Box>
               <Box>
                 <h4>Quero Comprar</h4>
-                <Button component={Link} href="/sobre">Condomínios Fechados</Button>
-                <Button component={Link} href="/servicos">Loteamento fechado </Button>
-                <Button component={Link} href="/contato">Loteamentos</Button>
+                <Button component={Link} href="/empreendimentos?order=recentes&state=&status=&type=0">Emp. Comercial</Button>
+                <Button component={Link} href="/empreendimentos?order=recentes&state=&status=&type=1">Incorporação</Button>
+                <Button component={Link} href="/empreendimentos?order=recentes&state=&status=&type=2">Uso misto</Button>
               </Box>
               {(contato?.facebook || contato?.instagram || contato?.linkedin) &&
                 <Box className="social">

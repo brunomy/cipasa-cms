@@ -62,18 +62,16 @@ return [
             'display' => 'line', // ou 'bar', 'pie', 'doughnut', 'table'
         ],
 
-        // Páginas mais visitadas
-        [
-            'type'    => 'analytics',
-            'group'   => 'mostVisitedPages', // ou 'most_visited_pages'
-            'width'   => 50,
-            'display' => 'table',
-        ],
-
         // Principais origens (referrers)
+        // [
+        //     'type'    => 'analytics',
+        //     'group'   => 'topReferrers', // ou 'top_referrers'
+        //     'width'   => 50,
+        //     'display' => 'table',
+        // ],
         [
             'type'    => 'analytics',
-            'group'   => 'topReferrers', // ou 'top_referrers'
+            'group'   => 'mostVisitedPages',
             'width'   => 50,
             'display' => 'table',
         ],

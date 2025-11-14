@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { usePage } from '@inertiajs/react';
+import { usePage, Head } from '@inertiajs/react';
 
 import AppLayout from '../../AppLayout';
 
@@ -14,6 +14,7 @@ import VentureMap from './components/VentureMap/VentureMap';
 export default function Venture({ dados, related, categoriesDif, contato }) {
   return (
     <AppLayout contato={contato}>
+      <Head title={`Cipasa - ${dados.title}`} />
       <Box className="container">
         <VentureHeader venture={dados} />
         <VentureInfo venture={dados} />
