@@ -1,1 +1,4 @@
 /* This is all you. */
+.page-wrapper{
+  max-width: initial !important;
+}

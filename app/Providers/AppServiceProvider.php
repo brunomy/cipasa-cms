@@ -12,6 +12,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Registra seu JS do painel (Control Panel)
-        Statamic::vite('statamic-cp', ['resources/js/cp.js']);
+        Statamic::vite('statamic-cp', ['resources/js/cp.js', 'resources/css/cp.css',]);
     }
 }

@@ -43,7 +43,7 @@ empreendimentos:
     locale: pt_BR
     favorites: {  }
     nav:
-      top_level:
+      content:
         reorder:
           - 'content::collections::empreendimentos'
         items:
@@ -53,15 +53,16 @@ empreendimentos:
               'content::collections::construtoras': '@move'
               'content::collections::categoria_diferencial': '@move'
               'content::collections::diferenciais': '@move'
-          'top_level::dashboard': '@hide'
-      content:
-        action: '@hide'
-        items:
           'content::collections':
             reorder:
               - 'content::collections::pages'
               - 'content::collections::blog'
-            action: '@modify'
+              - 'content::collections::empreendimentos'
+            action: '@hide'
+          'content::navigation': '@hide'
+          'content::taxonomies': '@hide'
+          'content::assets': '@hide'
+          'content::globals': '@hide'
       settings:
         'settings::preferences':
           action: '@modify'
@@ -160,8 +161,6 @@ administrador:
         - tools
         - users
       sections:
-        top_level:
-          'top_level::dashboard': '@hide'
         content:
           reorder:
             - 'content::collections::pages'

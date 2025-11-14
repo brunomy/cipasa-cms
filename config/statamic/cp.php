@@ -52,8 +52,47 @@ return [
     |
     */
 
+
     'widgets' => [
-        'getting_started',
+        // Visitantes e page views (linha ou área)
+        [
+            'type'    => 'analytics',
+            'group'   => 'totalVisitorsAndPageViews', // ou 'total_visitors_and_page_views'
+            'width'   => 100,
+            'display' => 'line', // ou 'bar', 'pie', 'doughnut', 'table'
+        ],
+
+        // Páginas mais visitadas
+        [
+            'type'    => 'analytics',
+            'group'   => 'mostVisitedPages', // ou 'most_visited_pages'
+            'width'   => 50,
+            'display' => 'table',
+        ],
+
+        // Principais origens (referrers)
+        [
+            'type'    => 'analytics',
+            'group'   => 'topReferrers', // ou 'top_referrers'
+            'width'   => 50,
+            'display' => 'table',
+        ],
+
+        // Navegadores
+        [
+            'type'    => 'analytics',
+            'group'   => 'topBrowsers', // ou 'top_browsers'
+            'width'   => 50,
+            'display' => 'bar',
+        ],
+
+        // Países
+        [
+            'type'    => 'analytics',
+            'group'   => 'topCountries', // ou 'top_countries'
+            'width'   => 50,
+            'display' => 'table',
+        ],
     ],
 
     /*

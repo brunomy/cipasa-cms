@@ -4,9 +4,7 @@ import { Box, Button } from '@mui/material';
 import { useState, useEffect } from 'react';
 import mapa from './icons/map.svg'
 import logo from './icons/logo_bg.svg'
-import { Link } from '@inertiajs/react';
-import { Inertia } from '@inertiajs/inertia';
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 
 export default function ProjectsMap({ states }) {
   const [selectedState, setSelectedState] = useState('');
