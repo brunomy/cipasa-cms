@@ -30,15 +30,8 @@ class TenhoUmaAreaController extends Controller
                 ->first();
         }
 
-        $contato = Entry::findByUri('/contato', $site) ?: Entry::query()
-            ->whereCollection('pages')
-            ->where('site', $site)
-            ->where('blueprint', 'contato')
-            ->first();
-
         return Inertia::render('HaveLand/HaveLand', [
             'dados'   => $entry?->toAugmentedArray(),
-            'contato' => $contato?->toAugmentedArray(),
         ]);
     }
 
@@ -221,12 +214,6 @@ class TenhoUmaAreaController extends Controller
             $center = [(min($lat)+max($lat))/2, (min($lng)+max($lng))/2];
         }
 
-        $contato = Entry::findByUri('/contato', $site) ?: Entry::query()
-            ->whereCollection('pages')
-            ->where('site', $site)
-            ->where('blueprint', 'contato')
-            ->first();
-
         return Inertia::render('HaveLand/ShowMap', [
             'name'    => $rec->name,
             'phone'   => $rec->mobile,
@@ -236,7 +223,6 @@ class TenhoUmaAreaController extends Controller
             'area'    => $rec->area_hectares,
             'center'  => $center,
             'created' => $rec->created_at?->toIso8601String(),
-            'contato' => $contato?->toAugmentedArray(),
         ]);
     }
 }

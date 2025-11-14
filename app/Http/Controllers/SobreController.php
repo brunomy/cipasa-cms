@@ -22,18 +22,8 @@ class SobreController extends Controller
                 ->first();
         }
 
-        $contato = Entry::findByUri('/contato', $site);
-        if (!$contato) {
-            $contato = Entry::query()
-                ->whereCollection('pages')
-                ->where('site', $site)
-                ->where('blueprint', 'contato')
-                ->first();
-        }
-
         return Inertia::render('AboutUs/AboutUs', [
             'dados' => $entry?->toAugmentedArray(),
-            'contato' => $contato?->toAugmentedArray(),
         ]);
     }
 }

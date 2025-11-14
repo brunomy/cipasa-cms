@@ -41,15 +41,6 @@ class HomeController extends Controller
             })
             ->all();
 
-        $contato = Entry::findByUri('/contato', $site);
-        if (!$contato) {
-            $contato = Entry::query()
-                ->whereCollection('pages')
-                ->where('site', $site)
-                ->where('blueprint', 'contato')
-                ->first();
-        }
-
         $states = Entry::query()->whereCollection('empreendimentos')
             ->pluck('estado')
             ->filter()
@@ -95,7 +86,6 @@ class HomeController extends Controller
             'list_2' => $list_2,
             'states' => $states,
             'construtoras' => $construtoras,
-            'contato' => $contato?->toAugmentedArray(),
             'blog' => $blog,
         ]);
     }

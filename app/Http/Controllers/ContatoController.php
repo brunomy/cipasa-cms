@@ -30,9 +30,7 @@ class ContatoController extends Controller
                 ->first();
         }
 
-        return Inertia::render('Contact/Contact', [
-            'contato' => $entry?->toAugmentedArray(),
-        ]);
+        return Inertia::render('Contact/Contact');
     }
 
     public function send(StoreContactRequest $request)

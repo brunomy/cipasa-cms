@@ -95,23 +95,11 @@ class EmpreendimentoController extends Controller
             ->values()
             ->all();
 
-        $site = Site::current()->handle();
-        $contato = Entry::findByUri('/contato', $site);
-
-        if (!$contato) {
-            $contato = Entry::query()
-                ->whereCollection('pages')
-                ->where('site', $site)
-                ->where('blueprint', 'contato')
-                ->first();
-        }
-
         return Inertia::render('Ventures/Ventures', [
             'dados'       => $ventures,
             'construtoras'   => $construtoras,
             'states'         => $states,
             'blog'         => $blog,
-            'contato' => $contato?->toAugmentedArray(),
             'currentFilters' => [
                 'order'  => $order,
                 'state'  => ($state  !== null && $state  !== '') ? $state        : null,
@@ -167,20 +155,10 @@ class EmpreendimentoController extends Controller
             })
             ->all();
 
-        $contato = Entry::findByUri('/contato', $site);
-        if (!$contato) {
-            $contato = Entry::query()
-                ->whereCollection('pages')
-                ->where('site', $site)
-                ->where('blueprint', 'contato')
-                ->first();
-        }
-
         return Inertia::render('Venture/Venture', [
             'dados' => $venture,
             'related' => $related,
             'categoriesDif'    => $categoriesDif,
-            'contato' => $contato?->toAugmentedArray(),
         ]);
     }
 

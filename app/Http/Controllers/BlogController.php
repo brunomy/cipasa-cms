@@ -37,20 +37,8 @@ class BlogController extends Controller
             ->values()
             ->all();
 
-        $site = Site::current()->handle();
-        $contato = Entry::findByUri('/contato', $site);
-
-        if (!$contato) {
-            $contato = Entry::query()
-                ->whereCollection('pages')
-                ->where('site', $site)
-                ->where('blueprint', 'contato')
-                ->first();
-        }
-
         return Inertia::render('Blog/Blog', [
-            'dados'       => $blog,
-            'contato' => $contato?->toAugmentedArray(),
+            'dados' => $blog,
         ]);
     }
 }
