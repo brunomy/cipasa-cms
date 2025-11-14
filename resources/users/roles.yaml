@@ -151,6 +151,8 @@ administrador:
     - 'delete empreendimento form submissions'
     - 'view tenho_uma_area form submissions'
     - 'delete tenho_uma_area form submissions'
+    - 'view newsletter form submissions'
+    - 'delete newsletter form submissions'
     - 'access cache utility'
   preferences:
     nav:
@@ -188,6 +190,7 @@ administrador:
           items:
             'tools::forms::empreendimento': '@move'
             'tools::forms::contato': '@move'
+            'tools::forms::newsletter': '@move'
             'tools::forms::tenho_uma_area': '@move'
         fields: '@hide'
         tools: '@hide'

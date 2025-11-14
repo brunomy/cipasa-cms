@@ -2,3 +2,7 @@
 .page-wrapper{
   max-width: initial !important;
 }
+
+.publish-field-label span.text-gray-500{
+  display: none;
+}

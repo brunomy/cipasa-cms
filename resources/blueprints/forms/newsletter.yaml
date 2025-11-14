@@ -1,0 +1,13 @@
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: email
+            field:
+              type: text
+              display: Email
+              localizable: false
+              listable: true

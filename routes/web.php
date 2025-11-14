@@ -22,31 +22,8 @@ Route::get('/sobre', [SobreController::class, 'index'])->name('sobre');
 
 Route::get('/contato', [ContatoController::class, 'index'])->name('contato');
 Route::post('/contato/enviar', [ContatoController::class, 'send'])->name('contato.leads.enviar');
+Route::post('/contato/newsletter', [ContatoController::class, 'newsletter'])->name('contato.newsletter');
 
 Route::get('/tenho-uma-area', [TenhoUmaAreaController::class, 'index'])->name('tenho-uma-area');
 Route::post('/tenho-uma-area/send', [TenhoUmaAreaController::class, 'send'])->name('tenho-uma-area.send');
 Route::get('/mapa/area/{uuid}', [TenhoUmaAreaController::class, 'show'])->name('map.area.show');
-
-Route::fallback(function (Request $request) {
-    dd('0');
-    if ($request->is('cp/*')) {
-        abort(404);
-    }
-
-    $site = Site::current()->handle();
-    $contato = Entry::findByUri('/contato', $site);
-
-    if (! $contato) {
-        $contato = Entry::query()
-            ->whereCollection('pages')
-            ->where('site', $site)
-            ->where('blueprint', 'contato')
-            ->first();
-    }
-
-    return Inertia::render('NotFound/NotFound', [
-        'contato' => $contato?->toAugmentedArray(),
-    ])->toResponse($request)->setStatusCode(404);
-});
-
-// Route::get('/ri', fn() => Inertia::render('RI/RI'))->name('ri');

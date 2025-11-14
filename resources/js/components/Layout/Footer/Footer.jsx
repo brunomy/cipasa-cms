@@ -1,14 +1,68 @@
 import Logo from '../../Logo/Logo';
 import './Footer.scss'
-import { Box, Button } from '@mui/material';
-import { Link } from '@inertiajs/react';
+import { Box, Button, Snackbar, Alert } from '@mui/material';
+import { Link, router } from '@inertiajs/react';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import ExpandLessRoundedIcon from '@mui/icons-material/ExpandLessRounded';
 import { smoothScrollTo } from '../../../Util';
+import { useState } from 'react';
+import { route } from 'ziggy-js';
 
 export default function Footer({ contato, ref }) {
+  const [email, setEmail] = useState('');
+  const [sending, setSending] = useState(false);
+
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastSeverity, setToastSeverity] = useState('success');
+
+  const handleToastClose = (_, reason) => {
+    if (reason === 'clickaway') return;
+    setToastOpen(false);
+  };
+
+  const handleSubmitNewsletter = (e) => {
+    e.preventDefault();
+    if (sending) return;
+
+    setSending(true);
+    setToastMessage('');
+    setToastSeverity('success');
+
+    const emailTrimmed = email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailTrimmed || !emailRegex.test(emailTrimmed)) {
+      setToastMessage('Informe um e-mail válido.');
+      setToastSeverity('error');
+      setToastOpen(true);
+      setSending(false);
+      return;
+    }
+
+    router.post(
+      route('contato.newsletter'),
+      { email: emailTrimmed },
+      {
+        preserveScroll: true,
+        onError: (errors) => {
+          setToastMessage(errors.email || 'Não foi possível cadastrar seu e-mail.');
+          setToastSeverity('error');
+          setToastOpen(true);
+        },
+        onSuccess: () => {
+          setToastMessage('Obrigado por se inscrever em nossa newsletter!');
+          setToastSeverity('success');
+          setToastOpen(true);
+          setEmail('');
+        },
+        onFinish: () => setSending(false),
+      }
+    );
+  };
+
   return (
     <footer className="footer" ref={ref}>
       <Box className="footer_top">
@@ -50,17 +104,17 @@ export default function Footer({ contato, ref }) {
                 <Button component={Link} href="/servicos">Loteamento fechado </Button>
                 <Button component={Link} href="/contato">Loteamentos</Button>
               </Box>
-              { (contato?.facebook || contato?.instagram || contato?.linkedin) &&
+              {(contato?.facebook || contato?.instagram || contato?.linkedin) &&
                 <Box className="social">
                   <h4>Redes sociais</h4>
                   <Box>
-                    { contato?.facebook &&
+                    {contato?.facebook &&
                       <Button component={"a"} target="_blank" href={contato?.facebook}><FacebookRoundedIcon /></Button>
                     }
-                    { contato?.instagram &&
+                    {contato?.instagram &&
                       <Button component={"a"} target="_blank" href={contato?.instagram}><InstagramIcon /></Button>
                     }
-                    { contato?.linkedin &&
+                    {contato?.linkedin &&
                       <Button component={"a"} target="_blank" href={contato?.linkedin}><LinkedInIcon /></Button>
                     }
                   </Box>
@@ -70,9 +124,17 @@ export default function Footer({ contato, ref }) {
             <Box className="newsletter">
               <Box>
                 <h4>Notícias</h4>
-                <form>
-                  <input type="text" placeholder="Digite seu e-mail" />
-                  <Button>Enviar</Button>
+                <form onSubmit={handleSubmitNewsletter}>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Digite seu e-mail"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <Button type="submit" disabled={sending}>
+                    {sending ? 'Enviando...' : 'Enviar'}
+                  </Button>
                 </form>
               </Box>
             </Box>
@@ -84,10 +146,40 @@ export default function Footer({ contato, ref }) {
         <Box>
           <Box className="container">
             <p>CIPASA URBANISMO® 00.000.000-0000 • © 2025</p>
-            <Button onClick={() => smoothScrollTo(0)}>Voltar para o topo <span className="icon"><ExpandLessRoundedIcon /></span></Button>
+            <Button onClick={() => smoothScrollTo(0)}>
+              Voltar para o topo <span className="icon"><ExpandLessRoundedIcon /></span>
+            </Button>
           </Box>
         </Box>
       </Box>
+
+      <Snackbar
+        open={toastOpen}
+        autoHideDuration={4000}
+        onClose={handleToastClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        sx={{
+          '& .MuiPaper-root': {
+            maxWidth: 360,
+            width: '100%',
+            borderRadius: 2,
+          },
+        }}
+      >
+        <Alert
+          onClose={handleToastClose}
+          severity={toastSeverity}
+          variant="filled"
+          sx={{
+            width: '100%',
+            boxShadow: 3,
+            whiteSpace: 'pre-line',
+            textAlign: 'left',
+          }}
+        >
+          {toastMessage}
+        </Alert>
+      </Snackbar>
     </footer>
-  )
+  );
 }

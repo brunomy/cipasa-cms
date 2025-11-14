@@ -17,11 +17,9 @@ tabs:
           -
             handle: message
             field:
-              type: text
+              type: textarea
               display: Mensagem
               localizable: false
-              validate:
-                - required
       -
         display: 'Dados do lead'
         fields:
