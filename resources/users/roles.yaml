@@ -2,7 +2,7 @@ empreendimentos:
   title: Empreendimentos
   permissions:
     - 'access cp'
-    - 'configure collections'
+    - 'access default site'
     - 'view construtoras entries'
     - 'edit construtoras entries'
     - 'create construtoras entries'
@@ -39,4 +39,161 @@ empreendimentos:
     - 'edit other authors diferenciais entries'
     - 'publish other authors diferenciais entries'
     - 'delete other authors diferenciais entries'
-    - 'configure navs'
+  preferences:
+    locale: pt_BR
+    favorites: {  }
+    nav:
+      top_level:
+        reorder:
+          - 'content::collections::empreendimentos'
+        items:
+          'content::collections::empreendimentos':
+            action: '@move'
+            children:
+              'content::collections::construtoras': '@move'
+              'content::collections::categoria_diferencial': '@move'
+              'content::collections::diferenciais': '@move'
+          'top_level::dashboard': '@hide'
+      content:
+        action: '@hide'
+        items:
+          'content::collections':
+            reorder:
+              - 'content::collections::pages'
+              - 'content::collections::blog'
+            action: '@modify'
+      settings:
+        'settings::preferences':
+          action: '@modify'
+          children:
+            'settings::preferences::cp_nav': '@hide'
+    start_page: collections/empreendimentos
+administrador:
+  title: Administrador
+  permissions:
+    - 'access cp'
+    - 'access default site'
+    - 'view pages entries'
+    - 'edit pages entries'
+    - 'view construtoras entries'
+    - 'edit construtoras entries'
+    - 'create construtoras entries'
+    - 'delete construtoras entries'
+    - 'publish construtoras entries'
+    - 'reorder construtoras entries'
+    - 'edit other authors construtoras entries'
+    - 'publish other authors construtoras entries'
+    - 'delete other authors construtoras entries'
+    - 'view empreendimentos entries'
+    - 'edit empreendimentos entries'
+    - 'create empreendimentos entries'
+    - 'delete empreendimentos entries'
+    - 'publish empreendimentos entries'
+    - 'reorder empreendimentos entries'
+    - 'edit other authors empreendimentos entries'
+    - 'publish other authors empreendimentos entries'
+    - 'delete other authors empreendimentos entries'
+    - 'view categoria_diferencial entries'
+    - 'edit categoria_diferencial entries'
+    - 'create categoria_diferencial entries'
+    - 'delete categoria_diferencial entries'
+    - 'publish categoria_diferencial entries'
+    - 'reorder categoria_diferencial entries'
+    - 'edit other authors categoria_diferencial entries'
+    - 'publish other authors categoria_diferencial entries'
+    - 'delete other authors categoria_diferencial entries'
+    - 'view diferenciais entries'
+    - 'edit diferenciais entries'
+    - 'create diferenciais entries'
+    - 'delete diferenciais entries'
+    - 'publish diferenciais entries'
+    - 'reorder diferenciais entries'
+    - 'edit other authors diferenciais entries'
+    - 'publish other authors diferenciais entries'
+    - 'delete other authors diferenciais entries'
+    - 'view blog entries'
+    - 'edit blog entries'
+    - 'create blog entries'
+    - 'delete blog entries'
+    - 'publish blog entries'
+    - 'reorder blog entries'
+    - 'edit other authors blog entries'
+    - 'publish other authors blog entries'
+    - 'delete other authors blog entries'
+    - 'configure asset containers'
+    - 'view assets assets'
+    - 'upload assets assets'
+    - 'edit assets assets'
+    - 'move assets assets'
+    - 'rename assets assets'
+    - 'delete assets assets'
+    - 'view documentos assets'
+    - 'upload documentos assets'
+    - 'edit documentos assets'
+    - 'move documentos assets'
+    - 'rename documentos assets'
+    - 'delete documentos assets'
+    - 'view users'
+    - 'edit users'
+    - 'create users'
+    - 'delete users'
+    - 'change passwords'
+    - 'assign user groups'
+    - 'assign roles'
+    - 'edit user groups'
+    - 'edit roles'
+    - 'impersonate users'
+    - 'configure forms'
+    - 'view contato form submissions'
+    - 'delete contato form submissions'
+    - 'view empreendimento form submissions'
+    - 'delete empreendimento form submissions'
+    - 'view tenho_uma_area form submissions'
+    - 'delete tenho_uma_area form submissions'
+    - 'access cache utility'
+  preferences:
+    nav:
+      reorder:
+        - content
+        - formularios
+        - fields
+        - tools
+        - users
+      sections:
+        top_level:
+          'top_level::dashboard': '@hide'
+        content:
+          reorder:
+            - 'content::collections::pages'
+            - 'content::collections::empreendimentos'
+            - 'content::collections::blog'
+            - 'content::assets'
+            - 'content::collections'
+            - 'content::navigation'
+          items:
+            'content::collections::pages': '@move'
+            'content::collections::empreendimentos':
+              action: '@move'
+              children:
+                'content::collections::construtoras': '@move'
+                'content::collections::categoria_diferencial': '@move'
+                'content::collections::diferenciais': '@move'
+            'content::collections::blog': '@move'
+            'content::collections': '@hide'
+            'content::navigation': '@hide'
+            'content::taxonomies': '@hide'
+            'content::globals': '@hide'
+        formularios:
+          action: '@create'
+          display: Formulários
+          items:
+            'tools::forms::empreendimento': '@move'
+            'tools::forms::contato': '@move'
+            'tools::forms::tenho_uma_area': '@move'
+        fields: '@hide'
+        tools: '@hide'
+        settings:
+          'settings::preferences':
+            action: '@modify'
+            children:
+              'settings::preferences::cp_nav': '@hide'

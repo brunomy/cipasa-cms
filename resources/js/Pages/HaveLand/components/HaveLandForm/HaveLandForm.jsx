@@ -20,6 +20,8 @@ import {
   Typography,
   Paper,
   Stack,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SearchIcon from '@mui/icons-material/Search';
@@ -29,6 +31,17 @@ import { route } from 'ziggy-js';
 export default function HaveLandForm() {
   const [arquivos, setArquivos] = useState([]);
   const [celular, setCelular] = useState("");
+  const [mapKey, setMapKey] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastSeverity, setToastSeverity] = useState('error');
+
+  const handleToastClose = (_, reason) => {
+    if (reason === 'clickaway') return;
+    setToastOpen(false);
+  };
 
   const handleFilesChange = (e) => {
     const novosArquivos = Array.from(e.target.files);
@@ -44,14 +57,53 @@ export default function HaveLandForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     const form = e.target;
     const data = new FormData(form);
+
+    const nome   = (data.get('nome') || '').trim();
+    const cel    = (data.get('celular') || '').replace(/\D/g, '');
+    const email  = (data.get('email') || '').trim();
+    const coords = (data.get('coordenadas') || '').trim();
+    const area   = (data.get('tamanho_area') || '').trim();
+
+    const erros = [];
+
+    if (!nome) erros.push('Preencha o nome completo.');
+    if (!cel || cel.length < 10) erros.push('Informe um celular válido.');
+    if (!email) erros.push('Preencha o e-mail.');
+    if (!coords || !area) erros.push('Desenhe a área do terreno no mapa.');
+    if (!arquivos.length) erros.push('Anexe os arquivos.');
+
+    if (erros.length) {
+      setToastMessage(erros.join('\n'));
+      setToastSeverity('error');
+      setToastOpen(true);
+      return;
+    }
 
     arquivos.forEach((file) => data.append('documentos[]', file));
 
     router.post(route('tenho-uma-area.send'), data, {
       forceFormData: true,
-      onSuccess: () => {},
+      onStart: () => setIsSubmitting(true),
+      onFinish: () => setIsSubmitting(false),
+      onSuccess: () => {
+        form.reset();
+        setArquivos([]);
+        setCelular('');
+        setMapKey((prev) => prev + 1);
+
+        setToastMessage('Formulário enviado com sucesso!');
+        setToastSeverity('success');
+        setToastOpen(true);
+      },
+      onError: () => {
+        setToastMessage('Não foi possível enviar o formulário. Tente novamente.');
+        setToastSeverity('error');
+        setToastOpen(true);
+      },
     });
   };
 
@@ -83,7 +135,7 @@ export default function HaveLandForm() {
 
           <Box className="address_content">
             <h3><b>Demarcação</b> do terreno</h3>
-            <AreaMap />
+            <AreaMap key={mapKey} />
           </Box>
 
           <Box className="document_content">
@@ -138,9 +190,38 @@ export default function HaveLandForm() {
           <Button1
             type="submit"
             className="submit_button"
+            disabled={isSubmitting}
           >
-            Enviar
+            {isSubmitting ? 'Enviando...' : 'Enviar'}
           </Button1>
+
+          <Snackbar
+            open={toastOpen}
+            autoHideDuration={4000}
+            onClose={handleToastClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            sx={{
+              '& .MuiPaper-root': {
+                maxWidth: 360,
+                width: '100%',
+                borderRadius: 2,
+              },
+            }}
+          >
+            <Alert
+              onClose={handleToastClose}
+              severity={toastSeverity}
+              variant="filled"
+              sx={{
+                width: '100%',
+                boxShadow: 3,
+                whiteSpace: 'pre-line',
+                textAlign: 'left',
+              }}
+            >
+              {toastMessage}
+            </Alert>
+          </Snackbar>
         </form>
       </Box>
     </Box>
@@ -261,7 +342,6 @@ export function AreaMap() {
       <Paper className="area_map">
         <Box className="map">
           <MapContainer
-            
             center={[-15.78, -47.93]}
             zoom={14}
             whenCreated={(mapInstance) => (mapRef.current = mapInstance)}

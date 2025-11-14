@@ -38,6 +38,7 @@ export default function Header({ ref }) {
           </Button>
           <Box className="content">
             <Button onClick={() => setOpen(false)} component={Link} className={isActive('/empreendimentos') || isActive('/empreendimento') ? 'active' : ''} href="/empreendimentos">Empreendimentos</Button>
+            <Button onClick={() => setOpen(false)} component={Link} className={isActive('/blog') || isActive('/blog') ? 'active' : ''} href="/blog">Blog</Button>
             <Button onClick={() => setOpen(false)} component={Link} className={isActive('/sobre') ? 'active' : ''} href="/sobre">Sobre nós</Button>
             <Button onClick={() => setOpen(false)} component={Link} className={isActive('/tenho-uma-area') ? 'active' : ''} href="/tenho-uma-area">Tenho uma área</Button>
             {/* <Button onClick={() => setOpen(false)} component={Link} className={isActive('/ri') ? 'active' : ''} href="/ri">R.I</Button> */}
@@ -82,9 +83,9 @@ function PortalButton() {
       </Button>
 
       <Box className={`portal_dropdown ${open ? 'open' : 'closed'}`}>
-        <Button onClick={() => setOpen(false)} component={Link} href="/cliente">Cliente</Button>
-        <Button onClick={() => setOpen(false)} component={Link} href="/parceiro">Parceiro</Button>
-        <Button onClick={() => setOpen(false)} component={Link} href="/corretor">Corretor</Button>
+        <Button onClick={() => setOpen(false)} component={'a'} target="_blank" href="https://portal.capys.com.br/Default.aspx?id={62E17A16-0146-465F-A732-250E42D94678}">Cliente</Button>
+        <Button onClick={() => setOpen(false)} component={'a'} target="_blank" href="https://parceiro.cipasa.com/">Parceiro</Button>
+        <Button onClick={() => setOpen(false)} component={'a'} target="_blank" href="https://cipasa.emobi.com.br/awf/paginas/sgn_in.aspx">Corretor</Button>
       </Box>
     </Box>
   );

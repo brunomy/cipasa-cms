@@ -76,6 +76,25 @@ class EmpreendimentoController extends Controller
             ->values()
             ->all();
 
+
+        $blog = Entry::query()
+            ->whereCollection('blog')
+            ->orderBy('created_at', 'desc')
+            ->limit(3)
+            ->get()
+            ->map(function ($e) {
+                $aug = $e->toAugmentedArray();
+                if (method_exists($e, 'model') && $e->model()) {
+                    $aug['created_at'] = optional($e->model()->created_at)->toIso8601String();
+                } else {
+                    $aug['created_at'] = optional($e->lastModified() ?? $e->date())->toIso8601String();
+                }
+
+                return $aug;
+            })
+            ->values()
+            ->all();
+
         $site = Site::current()->handle();
         $contato = Entry::findByUri('/contato', $site);
 
@@ -91,6 +110,7 @@ class EmpreendimentoController extends Controller
             'dados'       => $ventures,
             'construtoras'   => $construtoras,
             'states'         => $states,
+            'blog'         => $blog,
             'contato' => $contato?->toAugmentedArray(),
             'currentFilters' => [
                 'order'  => $order,
@@ -214,7 +234,7 @@ class EmpreendimentoController extends Controller
             if ($emails->isEmpty()) {
                 $record = FormModel::where('handle', $form->handle())->first();
                 if ($record) {
-                    $attrs = $record->getAttributes();      // pega as colunas cruas do model
+                    $attrs = $record->getAttributes();
 
                     foreach (['email', 'emails', 'config.email', 'config.emails', 'data.email'] as $path) {
                         $emails = collect(data_get($attrs, $path, []));

@@ -10,18 +10,18 @@ import Projects from './components/Projects/Projects';
 import ProjectsMap from './components/ProjectsMap/ProjectsMap';
 import Ventures from './components/Ventures/Ventures';
 
-export default function Home({ banners, info, list_1, list_2, construtoras, contato }) {
+export default function Home({ banners, info, list_1, list_2, states, construtoras, contato, blog }) {
   return (
     <AppLayout contato={contato}>
       <Box className="container">
         <BannerCarousel banners={banners} />
         <InfoData info={info} />
         <Highlights list={list_1} />
-        <ProjectsMap />
+        <ProjectsMap states={states} />
         <Projects list={construtoras} />
         <Ventures list={list_2} construtoras={construtoras} />
         <ContactBanner />
-        <Blog />
+        <Blog blog={blog} />
       </Box>
     </AppLayout>
   );

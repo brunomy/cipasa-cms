@@ -33,7 +33,7 @@ export default function Ventures({ list, construtoras }) {
             <b>Viver e Investir</b>
           </h2>
           <p>Empreendimentos sob medida com assinatura de alto padrão.</p>
-          <Button1>ver empreendimentos</Button1>
+          <Button1 component={Link} href="/empreendimentos">Ver empreendimentos</Button1>
         </Box>
         <Box className="right">
             <Swiper

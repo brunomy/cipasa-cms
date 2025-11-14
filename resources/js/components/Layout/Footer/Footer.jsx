@@ -33,9 +33,9 @@ export default function Footer({ contato, ref }) {
               <Box className="has_in_menu">
                 <h4>Mapa do site</h4>
                 <Button component={Link} href="/empreendimentos">Empreendimentos</Button>
+                <Button component={Link} href="/blog">Blog</Button>
                 <Button component={Link} href="/sobre">Sobre nós</Button>
                 <Button component={Link} href="/tenho-uma-area">Tenho uma área </Button>
-                {/* <Button component={Link} href="/ri">R.I</Button> */}
                 <Button component={Link} href="/contato">Contato</Button>
               </Box>
               <Box className="has_in_menu">

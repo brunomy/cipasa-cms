@@ -1,0 +1,169 @@
+@use './../../../../Mixins.scss' as *;
+
+.ventures_header{
+  position: relative;
+  padding: 0 0 75px;
+
+  &::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 1px;
+    background-color: #F5F5F5;
+  }
+
+  .content{
+    display: flex;
+    justify-content: space-between;
+
+    .left{
+      width: calc(100% - 370px);
+    }
+    .right{
+      width: 370px;
+      padding: 7px 0 0;
+    }
+  }
+
+  @media (max-width: 1100px){
+    padding: 0 0 40px;
+
+    .content{
+      .right{
+        padding: 3px 0 0;
+      }
+    }
+  }
+  @media (max-width: 850px){
+    .content{
+      flex-direction: column;
+      align-items: flex-end;
+
+      .left{
+        width: 100%;
+      }
+      .right{
+        padding: 0;
+        margin: -55px 0 0 0;
+      }
+    }
+  }
+  @media (max-width: 700px){
+    .content{
+      .right{
+        margin: -20px 0 0;
+      }
+    }
+  }
+  @media (max-width: 550px){
+    .content{
+      .right{
+        width: 100%;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.filter{
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+
+  button.filtrar{
+    width: 160px;
+    height: 42px;
+    background: #005A45;
+    color: white;
+    font-size: 16px;
+    letter-spacing: 1px;
+    font-weight: 500;
+    display: flex;
+    gap: 9px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+  }
+  .order_content{
+    max-width: 200px;
+    @include AutocompleteInput;
+  }
+
+  .dropdown{
+    width: 100%;
+    position: absolute;
+    right: 0;
+    bottom: -10px;
+    transform: translateY(100%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    z-index: 10;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
+
+    &.open{
+      opacity: 1;
+
+      .item, button.clear{
+        pointer-events: all;
+      }
+    }
+
+    button.clear{
+      pointer-events: none;
+      position: absolute;
+      left: 0;
+      background: #62bb46;
+      color: #fff;
+      width: 100px;
+      border-radius: 30px;
+      height: 42px;
+    }
+    .item{
+      pointer-events: none;
+      max-width: 250px;
+      @include AutocompleteInput;
+    }
+  }
+
+  @media (max-width: 550px){
+    button.filtrar{
+      width: 110px;
+      font-size: 14px;
+      letter-spacing: 0px;
+      gap: 2px;
+
+      svg{
+        width: 18px;
+        height: auto;
+      }
+    }
+    .order_content{
+      width: calc(100% - 110px - 5px);
+      max-width: 265px;
+    }
+
+    .dropdown{
+      &.open{
+        .item, button.clear{
+        }
+      }
+
+      button.clear{
+        width: 80px;
+        font-size: 14px;
+      }
+      .item{
+        width: calc(100% - 85px);
+        max-width: 265px;
+      }
+    }
+  }
+}

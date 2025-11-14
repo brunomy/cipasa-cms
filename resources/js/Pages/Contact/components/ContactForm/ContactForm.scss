@@ -10,7 +10,6 @@
     width: 100vw;
     height: 100%;
     background: #fffaf3;
-    border: 2px solid #dec99a;
   }
 
   .content{
@@ -23,7 +22,7 @@
       border-right: 1px solid #dec99a;
 
       .form{
-        >div{
+        >div.form_fields{
           display: flex;
           flex-wrap: wrap;
           gap: 10px;
@@ -45,7 +44,7 @@
               color: #112A25 !important;
               opacity: .6;
             }
-            button{
+            button.submit_button{
               width: 100%;
               background: #005A45 !important;
               color: #fff !important;

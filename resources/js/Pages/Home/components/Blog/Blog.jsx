@@ -8,31 +8,17 @@ import { Link } from '@inertiajs/react';
 import img1 from '../BannerCarousel/images/banner1.png';
 import img2 from '../BannerCarousel/images/banner2.png';
 import img3 from '../BannerCarousel/images/banner3.png';  
+import Button1 from '../../../../components/Buttons/Button1/Button1';
 
-export default function Blog() {
-  const [blogList, setBlogList] = useState([
-    {
-      id: 0,
-      data: '2025-08-15',
-      title: 'Lorem ipsum dolor sit amet',
-      description: 'Lorem ipsum dolor sit amet consectetur. Diam vestibulum pharetra nisi egestas morbi ipsum.',
-      image: img1
-    },
-    {
-      id: 1,
-      data: '2025-07-10',
-      title: 'Lorem ipsum dolor sit amet',
-      description: 'Lorem ipsum dolor sit amet consectetur. Diam vestibulum pharetra nisi egestas morbi ipsum.',
-      image: img2
-    },
-    {
-      id: 2,
-      data: '2025-01-28',
-      title: 'Lorem ipsum dolor sit amet',
-      description: 'Lorem ipsum dolor sit amet consectetur. Diam vestibulum pharetra nisi egestas morbi ipsum.',
-      image: img3
-    },
-  ]);
+export default function Blog({ blog }) {
+  const blogList = (blog ?? []).map((item) => ({
+    id: item.id,
+    data: item.created_at,
+    title: item.title,
+    description: item.descricao,
+    image: item.imagem?.permalink ?? null,
+    link: item.link ?? null,
+  }));
 
   return (
     <Box className="blog_home" component="section">
@@ -47,16 +33,19 @@ export default function Blog() {
         >
           {blogList.map((item) => (
             <SwiperSlide key={item.id} className="slide">
-              <Item item={item} />
+              <BlogItem item={item} />
             </SwiperSlide>
           ))}
         </Swiper>
+        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <Button1 className="link_blog" component={Link} href="/blog">Ver todas postagens</Button1>
+        </Box>
       </Box>
     </Box>
   )
 }
 
-function Item({ item }) {
+export function BlogItem({ item }) {
   // Função para formatar a data
   function formatDate(dateString) {
     const meses = [
@@ -69,11 +58,11 @@ function Item({ item }) {
 
   return (
     <Box className="item">
-      <Box className="image"><img src={item.image} alt={item.title} /></Box>
+      <Button component={'a'} target="_blank" href={item.link} className="image"><img src={item.image} alt={item.title} /></Button>
       <p className="data">{formatDate(item.data)}</p>
       <h3 className="title">{item.title}</h3>
       <p className="description">{item.description}</p>
-      <Button component={Link} href={`/blog/${item.id}`}>Leia mais</Button>
+      <Button component={'a'} target="_blank" href={item.link}>Leia mais</Button>
     </Box>
   )
 }

@@ -1,7 +1,8 @@
 name: 'Bruno Gatinho'
 roles:
-  - empreendimentos
-groups:
-  - editores
+  - administrador
 id: f274db87-3bc5-4bbd-b1f8-03e503047259
 password_hash: $2y$12$Lcq3FERY2NTYCs0VGTBjbOX2p39kD51gXTcZ7nqkfM9XNarczT9qq
+preferences:
+  locale: pt_BR
+  favorites: {  }

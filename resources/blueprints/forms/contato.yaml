@@ -12,12 +12,16 @@ tabs:
               display: Assunto
               localizable: false
               listable: true
+              validate:
+                - required
           -
             handle: message
             field:
               type: text
               display: Mensagem
               localizable: false
+              validate:
+                - required
       -
         display: 'Dados do lead'
         fields:
@@ -29,6 +33,8 @@ tabs:
               localizable: false
               width: 50
               listable: true
+              validate:
+                - required
           -
             handle: last_name
             field:
@@ -52,6 +58,8 @@ tabs:
               localizable: false
               width: 50
               listable: true
+              validate:
+                - required
           -
             handle: mobile
             field:

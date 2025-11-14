@@ -15,9 +15,9 @@ class StoreContactRequest extends FormRequest
       'email'      => ['required','email','max:190'],
       'mobile'     => ['required','string','max:30'],
       'phone'      => ['nullable','string','max:30'],
-      'cep'        => ['required','string','max:12'],
-      'state'      => ['required','string','size:2'],
-      'city'       => ['required','string','max:120'],
+      'cep'        => ['nullable','string','max:12'],
+      'state'      => ['nullable','string','size:2'],
+      'city'       => ['nullable','string','max:120'],
       'subject'    => ['required','string','max:190'],
       'message'    => ['required','string','max:5000'],
     ];

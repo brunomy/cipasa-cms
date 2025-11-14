@@ -9,6 +9,8 @@ import {
   MenuItem,
   Button,
   Typography,
+  Snackbar,
+  Alert
 } from "@mui/material";
 import { router } from '@inertiajs/react';
 import { route } from 'ziggy-js';
@@ -46,6 +48,15 @@ function FormComponent() {
   const [sending, setSending] = useState(false);
   const [errors, setErrors] = useState({});
   const [ok, setOk] = useState(false);
+
+  const [toastOpen, setToastOpen] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastSeverity, setToastSeverity] = useState('error');
+
+  const handleToastClose = (_, reason) => {
+    if (reason === 'clickaway') return;
+    setToastOpen(false);
+  };
 
   const estados = [
     "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT",
@@ -117,9 +128,35 @@ function FormComponent() {
   // Envio do formulário
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (sending) return;
+
     setSending(true);
     setErrors({});
     setOk(false);
+
+    // validação básica
+    const nome     = form.nome.trim();
+    const cel      = form.celular.replace(/\D/g, '');
+    const email    = form.email.trim();
+    const assunto  = form.assunto.trim();
+    const mensagem = form.mensagem.trim();
+
+    const erros = [];
+
+    if (!nome) erros.push('Preencha o nome.');
+    if (!cel || cel.length < 10) erros.push('Informe um celular válido.');
+    if (!email) erros.push('Preencha o e-mail.');
+    if (!assunto) erros.push('Selecione um assunto.');
+    if (!mensagem) erros.push('Preencha a mensagem.');
+
+    if (erros.length) {
+      setToastMessage(erros.join('\n'));
+      setToastSeverity('error');
+      setToastOpen(true);
+      setSending(false);
+      return;
+    }
+
     router.post(route('contato.leads.enviar'), {
       first_name: form.nome,
       last_name: form.sobrenome,
@@ -134,9 +171,27 @@ function FormComponent() {
     }, {
       onSuccess: () => {
         setOk(true);
+        setToastMessage('Mensagem enviada com sucesso.');
+        setToastSeverity('success');
+        setToastOpen(true);
+        setForm({
+          nome: "",
+          sobrenome: "",
+          celular: "",
+          telefone: "",
+          email: "",
+          cep: "",
+          estado: "",
+          cidade: "",
+          assunto: "",
+          mensagem: "",
+        });
       },
       onError: (err) => {
         setErrors(err);
+        setToastMessage('Não foi possível enviar a mensagem. Verifique os campos e tente novamente.');
+        setToastSeverity('error');
+        setToastOpen(true);
       },
       onFinish: () => {
         setSending(false);
@@ -146,7 +201,7 @@ function FormComponent() {
 
   return (
    <Box className="form" component="form" onSubmit={handleSubmit} noValidate>
-      <Box>
+      <Box className="form_fields">
         {/* Nome e Sobrenome */}
         <Box className="full_mobile">
           <TextField
@@ -280,15 +335,38 @@ function FormComponent() {
 
         {/* Botão Enviar */}
         <Box className="full">
-          <Button1 type="submit" disabled={sending}>{sending ? 'Enviando...' : 'Enviar'}</Button1>
-          {ok && <Typography sx={{mt:1}}>Mensagem enviada com sucesso.</Typography>}
-          {errors && Object.values(errors).length > 0 && (
-            <Typography color="error" sx={{mt:1}}>
-              Verifique os campos destacados.
-            </Typography>
-          )}
+          <Button1 className="submit_button" type="submit" disabled={sending}>
+            {sending ? 'Enviando...' : 'Enviar'}
+          </Button1>
         </Box>
       </Box>
+      <Snackbar
+        open={toastOpen}
+        autoHideDuration={4000}
+        onClose={handleToastClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+        sx={{
+          '& .MuiPaper-root': {
+            maxWidth: 360,
+            width: '100%',
+            borderRadius: 2,
+          },
+        }}
+      >
+        <Alert
+          onClose={handleToastClose}
+          severity={toastSeverity}
+          variant="filled"
+          sx={{
+            width: '100%',
+            boxShadow: 3,
+            whiteSpace: 'pre-line',
+            textAlign: 'left',
+          }}
+        >
+          {toastMessage}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }

@@ -1,5 +1,3 @@
-import HeaderDescription from '../../../../components/HeaderDescription/HeaderDescription';
-import HeaderPadding from '../../../../components/HeaderPadding/HeaderPadding';
 import { Box } from '@mui/material';
 
 import HeaderBanner from '../../../../components/HeaderBanner/HeaderBanner';

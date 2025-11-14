@@ -173,6 +173,7 @@ class TenhoUmaAreaController extends Controller
 
     public function show(string $uuid)
     {
+        $site = Site::current()->handle();
         $rec = HaveLandSubmission::where('uuid', $uuid)->firstOrFail();
 
         $coords = $rec->coordinates ?? [];
@@ -183,12 +184,22 @@ class TenhoUmaAreaController extends Controller
             $center = [(min($lat)+max($lat))/2, (min($lng)+max($lng))/2];
         }
 
-        return Inertia::render('MapArea/Show', [
-            'uuid'   => $rec->uuid,
-            'coords' => $coords,
-            'area'   => $rec->area_hectares,
-            'center' => $center,
-            'created'=> $rec->created_at?->toIso8601String(),
+        $contato = Entry::findByUri('/contato', $site) ?: Entry::query()
+            ->whereCollection('pages')
+            ->where('site', $site)
+            ->where('blueprint', 'contato')
+            ->first();
+
+        return Inertia::render('HaveLand/ShowMap', [
+            'name'    => $rec->name,
+            'phone'   => $rec->mobile,
+            'email'   => $rec->email,
+            'cep'   => $rec->cep,
+            'coords'  => $coords,
+            'area'    => $rec->area_hectares,
+            'center'  => $center,
+            'created' => $rec->created_at?->toIso8601String(),
+            'contato' => $contato?->toAugmentedArray(),
         ]);
     }
 }

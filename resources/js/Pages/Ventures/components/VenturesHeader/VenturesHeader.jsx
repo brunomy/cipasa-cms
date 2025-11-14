@@ -75,7 +75,7 @@ function Filter({ states, currentFilters = {} }) {
       preserveScroll: true,
       preserveState: true,
       replace: true,
-      only: ['ventures', 'currentFilters'],
+      only: ['dados', 'currentFilters'],
     });
   }, [selectedOrder, filter]);
 

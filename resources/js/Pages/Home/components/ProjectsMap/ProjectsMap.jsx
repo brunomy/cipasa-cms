@@ -1,11 +1,31 @@
 import IconLogo from '../../../../components/IconLogo/IconLogo';
 import './ProjectsMap.scss';
 import { Box, Button } from '@mui/material';
+import { useState, useEffect } from 'react';
 import mapa from './icons/map.svg'
 import logo from './icons/logo_bg.svg'
 import { Link } from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
+import { router } from '@inertiajs/react';
 
-export default function ProjectsMap() {
+export default function ProjectsMap({ states }) {
+  const [selectedState, setSelectedState] = useState('');
+
+  useEffect(() => {
+    if (selectedState) {
+      router.get('/empreendimentos', {
+        order: 'recentes',
+        state: selectedState,
+        status: '',
+        type: '',
+      }, {
+        preserveScroll: true,
+        preserveState: true,
+        replace: true,
+      });
+    }
+  }, [selectedState]);
+
   return (
     <Box component="section" className="projects_map">
       <img className="logo_bg" src={logo} alt="" />
@@ -21,57 +41,38 @@ export default function ProjectsMap() {
             Clique em um estado para explorar nossos projetos próximos a você
           </p>
           <Box className="selectors">
-            <select name="estado" id="">
+            <select name="estado" id="" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
               <option value="">Estados</option>
-              <option value="GO">GO</option>
-            </select>
-
-            <select name="cidade" id="">
-              <option value="">Cidades</option>
-              <option value="Goiânia">Goiânia</option>
+              { states?.map((state) => (
+                <option key={state.value} value={state.value}>{state.label}</option>
+              ))}
             </select>
           </Box>
         </Box>
         <Box className="right">
-          <BrazilMap />
+          <BrazilMap states={states} />
         </Box>
       </Box>
     </Box>
   );
 }
 
-function BrazilMap() {
+function BrazilMap({ states }) {
   return (
     <Box className="brazil_map">
       <img src={mapa} alt="Mapa do Brasil" />
       <Box className="pin_content">
-        <Button className="RS" component={Link} href="/"><IconLogo /></Button>
-        <Button className="SC" component={Link} href="/"><IconLogo /></Button>
-        <Button className="PR" component={Link} href="/"><IconLogo /></Button>
-        <Button className="SP" component={Link} href="/"><IconLogo /></Button>
-        <Button className="RJ" component={Link} href="/"><IconLogo /></Button>
-        <Button className="ES" component={Link} href="/"><IconLogo /></Button>
-        <Button className="MG" component={Link} href="/"><IconLogo /></Button>
-        <Button className="MS" component={Link} href="/"><IconLogo /></Button>
-        <Button className="GO" component={Link} href="/"><IconLogo /></Button>
-        <Button className="DF" component={Link} href="/"><IconLogo /></Button>
-        <Button className="MT" component={Link} href="/"><IconLogo /></Button>
-        <Button className="BA" component={Link} href="/"><IconLogo /></Button>
-        <Button className="RO" component={Link} href="/"><IconLogo /></Button>
-        <Button className="AC" component={Link} href="/"><IconLogo /></Button>
-        <Button className="AM" component={Link} href="/"><IconLogo /></Button>
-        <Button className="RR" component={Link} href="/"><IconLogo /></Button>
-        <Button className="PA" component={Link} href="/"><IconLogo /></Button>
-        <Button className="AP" component={Link} href="/"><IconLogo /></Button>
-        <Button className="TO" component={Link} href="/"><IconLogo /></Button>
-        <Button className="MA" component={Link} href="/"><IconLogo /></Button>
-        <Button className="PI" component={Link} href="/"><IconLogo /></Button>
-        <Button className="CE" component={Link} href="/"><IconLogo /></Button>
-        <Button className="RN" component={Link} href="/"><IconLogo /></Button>
-        <Button className="PB" component={Link} href="/"><IconLogo /></Button>
-        <Button className="PE" component={Link} href="/"><IconLogo /></Button>
-        <Button className="AL" component={Link} href="/"><IconLogo /></Button>
-        <Button className="SE" component={Link} href="/"><IconLogo /></Button>
+        { states?.map((state) => (
+          <Button 
+            key={state.value} 
+            className={state.value} 
+            component={Link} 
+            href={`http://127.0.0.1:8000/empreendimentos?order=recentes&state=${state.value}&status=&type=`}
+          >
+            <IconLogo />
+          </Button>
+        ))
+        }
       </Box>
     </Box>
   );

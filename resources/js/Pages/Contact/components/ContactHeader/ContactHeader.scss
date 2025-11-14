@@ -37,6 +37,8 @@
             // }
           }
           .text_content{
+            width: 136px;
+
             h4{
               font-family: fonts.$Montserrat !important;
               color: #005a45;
@@ -96,7 +98,7 @@
           border: 2px solid #005a45;
           color: #005a45;
         }
-        .text_content{
+        .text_content{          
           h4{
             font-family: fonts.$Montserrat !important;
             color: #005a45;

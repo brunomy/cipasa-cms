@@ -1,0 +1,49 @@
+title: Blog
+tabs:
+  main:
+    display: Principal
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              localizable: false
+              validate:
+                - required
+              listable: true
+          -
+            handle: descricao
+            field:
+              type: textarea
+              display: Descrição
+              localizable: false
+          -
+            handle: link
+            field:
+              type: text
+              display: Link
+              localizable: false
+          -
+            handle: imagem
+            field:
+              max_files: 1
+              min_files: 1
+              container: assets
+              type: assets
+              display: Imagem
+              instructions: 'Tamanho: 380x250px'
+              localizable: false
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'

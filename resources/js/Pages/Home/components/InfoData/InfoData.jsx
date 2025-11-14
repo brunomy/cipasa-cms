@@ -5,6 +5,7 @@ import icon1 from './icons/icon1.svg';
 import icon2 from './icons/icon2.svg';
 import icon3 from './icons/icon3.svg';
 import Button1 from '../../../../components/Buttons/Button1/Button1';
+import { Link } from '@inertiajs/react';
 
 export default function InfoData({ info }) {
   const targetValues = { dado1: info.info_1, dado2: info.info_2, dado3: info.info_3 };
@@ -113,7 +114,7 @@ export default function InfoData({ info }) {
           </h2>
           <Box>
             <p>{info.text}</p>
-            <Button1>Conheça a Cipasa</Button1>
+            <Button1 component={Link} href="/sobre">Conheça a Cipasa</Button1>
           </Box>
         </Box>
       </Box>
