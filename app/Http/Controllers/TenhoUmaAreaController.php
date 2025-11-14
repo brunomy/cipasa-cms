@@ -8,7 +8,7 @@ use Statamic\Facades\Site;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use Statamic\Facades\Form as StatamicForm;
+use Statamic\Facades\Form;
 use Statamic\Eloquent\Forms\FormModel;
 use App\Http\Requests\StoreHaveLandRequest;
 use App\Mail\HaveLandSubmitted;
@@ -49,6 +49,7 @@ class TenhoUmaAreaController extends Controller
             is_array($p) && isset($p['lat'], $p['lng']) && is_numeric($p['lat']) && is_numeric($p['lng'])
         ));
 
+        // 1) Cria o registro na tabela própria
         $rec = HaveLandSubmission::create([
             'name'          => (string) $request->string('nome'),
             'mobile'        => (string) $request->string('celular'),
@@ -65,15 +66,20 @@ class TenhoUmaAreaController extends Controller
             ],
         ]);
 
+        // 2) Link para o mapa (vai para o Statamic e para o e-mail)
+        $mapLink = route('map.area.show', $rec->uuid);
+
         $assetRefs   = [];
         $attachments = [];
 
         if ($request->hasFile('documentos')) {
-            $container = \Statamic\Facades\AssetContainer::find('documentos'); // pode ser null
+            $container = AssetContainer::find('documentos');
             $folder    = "tenho_uma_area/{$rec->uuid}";
 
             foreach ($request->file('documentos', []) as $file) {
-                if (!$file || !$file->isValid()) continue;
+                if (!$file || !$file->isValid()) {
+                    continue;
+                }
 
                 if ($container) {
                     $path  = trim($folder . '/' . $file->hashName(), '/');
@@ -84,19 +90,26 @@ class TenhoUmaAreaController extends Controller
 
                     $absPath = method_exists($asset, 'resolvedPath') && $asset->resolvedPath()
                         ? $asset->resolvedPath()
-                        : \Illuminate\Support\Facades\Storage::disk($container->diskHandle())->path($asset->path());
+                        : Storage::disk($container->diskHandle())->path($asset->path());
 
-                    $attachments[] = $absPath;
+                    if (is_string($absPath) && is_file($absPath)) {
+                        $attachments[] = $absPath;
+                    }
                 } else {
-                    $stored = $file->store($folder, 'public');
-                    $assetRefs[]   = $stored;                                   // não é ref de container
-                    $attachments[] = \Illuminate\Support\Facades\Storage::disk('public')->path($stored);
+                    $stored        = $file->store($folder, 'public');
+                    $fullPath      = Storage::disk('public')->path($stored);
+
+                    $assetRefs[]   = $stored;
+                    if (is_string($fullPath) && is_file($fullPath)) {
+                        $attachments[] = $fullPath;
+                    }
                 }
             }
         }
 
         $rec->update(['meta' => array_replace($rec->meta ?? [], ['files' => $assetRefs])]);
 
+        // 3) Payload que vai para o FORM do Statamic (campos do blueprint)
         $payload = [
             'nome'          => $rec->name,
             'celular'       => $rec->mobile,
@@ -107,25 +120,29 @@ class TenhoUmaAreaController extends Controller
             'informacoes'   => data_get($rec->meta, 'observacoes'),
             'documentos'    => $assetRefs,
             'uuid'          => $rec->uuid,
+            'map_url'       => $mapLink,
             'consent_ip'    => data_get($rec->meta, 'consent_ip'),
             'user_agent'    => data_get($rec->meta, 'user_agent'),
             'consent_at'    => data_get($rec->meta, 'consent_at'),
         ];
 
-        if ($form = \Statamic\Facades\Form::find('tenho_uma_area')) {
+        // 4) Salva submission no formulário Statamic + envia e-mail
+        if ($form = Form::find('tenho_uma_area')) {
             $form->makeSubmission()->data($payload)->save();
 
             $emails = collect();
-            if ($record = \Statamic\Eloquent\Forms\FormModel::where('handle', $form->handle())->first()) {
+
+            if ($record = FormModel::where('handle', $form->handle())->first()) {
                 $settings = $record->getAttribute('settings');
-                if (is_string($settings)) $settings = json_decode($settings, true) ?? [];
+                if (is_string($settings)) {
+                    $settings = json_decode($settings, true) ?? [];
+                }
                 $emails = collect(data_get($settings, 'email', []));
             }
+
             if ($emails->isEmpty() && method_exists($form, 'toArray')) {
                 $emails = collect(data_get($form->toArray(), 'email', []));
             }
-
-            $mapLink = route('map.area.show', $rec->uuid);
 
             $emails->each(function ($cfg) use ($rec, $payload, $attachments, $mapLink) {
                 $split = fn ($v) => collect(Arr::wrap($v))
@@ -144,7 +161,7 @@ class TenhoUmaAreaController extends Controller
                 $subject = data_get($cfg, 'subject', 'Nova proposta de área');
                 $mailer  = data_get($cfg, 'mailer');
 
-                $mailable = (new \App\Mail\HaveLandSubmitted(
+                $mailable = (new HaveLandSubmitted(
                     $rec,
                     array_merge($payload, ['map_link' => $mapLink]),
                     $mapLink
@@ -153,15 +170,35 @@ class TenhoUmaAreaController extends Controller
                 if ($from)  $mailable->from($from);
                 if ($reply) $mailable->replyTo($reply);
 
+                $maxAttachments = 8;
+                $maxFileSize    = 10 * 1024 * 1024;
+
+                $used = 0;
+
                 foreach ($attachments as $absPath) {
-                    if (is_string($absPath) && is_file($absPath)) {
-                        $mailable->attach($absPath);
+                    if (!is_string($absPath) || !is_file($absPath)) {
+                        continue;
+                    }
+
+                    $size = @filesize($absPath);
+                    if ($size !== false && $size > $maxFileSize) {
+                        continue;
+                    }
+
+                    $mailable->attach($absPath);
+                    $used++;
+
+                    if ($used >= $maxAttachments) {
+                        break;
                     }
                 }
 
-                $pending = ($mailer ? \Illuminate\Support\Facades\Mail::mailer($mailer) : \Illuminate\Support\Facades\Mail::mailer())->to($to);
+                $pending = ($mailer ? Mail::mailer($mailer) : Mail::mailer())
+                    ->to($to);
+
                 if (!empty($cc))  $pending->cc($cc);
                 if (!empty($bcc)) $pending->bcc($bcc);
+
                 $pending->send($mailable);
             });
         }
@@ -194,7 +231,7 @@ class TenhoUmaAreaController extends Controller
             'name'    => $rec->name,
             'phone'   => $rec->mobile,
             'email'   => $rec->email,
-            'cep'   => $rec->cep,
+            'cep'     => $rec->cep,
             'coords'  => $coords,
             'area'    => $rec->area_hectares,
             'center'  => $center,

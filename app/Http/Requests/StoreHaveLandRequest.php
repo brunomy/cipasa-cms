@@ -18,7 +18,8 @@ class StoreHaveLandRequest extends FormRequest
             'coordenadas'    => ['required','string'],
             'tamanho_area'   => ['nullable','numeric'],
             'informacoes'    => ['nullable','string','max:5000'],
-            'documentos.*'   => ['nullable','file','max:10240'],
+            'documentos'   => ['nullable', 'array'],
+            'documentos.*' => ['file', 'max:10240'],
         ];
     }
 }

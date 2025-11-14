@@ -36,10 +36,16 @@ tabs:
               display: Cep
               localizable: false
           -
+            handle: map_url
+            field:
+              display: Link do mapa
+              type: text
+              localizable: false
+          -
             handle: coordenadas
             field:
               type: text
-              display: coordenadas
+              display: Coordenadas
               localizable: false
           -
             handle: tamanho_area
