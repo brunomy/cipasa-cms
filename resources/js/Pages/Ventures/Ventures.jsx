@@ -7,7 +7,7 @@ import Blog from '../Home/components/Blog/Blog';
 import VenturesHeader from './components/VenturesHeader/VenturesHeader';
 import VenturesList from './components/VenturesList/VenturesList';
 
-export default function Ventures({ dados, construtoras, states, blog, contato, currentFilters }) {
+function Ventures({ dados, construtoras, states, blog, currentFilters }) {
   const [data, setData] = useState({
     ventures: dados.filter(v => v.published === true) ?? [],
     construtoras: construtoras ?? [],
@@ -21,7 +21,7 @@ export default function Ventures({ dados, construtoras, states, blog, contato, c
   }, [dados, construtoras]);
 
   return (
-    <AppLayout contato={contato}>
+    <>
       <Head title="Cipasa - Empreendimentos" />
       <Box className="container">
         <VenturesHeader
@@ -36,6 +36,10 @@ export default function Ventures({ dados, construtoras, states, blog, contato, c
         />
         <Blog blog={blog} />
       </Box>
-    </AppLayout>
+    </>
   );
 }
+
+Ventures.layout = (page) => <AppLayout>{page}</AppLayout>;
+
+export default Ventures;

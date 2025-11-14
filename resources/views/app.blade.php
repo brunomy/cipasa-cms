@@ -11,7 +11,7 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', '{{ config('services.ga4.measurement_id') }}');
+        gtag('config', '{{ config('services.ga4.measurement_id') }}', { send_page_view: false });
     </script>
     @endif
 

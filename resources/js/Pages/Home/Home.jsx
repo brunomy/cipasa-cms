@@ -10,9 +10,9 @@ import Projects from './components/Projects/Projects';
 import ProjectsMap from './components/ProjectsMap/ProjectsMap';
 import Ventures from './components/Ventures/Ventures';
 
-export default function Home({ banners, info, list_1, list_2, states, construtoras, contato, blog }) {
+function Home({ banners, info, list_1, list_2, states, construtoras, blog }) {
   return (
-    <AppLayout contato={contato}>
+    <>
       <Head title="Cipasa Urbanismo" />
       <Box className="container">
         <BannerCarousel banners={banners} />
@@ -24,6 +24,10 @@ export default function Home({ banners, info, list_1, list_2, states, construtor
         <ContactBanner />
         <Blog blog={blog} />
       </Box>
-    </AppLayout>
+    </>
   );
 }
+
+Home.layout = (page) => <AppLayout>{page}</AppLayout>;
+
+export default Home;

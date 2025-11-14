@@ -13,7 +13,7 @@ import HaveLandHeader from './components/HaveLandHeader/HaveLandHeader';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet-draw/dist/leaflet.draw.css';
 
-export default function ShowMap({
+function ShowMap({
   name,
   phone,
   email,
@@ -22,7 +22,6 @@ export default function ShowMap({
   center,
   area,
   created,
-  contato,
   canEdit = false,
 }) {
   const initialPolygon = useMemo(
@@ -67,7 +66,7 @@ export default function ShowMap({
   };
 
   return (
-    <AppLayout contato={contato}>
+    <>
       <Head title="Cipasa - Área cadastrada" />
       <Box className="map" component="section">
         <Box className="container">
@@ -123,7 +122,7 @@ export default function ShowMap({
           </Box>
         </Box>
       </Box>
-    </AppLayout>
+    </>
   );
 }
 
@@ -149,3 +148,7 @@ function DataComponent({ label, value }) {
     </Box>
   );
 }
+
+ShowMap.layout = (page) => <AppLayout>{page}</AppLayout>;
+
+export default ShowMap;

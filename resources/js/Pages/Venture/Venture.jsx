@@ -11,9 +11,9 @@ import VentureStatus from './components/VentureStatus/VentureStatus';
 import VentureContact from './components/VentureContact/VentureContact';
 import VentureMap from './components/VentureMap/VentureMap';
 
-export default function Venture({ dados, related, categoriesDif, contato }) {
+function Venture({ dados, related, categoriesDif }) {
   return (
-    <AppLayout contato={contato}>
+    <>
       <Head title={`Cipasa - ${dados.title}`} />
       <Box className="container">
         <VentureHeader venture={dados} />
@@ -24,6 +24,10 @@ export default function Venture({ dados, related, categoriesDif, contato }) {
         <VentureMap position={[dados.latitude, dados.longitude]} />
         <VentureContact venture={dados} related={related} />
       </Box>
-    </AppLayout>
+    </>
   );
 }
+
+Venture.layout = (page) => <AppLayout>{page}</AppLayout>;
+
+export default Venture;

@@ -1,6 +1,7 @@
-import { createInertiaApp } from '@inertiajs/react';
-import { createRoot } from 'react-dom/client';
+// resources/js/main.jsx
 import React from 'react';
+import { createInertiaApp, router } from '@inertiajs/react';
+import { createRoot } from 'react-dom/client';
 
 import "@fontsource/work-sans/400.css";
 import "@fontsource/work-sans/500.css";
@@ -21,7 +22,17 @@ import 'swiper/css/pagination';
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 
-import './index.css'
+import './index.css';
+
+router.on('navigate', () => {
+  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+    window.gtag('event', 'page_view', {
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: window.location.pathname,
+    });
+  }
+});
 
 createInertiaApp({
   resolve: name => {

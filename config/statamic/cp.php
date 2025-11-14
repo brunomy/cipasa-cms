@@ -54,40 +54,33 @@ return [
 
 
     'widgets' => [
-        // Visitantes e page views (linha ou área)
         [
             'type'    => 'analytics',
-            'group'   => 'totalVisitorsAndPageViews', // ou 'total_visitors_and_page_views'
+            'group'   => 'totalVisitorsAndPageViews',
             'width'   => 100,
             'display' => 'line', // ou 'bar', 'pie', 'doughnut', 'table'
         ],
-
-        // Principais origens (referrers)
-        // [
-        //     'type'    => 'analytics',
-        //     'group'   => 'topReferrers', // ou 'top_referrers'
-        //     'width'   => 50,
-        //     'display' => 'table',
-        // ],
         [
             'type'    => 'analytics',
             'group'   => 'mostVisitedPages',
             'width'   => 50,
-            'display' => 'table',
+            'display' => 'doughnut',
         ],
-
-        // Navegadores
         [
             'type'    => 'analytics',
-            'group'   => 'topBrowsers', // ou 'top_browsers'
+            'group'   => 'topReferrers',
+            'width'   => 50,
+            'display' => 'table',
+        ],
+        [
+            'type'    => 'analytics',
+            'group'   => 'topBrowsers',
             'width'   => 50,
             'display' => 'bar',
         ],
-
-        // Países
         [
             'type'    => 'analytics',
-            'group'   => 'topCountries', // ou 'top_countries'
+            'group'   => 'topCountries',
             'width'   => 50,
             'display' => 'table',
         ],

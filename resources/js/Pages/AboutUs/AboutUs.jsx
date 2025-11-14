@@ -7,9 +7,9 @@ import MissionVisionValues from './components/MissionVisionValues/MissionVisionV
 import AboutVentures from './components/AboutVentures/AboutVentures';
 import Sustainability from './components/Sustainability/Sustainability';
 
-export default function AboutUs({ dados, contato }) {
+function AboutUs({ dados }) {
   return (
-    <AppLayout contato={contato}>
+    <>
       <Head title="Cipasa - Nossa história" />
       <Box className="container">
         <AboutHeader sobre={dados} />
@@ -18,6 +18,10 @@ export default function AboutUs({ dados, contato }) {
         <AboutVentures sobre={dados} />
         <Sustainability sobre={dados} />
       </Box>
-    </AppLayout>
+    </>
   );
 }
+
+AboutUs.layout = (page) => <AppLayout>{page}</AppLayout>;
+
+export default AboutUs;

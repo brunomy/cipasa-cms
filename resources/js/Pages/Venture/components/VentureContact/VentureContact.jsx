@@ -150,6 +150,7 @@ function ContactForm({ venture }) {
           <input
             type="text"
             placeholder="NOME"
+            name="name"
             value={name}
             onChange={e => setName(e.target.value)}
           />
@@ -157,6 +158,7 @@ function ContactForm({ venture }) {
           <input
             type="text"
             placeholder="TELEFONE"
+            name="celular"
             value={phone}
             onChange={handlePhoneChange}
             maxLength={15}
@@ -165,6 +167,7 @@ function ContactForm({ venture }) {
           <input
             type="email"
             placeholder="EMAIL"
+            name="email"
             value={email}
             onChange={e => setEmail(e.target.value)}
           />
@@ -172,6 +175,7 @@ function ContactForm({ venture }) {
           <input
             type="text"
             placeholder="SEU CEP"
+            name="cep"
             value={cep}
             onChange={handleCepChange}
             maxLength={9}

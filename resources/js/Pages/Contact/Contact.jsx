@@ -4,9 +4,9 @@ import ContactHeader from './components/ContactHeader/ContactHeader';
 import ContactForm from './components/ContactForm/ContactForm';
 import { Head } from '@inertiajs/react';
 
-export default function Contact({ contato }) {
+function Contact({ contato }) {
   return (
-    <AppLayout contato={contato}>
+    <>
       <Head title="Cipasa - Contato" />
       <Box className="contact">
         <Box className="container">
@@ -14,6 +14,10 @@ export default function Contact({ contato }) {
           <ContactForm contato={contato} />
         </Box>
       </Box>
-    </AppLayout>
+    </>
   )
 }
+
+Contact.layout = (page) => <AppLayout>{page}</AppLayout>;
+
+export default Contact;

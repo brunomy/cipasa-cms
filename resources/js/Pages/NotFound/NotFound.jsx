@@ -3,9 +3,9 @@ import { Box } from '@mui/material';
 import AppLayout from '../../AppLayout';
 import { Head } from '@inertiajs/react';
 
-export default function NotFound({ contato }) {
+function NotFound() {
   return (
-    <AppLayout contato={contato}>
+    <>
       <Head title="Página não encontrada" />
       <Box className="not_found">
         <Box className="container">
@@ -13,6 +13,10 @@ export default function NotFound({ contato }) {
           <p>A página que você está procurando não existe ou foi movida.</p>
         </Box>
       </Box>
-    </AppLayout>
+    </>
   )
 }
+
+NotFound.layout = (page) => <AppLayout>{page}</AppLayout>;
+
+export default NotFound;

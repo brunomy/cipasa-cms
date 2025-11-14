@@ -5,7 +5,7 @@ import { usePage, Head } from '@inertiajs/react';
 import BlogHeader from './components/BlogHeader/BlogHeader';
 import BlogList from './components/BlogList/BlogList';
 
-export default function Blog({ dados, contato }) {
+function Blog({ dados }) {
   const blogList = (dados ?? []).map((item) => ({
     id: item.id,
     data: item.created_at,
@@ -16,12 +16,16 @@ export default function Blog({ dados, contato }) {
   }));
 
   return (
-    <AppLayout contato={contato}>
+    <>
       <Head title="Cipasa - Blog" />
       <Box className="container">
         <BlogHeader />
         <BlogList dados={blogList} />
       </Box>
-    </AppLayout>
+    </>
   );
 }
+
+Blog.layout = (page) => <AppLayout>{page}</AppLayout>;
+
+export default Blog;
