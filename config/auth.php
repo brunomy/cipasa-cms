@@ -61,7 +61,8 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'statamic',
+            'driver' => 'eloquent',
+            'model'  => App\Models\User::class,
         ],
 
         // 'users' => [
@@ -97,14 +98,14 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],
 
         'activations' => [
             'provider' => 'users',
-            'table' => env('AUTH_ACTIVATION_TOKEN_TABLE', 'password_activation_tokens'),
+            'table' => 'password_activation_tokens',
             'expire' => 4320,
             'throttle' => 60,
         ],

@@ -15,14 +15,14 @@ return [
     |
     */
 
-    'repository' => 'file',
+    'repository' => 'eloquent',
 
     'repositories' => [
 
         'file' => [
             'driver' => 'file',
             'paths' => [
-                'roles' => resource_path('users/roles.yaml'),
+                'roles'  => resource_path('users/roles.yaml'),
                 'groups' => resource_path('users/groups.yaml'),
             ],
         ],
@@ -32,6 +32,7 @@ return [
         ],
 
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -113,7 +114,7 @@ return [
     */
 
     'passwords' => [
-        'resets' => 'users',
+        'resets'      => 'users',
         'activations' => 'activations',
     ],
 
@@ -129,10 +130,10 @@ return [
     'database' => config('database.default'),
 
     'tables' => [
-        'users' => 'users',
-        'role_user' => 'role_user',
-        'roles' => false,
+        'users'      => 'users',
+        'role_user'  => 'role_user',
         'group_user' => 'group_user',
+        'roles' => false,
         'groups' => false,
     ],
 
