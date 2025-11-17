@@ -14,15 +14,16 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
   plugins: [
     laravel({
-      input: ['resources/js/app.jsx', 'resources/css/app.css'], // ajuste se necessário
+      input: ['resources/js/main.jsx', 'resources/js/cp.js', 'resources/css/cp.css'],
+      ssr: 'resources/js/ssr.jsx',
       refresh: true,
     }),
     react(),
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'resources/js'),      // import '@/...'
-      '@css': path.resolve(__dirname, 'resources/css'),  // import '@css/...'
+      '@': path.resolve(__dirname, 'resources/js'),
+      '@css': path.resolve(__dirname, 'resources/css'),
     },
   },
 });

@@ -1,5 +1,5 @@
 export function smoothScrollTo(targetY, duration = 500) {
-  const startY = window.scrollY;
+  const startY = window?.scrollY;
   const distance = targetY - startY;
   const startTime = performance.now();
 
@@ -10,7 +10,7 @@ export function smoothScrollTo(targetY, duration = 500) {
       ? 2 * progress * progress
       : -1 + (4 - 2 * progress) * progress; // easeInOut
 
-    window.scrollTo(0, startY + distance * ease);
+    window?.scrollTo(0, startY + distance * ease);
 
     if (elapsed < duration) {
       requestAnimationFrame(animateScroll);

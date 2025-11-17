@@ -47,9 +47,9 @@ export default function Projects({ list }) {
 }
 
 
-function Item({ item, key }) {
+function Item({ item }) {
   return (
-    <Button className="item" componenr="a" key={key} draggable={false}>
+    <Button className="item" component="a" draggable={false}>
       <Box className="image">
         <img src={item.banner.permalink} alt="" />
       </Box>

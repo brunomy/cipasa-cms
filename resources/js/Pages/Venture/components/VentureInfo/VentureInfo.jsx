@@ -12,8 +12,7 @@ export default function VentureInfo({ venture }) {
     const el = document.querySelector('.contact_form');
     if (!el) return;
 
-    // se tiver header fixo, pode ajustar com um offset, ex: -80
-    const y = el.getBoundingClientRect().top + window.scrollY - 300;
+    const y = el.getBoundingClientRect().top + window?.scrollY - 300;
 
     smoothScrollTo(y);
   };

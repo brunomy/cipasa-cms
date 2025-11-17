@@ -41,3 +41,9 @@ In order to ensure that the Statamic community is welcoming to all and generally
 [discord]: https://statamic.com/discord
 [contribution]: https://github.com/statamic/cms/blob/master/CONTRIBUTING.md
 [cms-repo]: https://github.com/statamic/cms
+
+
+** Rodar
+yarn build
+php artisan serve
+php artisan inertia:start-ssr

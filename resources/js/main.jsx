@@ -1,7 +1,6 @@
-// resources/js/main.jsx
 import React from 'react';
 import { createInertiaApp, router } from '@inertiajs/react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, hydrateRoot } from 'react-dom/client';
 
 import "@fontsource/work-sans/400.css";
 import "@fontsource/work-sans/500.css";
@@ -41,5 +40,6 @@ createInertiaApp({
   },
   setup({ el, App, props }) {
     createRoot(el).render(<App {...props} />);
+    hydrateRoot(el, <App {...props} />);
   },
 });

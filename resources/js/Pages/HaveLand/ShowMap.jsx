@@ -1,17 +1,13 @@
-import AppLayout from '../../AppLayout';
-import { Box, Typography } from '@mui/material';
-import { useMemo, useRef, useState } from 'react';
-import { Head } from '@inertiajs/react';
+import AppLayout from "../../AppLayout";
+import { Box, Typography } from "@mui/material";
+import { useMemo, useRef, useState, useEffect } from "react";
+import { Head } from "@inertiajs/react";
 
-import { MapContainer, TileLayer, FeatureGroup, Polygon } from 'react-leaflet';
-import { EditControl } from 'react-leaflet-draw';
+import HeaderBanner from "./../../components/HeaderBanner/HeaderBanner";
+import HaveLandHeader from "./components/HaveLandHeader/HaveLandHeader";
 
-import HeaderBanner from './../../components/HeaderBanner/HeaderBanner';
-import HaveLandHeader from './components/HaveLandHeader/HaveLandHeader';
-
-
-import 'leaflet/dist/leaflet.css';
-import 'leaflet-draw/dist/leaflet.draw.css';
+import "leaflet/dist/leaflet.css";
+import "leaflet-draw/dist/leaflet.draw.css";
 
 function ShowMap({
   name,
@@ -25,10 +21,7 @@ function ShowMap({
   canEdit = false,
 }) {
   const initialPolygon = useMemo(
-    () =>
-      Array.isArray(coords)
-        ? coords.map((c) => [c.lat, c.lng])
-        : [],
+    () => (Array.isArray(coords) ? coords.map((c) => [c.lat, c.lng]) : []),
     [coords]
   );
 
@@ -39,9 +32,11 @@ function ShowMap({
 
     if (initialPolygon.length) {
       const lat =
-        initialPolygon.reduce((sum, p) => sum + p[0], 0) / initialPolygon.length;
+        initialPolygon.reduce((sum, p) => sum + p[0], 0) /
+        initialPolygon.length;
       const lng =
-        initialPolygon.reduce((sum, p) => sum + p[1], 0) / initialPolygon.length;
+        initialPolygon.reduce((sum, p) => sum + p[1], 0) /
+        initialPolygon.length;
       return [lat, lng];
     }
 
@@ -54,8 +49,43 @@ function ShowMap({
   const mapRef = useRef(null);
   const featureGroupRef = useRef(null);
 
+  // libs carregadas só no browser
+  const [libsReady, setLibsReady] = useState(false);
+  const libsRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let cancelled = false;
+
+    async function loadLibs() {
+      const [reactLeaflet, reactLeafletDraw] = await Promise.all([
+        import("react-leaflet"),
+        import("react-leaflet-draw"),
+      ]);
+
+      if (cancelled) return;
+
+      libsRef.current = {
+        MapContainer: reactLeaflet.MapContainer,
+        TileLayer: reactLeaflet.TileLayer,
+        FeatureGroup: reactLeaflet.FeatureGroup,
+        Polygon: reactLeaflet.Polygon,
+        EditControl: reactLeafletDraw.EditControl,
+      };
+
+      setLibsReady(true);
+    }
+
+    loadLibs();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const handleCreated = (e) => {
-    if (e.layerType === 'polygon') {
+    if (e.layerType === "polygon") {
       const latlngs = e.layer.getLatLngs()[0] ?? [];
       setPolygon(latlngs.map((ll) => [ll.lat, ll.lng]));
     }
@@ -65,16 +95,13 @@ function ShowMap({
     setPolygon([]);
   };
 
+  const libs = libsRef.current;
+
   return (
     <>
       <Head title="Cipasa - Área cadastrada" />
       <Box className="map" component="section">
         <Box className="container">
-          {/* <HeaderBanner
-            title={<>Área <b>cadastrada</b></>}
-            breadcrumbs={[{ label: 'Home', href: '/' }, { label: 'Área cadastrada' }]}
-            right={<LeadData name={name} phone={phone} email={email} cep={cep} />}
-          /> */}
           <Box className="container have_land_show_map">
             <Box sx={{ my: 3 }}>
               {area && (
@@ -83,41 +110,28 @@ function ShowMap({
                 </Typography>
               )}
 
-              <MapContainer
-                center={initialCenter}
-                zoom={15}
-                whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
-                style={{ height: '500px', width: '100%' }}
-              >
-                <TileLayer
-                  attribution="&copy; Google Maps"
-                  url="https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}"
-                  subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
+              {!libsReady || !libs ? (
+                <div
+                  style={{
+                    height: "500px",
+                    width: "100%",
+                    background: "#eee",
+                  }}
+                >
+                  Carregando mapa…
+                </div>
+              ) : (
+                <LeafletMap
+                  libs={libs}
+                  mapRef={mapRef}
+                  featureGroupRef={featureGroupRef}
+                  initialCenter={initialCenter}
+                  polygon={polygon}
+                  onCreated={handleCreated}
+                  onDeleted={handleDeleted}
+                  canEdit={canEdit}
                 />
-
-                <FeatureGroup ref={featureGroupRef}>
-                  {polygon.length > 0 && <Polygon positions={polygon} />}
-
-                  {canEdit && (
-                    <EditControl
-                      position="topright"
-                      onCreated={handleCreated}
-                      onDeleted={handleDeleted}
-                      edit={{
-                        featureGroup: featureGroupRef.current,
-                      }}
-                      draw={{
-                        rectangle: false,
-                        circle: false,
-                        circlemarker: false,
-                        polyline: false,
-                        marker: false,
-                        polygon: polygon.length ? false : true,
-                      }}
-                    />
-                  )}
-                </FeatureGroup>
-              </MapContainer>
+              )}
             </Box>
           </Box>
         </Box>
@@ -126,23 +140,76 @@ function ShowMap({
   );
 }
 
+function LeafletMap({
+  libs,
+  mapRef,
+  featureGroupRef,
+  initialCenter,
+  polygon,
+  onCreated,
+  onDeleted,
+  canEdit,
+}) {
+  const { MapContainer, TileLayer, FeatureGroup, Polygon, EditControl } = libs;
+
+  return (
+    <MapContainer
+      center={initialCenter}
+      zoom={15}
+      whenCreated={(mapInstance) => (mapRef.current = mapInstance)}
+      style={{ height: "500px", width: "100%" }}
+    >
+      <TileLayer
+        attribution="&copy; Google Maps"
+        url="https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}"
+        subdomains={["mt0", "mt1", "mt2", "mt3"]}
+      />
+
+      <FeatureGroup ref={featureGroupRef}>
+        {polygon.length > 0 && <Polygon positions={polygon} />}
+
+        {canEdit && (
+          <EditControl
+            position="topright"
+            onCreated={onCreated}
+            onDeleted={onDeleted}
+            edit={{
+              featureGroup: featureGroupRef.current,
+            }}
+            draw={{
+              rectangle: false,
+              circle: false,
+              circlemarker: false,
+              polyline: false,
+              marker: false,
+              polygon: polygon.length ? false : true,
+            }}
+          />
+        )}
+      </FeatureGroup>
+    </MapContainer>
+  );
+}
+
 function LeadData({ name, phone, email, cep }) {
   return (
     <Box sx={{ mb: 3 }}>
-      {name && (<DataComponent label="Nome:" value={name} />)}
-      {phone && (<DataComponent label="Telefone:" value={phone} />)}
-      {email && (<DataComponent label="E-mail:" value={email} />)}
-      {cep && (<DataComponent label="CEP:" value={cep} />)}
+      {name && <DataComponent label="Nome:" value={name} />}
+      {phone && <DataComponent label="Telefone:" value={phone} />}
+      {email && <DataComponent label="E-mail:" value={email} />}
+      {cep && <DataComponent label="CEP:" value={cep} />}
     </Box>
   );
 }
 
 function DataComponent({ label, value }) {
   return (
-    <Box sx={{
-      '& h3': { margin: 0, fontSize: '1rem', fontWeight: 600 },
-      '& p': { margin: '0 0 10px !important', fontSize: '.5 rem' },
-    }}>
+    <Box
+      sx={{
+        "& h3": { margin: 0, fontSize: "1rem", fontWeight: 600 },
+        "& p": { margin: "0 0 10px !important", fontSize: ".5 rem" },
+      }}
+    >
       <h3>{label}</h3>
       <p>{value}</p>
     </Box>

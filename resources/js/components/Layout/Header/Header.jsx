@@ -14,14 +14,14 @@ export default function Header({ ref }) {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 0);
+      setScrolled(window?.scrollY > 0);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window?.addEventListener('scroll', handleScroll);
     handleScroll();
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window?.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

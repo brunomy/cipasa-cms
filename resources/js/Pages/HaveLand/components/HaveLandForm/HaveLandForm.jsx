@@ -1,18 +1,8 @@
-import './HaveLandForm.scss';
+import "./HaveLandForm.scss";
 
 import { useState, useRef, useEffect } from "react";
-import {
-  MapContainer,
-  TileLayer,
-  FeatureGroup,
-  useMap,
-} from "react-leaflet";
-import { EditControl } from "react-leaflet-draw";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import "leaflet-draw/dist/leaflet.draw.css";
-import { OpenStreetMapProvider } from "leaflet-geosearch";
-import Button1 from '../../../../components/Buttons/Button1/Button1';
+
+import Button1 from "../../../../components/Buttons/Button1/Button1";
 import {
   Box,
   TextField,
@@ -23,10 +13,13 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
-import SearchIcon from '@mui/icons-material/Search';
-import { router } from '@inertiajs/react';
-import { route } from 'ziggy-js';
+import DeleteIcon from "@mui/icons-material/Delete";
+import SearchIcon from "@mui/icons-material/Search";
+import { router } from "@inertiajs/react";
+import { route } from "ziggy-js";
+
+import "leaflet/dist/leaflet.css";
+import "leaflet-draw/dist/leaflet.draw.css";
 
 export default function HaveLandForm() {
   const [arquivos, setArquivos] = useState([]);
@@ -35,11 +28,11 @@ export default function HaveLandForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [toastOpen, setToastOpen] = useState(false);
-  const [toastMessage, setToastMessage] = useState('');
-  const [toastSeverity, setToastSeverity] = useState('error');
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastSeverity, setToastSeverity] = useState("error");
 
   const handleToastClose = (_, reason) => {
-    if (reason === 'clickaway') return;
+    if (reason === "clickaway") return;
     setToastOpen(false);
   };
 
@@ -50,7 +43,7 @@ export default function HaveLandForm() {
       return [...prev, ...novosArquivos.filter((a) => !nomes.has(a.name))];
     });
   };
-  
+
   const removerArquivo = (index) => {
     setArquivos((prev) => prev.filter((_, i) => i !== index));
   };
@@ -62,59 +55,61 @@ export default function HaveLandForm() {
     const form = e.target;
     const data = new FormData(form);
 
-    const nome   = (data.get('nome') || '').trim();
-    const cel    = (data.get('celular') || '').replace(/\D/g, '');
-    const email  = (data.get('email') || '').trim();
-    const coords = (data.get('coordenadas') || '').trim();
-    const area   = (data.get('tamanho_area') || '').trim();
+    const nome = (data.get("nome") || "").trim();
+    const cel = (data.get("celular") || "").replace(/\D/g, "");
+    const email = (data.get("email") || "").trim();
+    const coords = (data.get("coordenadas") || "").trim();
+    const area = (data.get("tamanho_area") || "").trim();
 
     const erros = [];
 
-    if (!nome) erros.push('Preencha o nome completo.');
-    if (!cel || cel.length < 10) erros.push('Informe um celular válido.');
-    if (!email) erros.push('Preencha o e-mail.');
-    if (!coords || !area) erros.push('Desenhe a área do terreno no mapa.');
-    if (!arquivos.length) erros.push('Anexe os arquivos.');
+    if (!nome) erros.push("Preencha o nome completo.");
+    if (!cel || cel.length < 10) erros.push("Informe um celular válido.");
+    if (!email) erros.push("Preencha o e-mail.");
+    if (!coords || !area) erros.push("Desenhe a área do terreno no mapa.");
+    if (!arquivos.length) erros.push("Anexe os arquivos.");
 
     if (erros.length) {
-      setToastMessage(erros.join('\n'));
-      setToastSeverity('error');
+      setToastMessage(erros.join("\n"));
+      setToastSeverity("error");
       setToastOpen(true);
       return;
     }
 
-    arquivos.forEach((file) => data.append('documentos[]', file));
+    arquivos.forEach((file) => data.append("documentos[]", file));
 
-    router.post(route('tenho-uma-area.send'), data, {
+    router.post(route("tenho-uma-area.send"), data, {
       forceFormData: true,
       onStart: () => setIsSubmitting(true),
       onFinish: () => setIsSubmitting(false),
       onSuccess: () => {
         form.reset();
         setArquivos([]);
-        setCelular('');
+        setCelular("");
         setMapKey((prev) => prev + 1);
 
-        setToastMessage('Formulário enviado com sucesso!');
-        setToastSeverity('success');
+        setToastMessage("Formulário enviado com sucesso!");
+        setToastSeverity("success");
         setToastOpen(true);
       },
       onError: () => {
-        setToastMessage('Não foi possível enviar o formulário. Tente novamente.');
-        setToastSeverity('error');
+        setToastMessage(
+          "Não foi possível enviar o formulário. Tente novamente."
+        );
+        setToastSeverity("error");
         setToastOpen(true);
       },
     });
   };
 
   const maskCelular = (value) => {
-    const d = value.replace(/\D/g, '').slice(0, 11);
+    const d = value.replace(/\D/g, "").slice(0, 11);
     const isCell = d.length > 10; // 11 = celular
     const dd = d.slice(0, 2);
     const p2 = isCell ? d.slice(2, 7) : d.slice(2, 6);
     const p3 = isCell ? d.slice(7, 11) : d.slice(6, 10);
 
-    if (d.length === 0) return '';
+    if (d.length === 0) return "";
     if (d.length <= 2) return `(${dd}`;
     if (d.length <= (isCell ? 7 : 6)) return `(${dd}) ${d.slice(2)}`;
     return `(${dd}) ${p2}-${p3}`;
@@ -123,23 +118,35 @@ export default function HaveLandForm() {
   return (
     <Box className="have_land_form" component="section">
       <Box className="content">
-        <h2>Seja <b>nosso parceiro</b></h2>
+        <h2>
+          Seja <b>nosso parceiro</b>
+        </h2>
         <p>Preencha o formulário abaixo e faça a demarcação do terreno.</p>
 
         <form onSubmit={handleSubmit}>
           <Box className="info_content">
             <input type="text" name="nome" placeholder="Nome Completo" />
-            <input type="text" name="celular" value={celular} onChange={(e) => setCelular(maskCelular(e.target.value))} placeholder="Celular" />
+            <input
+              type="text"
+              name="celular"
+              value={celular}
+              onChange={(e) => setCelular(maskCelular(e.target.value))}
+              placeholder="Celular"
+            />
             <input type="text" name="email" placeholder="E-mail" />
           </Box>
 
           <Box className="address_content">
-            <h3><b>Demarcação</b> do terreno</h3>
+            <h3>
+              <b>Demarcação</b> do terreno
+            </h3>
             <AreaMap key={mapKey} />
           </Box>
 
           <Box className="document_content">
-            <h3><b>Documentação</b> necessária</h3>
+            <h3>
+              <b>Documentação</b> necessária
+            </h3>
             <p>- Ponto de localização no Google Earth (arquivo KMZ)</p>
             <p>- Matrícula atualizada e/ou escritura de compra e venda</p>
             <p>- Levantamento planialtimétrico (caso possua)</p>
@@ -153,9 +160,7 @@ export default function HaveLandForm() {
                   <Box className="document_item" key={index}>
                     <Typography variant="body2">
                       {file.name}{" "}
-                      <span>
-                        ({(file.size / 1024).toFixed(1)} KB)
-                      </span>
+                      <span>({(file.size / 1024).toFixed(1)} KB)</span>
                     </Typography>
 
                     <Button
@@ -185,25 +190,29 @@ export default function HaveLandForm() {
             </Box>
           </Box>
 
-          <textarea className="informacoes" name="informacoes" placeholder="Informações complementares"></textarea>
+          <textarea
+            className="informacoes"
+            name="informacoes"
+            placeholder="Informações complementares"
+          ></textarea>
 
           <Button1
             type="submit"
             className="submit_button"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Enviando...' : 'Enviar'}
+            {isSubmitting ? "Enviando..." : "Enviar"}
           </Button1>
 
           <Snackbar
             open={toastOpen}
             autoHideDuration={4000}
             onClose={handleToastClose}
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+            anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             sx={{
-              '& .MuiPaper-root': {
+              "& .MuiPaper-root": {
                 maxWidth: 360,
-                width: '100%',
+                width: "100%",
                 borderRadius: 2,
               },
             }}
@@ -213,10 +222,10 @@ export default function HaveLandForm() {
               severity={toastSeverity}
               variant="filled"
               sx={{
-                width: '100%',
+                width: "100%",
                 boxShadow: 3,
-                whiteSpace: 'pre-line',
-                textAlign: 'left',
+                whiteSpace: "pre-line",
+                textAlign: "left",
               }}
             >
               {toastMessage}
@@ -228,83 +237,179 @@ export default function HaveLandForm() {
   );
 }
 
-function SearchControl({ onResult }) {
-  const [query, setQuery] = useState("");
-  const [cep, setCep] = useState("");
-  const map = useMap();
-  const provider = new OpenStreetMapProvider();
-
-  const handleSearchCep = async () => {
-    const sanitizedCep = cep.replace(/\D/g, "");
-    if (sanitizedCep.length !== 8) {
-      alert("CEP inválido! Digite no formato 00000-000");
-      return;
-    }
-
-    try {
-      const res = await fetch(`https://viacep.com.br/ws/${sanitizedCep}/json/`);
-      const data = await res.json();
-      if (data.erro) {
-        alert("CEP não encontrado!");
-        return;
-      }
-
-      const endereco = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
-      const results = await provider.search({ query: endereco });
-
-      if (results.length > 0) {
-        const { x, y } = results[0];
-        map.setView([y, x], 17);
-        onResult(endereco);
-      } else {
-        alert("Não foi possível localizar o CEP no mapa.");
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  return (
-    <Box className="search_control">
-      <Box>
-        <input type="text" value={cep} name="cep" hidden />
-        <Stack direction="row" spacing={1}>
-          <TextField
-            size="small"
-            placeholder="CEP"
-            value={cep}
-            onChange={(e) =>
-              setCep(
-                e.target.value
-                  .replace(/\D/g, "") 
-                  .replace(/(\d{5})(\d)/, "$1-$2") 
-                  .substring(0, 9)
-              )
-            }
-            fullWidth
-            inputProps={{ maxLength: 9 }}
-          />
-          <Button variant="contained" onClick={handleSearchCep} size="small" sx={{ background: "#62bb46" }}>
-            <SearchIcon fontSize="small" />
-          </Button>
-        </Stack>
-      </Box>
-    </Box>
-  );
-}
-
 export function AreaMap() {
+  const [libsReady, setLibsReady] = useState(false);
+  const libsRef = useRef(null);
+
   const [area, setArea] = useState(null);
   const [address, setAddress] = useState("");
   const [isDrawing, setIsDrawing] = useState(false);
-  const mapRef = useRef();
-  const featureGroupRef = useRef();
-  const drawControlRef = useRef();
+
+  const mapRef = useRef(null);
+  const featureGroupRef = useRef(null);
+  const drawControlRef = useRef(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let cancelled = false;
+
+    async function loadLibs() {
+      const [reactLeaflet, reactLeafletDraw, leaflet, geo] = await Promise.all([
+        import("react-leaflet"),
+        import("react-leaflet-draw"),
+        import("leaflet"),
+        import("leaflet-geosearch"),
+      ]);
+
+      try {
+        await import("leaflet-geometryutil");
+      } catch (e) {
+      }
+
+      if (cancelled) return;
+
+      libsRef.current = {
+        MapContainer: reactLeaflet.MapContainer,
+        TileLayer: reactLeaflet.TileLayer,
+        FeatureGroup: reactLeaflet.FeatureGroup,
+        useMap: reactLeaflet.useMap,
+        EditControl: reactLeafletDraw.EditControl,
+        L: leaflet.default || leaflet,
+        OpenStreetMapProvider: geo.OpenStreetMapProvider,
+      };
+
+      setLibsReady(true);
+    }
+
+    loadLibs();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  if (!libsReady) {
+    return (
+      <Box>
+        <Paper className="area_map">
+          <Box className="map">
+            <div
+              style={{
+                height: "500px",
+                width: "100%",
+                background: "#eee",
+              }}
+            >
+              Carregando mapa…
+            </div>
+          </Box>
+        </Paper>
+        <input hidden type="text" name="coordenadas" value="" />
+        <input hidden type="text" name="tamanho_area" value="" />
+      </Box>
+    );
+  }
+
+  const {
+    MapContainer,
+    TileLayer,
+    FeatureGroup,
+    useMap,
+    EditControl,
+    L,
+    OpenStreetMapProvider,
+  } = libsRef.current;
+
+  function SearchControlInner({ onResult }) {
+    const [cep, setCep] = useState("");
+    const map = useMap();
+    const provider = new OpenStreetMapProvider();
+
+    const handleSearchCep = async () => {
+      const sanitizedCep = cep.replace(/\D/g, "");
+      if (sanitizedCep.length !== 8) {
+        alert("CEP inválido! Digite no formato 00000-000");
+        return;
+      }
+
+      try {
+        const res = await fetch(
+          `https://viacep.com.br/ws/${sanitizedCep}/json/`
+        );
+        const data = await res.json();
+        if (data.erro) {
+          alert("CEP não encontrado!");
+          return;
+        }
+
+        const endereco = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+        const results = await provider.search({ query: endereco });
+
+        if (results.length > 0) {
+          const { x, y } = results[0];
+          map.setView([y, x], 17);
+          onResult(endereco);
+        } else {
+          alert("Não foi possível localizar o CEP no mapa.");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    return (
+      <Box className="search_control">
+        <Box>
+          <input type="text" value={cep} name="cep" hidden />
+          <Stack direction="row" spacing={1}>
+            <TextField
+              size="small"
+              placeholder="CEP"
+              value={cep}
+              onChange={(e) =>
+                setCep(
+                  e.target.value
+                    .replace(/\D/g, "")
+                    .replace(/(\d{5})(\d)/, "$1-$2")
+                    .substring(0, 9)
+                )
+              }
+              fullWidth
+              inputProps={{ maxLength: 9 }}
+            />
+            <Button
+              variant="contained"
+              onClick={handleSearchCep}
+              size="small"
+              sx={{ background: "#62bb46" }}
+            >
+              <SearchIcon fontSize="small" />
+            </Button>
+          </Stack>
+        </Box>
+      </Box>
+    );
+  }
 
   const onCreated = (e) => {
     const layer = e.layer;
-    const areaMeters = L.GeometryUtil.geodesicArea(layer.getLatLngs()[0]);
-    const hectares = (areaMeters / 10000).toFixed(2);
+    const latlngs = layer.getLatLngs?.()[0] || [];
+
+    if (!latlngs.length) {
+      setArea(null);
+      return;
+    }
+
+    let hectares = 0;
+
+    if (L && L.GeometryUtil && typeof L.GeometryUtil.geodesicArea === "function") {
+      const areaMeters = L.GeometryUtil.geodesicArea(latlngs);
+      hectares = (areaMeters / 10000).toFixed(2);
+    } else {
+      hectares = latlngs.length.toFixed(2);
+    }
+
     setArea(hectares);
     setIsDrawing(false);
   };
@@ -317,25 +422,15 @@ export function AreaMap() {
     setArea(null);
   };
 
-  // Ativa o modo de desenho manualmente
-  const startDrawing = () => {
-    const map = mapRef.current;
-    if (!map || !drawControlRef.current) return;
-    const drawer = new L.Draw.Polygon(map, drawControlRef.current.options.draw.polygon);
-    drawer.enable();
-    setIsDrawing(true);
-  };
-  
-  function triggerDrawPolygon() {
+  const triggerDrawPolygon = () => {
     clearPolygons();
-
     const btn = document.querySelector(".leaflet-draw-draw-polygon");
     if (btn) {
       btn.click();
     } else {
       console.warn("Botão de desenho de polígono não encontrado.");
     }
-  }
+  };
 
   return (
     <Box>
@@ -348,7 +443,7 @@ export function AreaMap() {
             style={{ height: "500px", width: "100%" }}
           >
             <TileLayer
-              attribution='&copy; Google Maps'
+              attribution="&copy; Google Maps"
               url="https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}"
               subdomains={["mt0", "mt1", "mt2", "mt3"]}
             />
@@ -367,7 +462,7 @@ export function AreaMap() {
                 }}
               />
             </FeatureGroup>
-            <SearchControl onResult={setAddress} />
+            <SearchControlInner onResult={setAddress} />
           </MapContainer>
         </Box>
       </Paper>
@@ -390,10 +485,7 @@ export function AreaMap() {
           sx={{ mt: 3 }}
           className="action_buttons"
         >
-          <Button1
-            onClick={triggerDrawPolygon}
-            disabled={isDrawing}
-          >
+          <Button1 onClick={triggerDrawPolygon} disabled={isDrawing}>
             Desenhar
           </Button1>
           <Button1 onClick={clearPolygons} className="error">
@@ -401,12 +493,14 @@ export function AreaMap() {
           </Button1>
         </Stack>
       </Box>
+
       <input
         hidden
         type="text"
         name="coordenadas"
         value={
-          featureGroupRef.current && featureGroupRef.current.getLayers().length > 0
+          featureGroupRef.current &&
+          featureGroupRef.current.getLayers().length > 0
             ? JSON.stringify(
                 featureGroupRef.current
                   .getLayers()[0]
