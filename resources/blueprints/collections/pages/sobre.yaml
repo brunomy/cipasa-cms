@@ -278,6 +278,7 @@ tabs:
               type: code
               display: Scripts
               localizable: false
+              mode: javascript
   sidebar:
     display: Sidebar
     sections:

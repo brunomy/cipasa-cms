@@ -1,8 +1,8 @@
 hide: true
-title: 'Tenho uma área'
+title: Blog
 tabs:
-  main:
-    display: Principal
+  seo:
+    display: SEO
     sections:
       -
         fields:
@@ -14,73 +14,6 @@ tabs:
               localizable: false
               validate:
                 - required
-      -
-        display: Conteúdo
-        fields:
-          -
-            handle: text_1
-            field:
-              buttons:
-                - bold
-              remove_empty_nodes: false
-              type: bard
-              display: 'Texto topo'
-              localizable: false
-          -
-            handle: banner
-            field:
-              max_files: 1
-              min_files: 1
-              mode: grid
-              container: assets
-              type: assets
-              display: Banner
-              instructions: 'Tamanho: 1920x400px'
-              localizable: false
-  nova_aba:
-    display: 'Passo a passo'
-    sections:
-      -
-        display: Conteúdo
-        fields:
-          -
-            handle: text_2
-            field:
-              type: textarea
-              display: Texto
-              localizable: false
-          -
-            handle: step_by_step
-            field:
-              type: replicator
-              display: 'Passo a passo'
-              localizable: false
-              sets:
-                novo_grupo_de_conjuntos:
-                  display: 'Novo grupo de conjuntos'
-                  sets:
-                    novo_conjunto:
-                      display: 'Novo Conjunto'
-                      fields:
-                        -
-                          handle: step_title
-                          field:
-                            type: text
-                            display: Título
-                            localizable: false
-                            width: 33
-                        -
-                          handle: step_text
-                          field:
-                            type: textarea
-                            display: Descrição
-                            localizable: false
-                            width: 66
-  seo:
-    display: SEO
-    sections:
-      -
-        fields:
           -
             handle: slug
             field:

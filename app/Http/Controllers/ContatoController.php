@@ -30,7 +30,24 @@ class ContatoController extends Controller
                 ->first();
         }
 
-        return Inertia::render('Contact/Contact');
+        $appUrl = rtrim(config('app.url'), '/contato');
+        $canonical = $entry
+            ? $entry->absoluteUrl()
+            : $appUrl;
+
+        return Inertia::render('Contact/Contact', [
+            'seo' => [
+                'slug'            => $entry->get('slug'),
+                'meta_title'      => $entry->get('meta_title'),
+                'breve_descricao' => $entry->get('breve_descricao'),
+                'keywords'        => $entry->get('keywords'),
+                'og_image'        => $entry->augmentedValue('og_image')->value(),
+                'meta_robots'     => $entry->get('meta_robots'),
+                'scripts'         => $entry->get('scripts'),
+                'canonical'       => $canonical,
+                'url'             => $canonical,
+            ],
+        ]);
     }
 
     public function send(StoreContactRequest $request)

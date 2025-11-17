@@ -22,8 +22,24 @@ class SobreController extends Controller
                 ->first();
         }
 
+        $appUrl = rtrim(config('app.url'), '/sobre');
+        $canonical = $entry
+            ? $entry->absoluteUrl()
+            : $appUrl;
+
         return Inertia::render('AboutUs/AboutUs', [
             'dados' => $entry?->toAugmentedArray(),
+            'seo' => [
+                'slug'            => $entry->get('slug'),
+                'meta_title'      => $entry->get('meta_title'),
+                'breve_descricao' => $entry->get('breve_descricao'),
+                'keywords'        => $entry->get('keywords'),
+                'og_image'        => $entry->augmentedValue('og_image')->value(),
+                'meta_robots'     => $entry->get('meta_robots'),
+                'scripts'         => $entry->get('scripts'),
+                'canonical'       => $canonical,
+                'url'             => $canonical,
+            ],
         ]);
     }
 }

@@ -647,7 +647,7 @@ function AboutVentures({ sobre }) {
         freeMode: true,
         slidesPerView: "auto",
         pagination: { clickable: true },
-        children: items.map((item, index) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx(Item$6, { item }, index) }))
+        children: items?.map((item, index) => /* @__PURE__ */ jsx(SwiperSlide, { children: /* @__PURE__ */ jsx(Item$6, { item }) }))
       }
     ) }),
     /* @__PURE__ */ jsx("img", { src: icon1$1, className: "icon" })
@@ -686,9 +686,36 @@ const __vite_glob_0_5 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.def
   __proto__: null,
   default: Sustainability
 }, Symbol.toStringTag, { value: "Module" }));
-function AboutUs({ dados }) {
+function AboutUs({ dados, seo }) {
+  const title = seo?.meta_title || "Cipasa Urbanismo";
+  const description = seo?.breve_descricao || "";
+  const keywords = Array.isArray(seo?.keywords) ? seo.keywords.join(", ") : "";
+  const robots = seo?.meta_robots || "index,follow";
+  const ogImageUrl = seo?.og_image?.permalink || seo?.og_image?.url || seo?.og_image?.path;
+  const canonical = seo?.canonical || seo?.url || null;
+  const url = seo?.url || canonical || null;
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(Head, { title: "Cipasa - Nossa história" }),
+    /* @__PURE__ */ jsxs(Head, { title, children: [
+      /* @__PURE__ */ jsx("meta", { name: "description", content: description }),
+      keywords && /* @__PURE__ */ jsx("meta", { name: "keywords", content: keywords }),
+      /* @__PURE__ */ jsx("meta", { name: "robots", content: robots }),
+      canonical && /* @__PURE__ */ jsx("link", { rel: "canonical", href: canonical }),
+      /* @__PURE__ */ jsx("meta", { property: "og:type", content: "website" }),
+      url && /* @__PURE__ */ jsx("meta", { property: "og:url", content: url }),
+      /* @__PURE__ */ jsx("meta", { property: "og:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { property: "og:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { property: "og:image", content: ogImageUrl }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { name: "twitter:image", content: ogImageUrl }),
+      seo?.scripts && /* @__PURE__ */ jsx(
+        "script",
+        {
+          dangerouslySetInnerHTML: { __html: seo.scripts?.code }
+        }
+      )
+    ] }),
     /* @__PURE__ */ jsxs(Box, { className: "container", children: [
       /* @__PURE__ */ jsx(AboutHeader, { sobre: dados }),
       /* @__PURE__ */ jsx(AboutData, { sobre: dados }),
@@ -791,7 +818,7 @@ function BlogList({ dados }) {
     window?.scrollTo(0, 0);
   }, [page]);
   return /* @__PURE__ */ jsx(Box, { className: "blog_list", component: "section", children: /* @__PURE__ */ jsxs(Box, { className: "content", children: [
-    /* @__PURE__ */ jsx(Box, { className: "list_content", children: dadosPage()?.map((item, index) => /* @__PURE__ */ jsx(Box, { className: "blog_item", children: /* @__PURE__ */ jsx(BlogItem, { item }, index) })) }),
+    /* @__PURE__ */ jsx(Box, { className: "list_content", children: dadosPage()?.map((item, index) => /* @__PURE__ */ jsx(Box, { className: "blog_item", children: /* @__PURE__ */ jsx(BlogItem, { item }) }, index)) }),
     /* @__PURE__ */ jsx(Box, { className: "pagination_content", children: /* @__PURE__ */ jsx(Pagination$1, { count: Math.ceil(dados?.length / itensPerPage), page, onChange: handleChange, shape: "rounded" }) })
   ] }) });
 }
@@ -799,7 +826,7 @@ const __vite_glob_0_8 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.def
   __proto__: null,
   default: BlogList
 }, Symbol.toStringTag, { value: "Module" }));
-function Blog({ dados }) {
+function Blog({ dados, seo }) {
   const blogList = (dados ?? []).map((item) => ({
     id: item.id,
     data: item.created_at,
@@ -808,8 +835,35 @@ function Blog({ dados }) {
     image: item.imagem?.permalink ?? null,
     link: item.link ?? null
   }));
+  const title = seo?.meta_title || "Cipasa Urbanismo";
+  const description = seo?.breve_descricao || "";
+  const keywords = Array.isArray(seo?.keywords) ? seo.keywords.join(", ") : "";
+  const robots = seo?.meta_robots || "index,follow";
+  const ogImageUrl = seo?.og_image?.permalink || seo?.og_image?.url || seo?.og_image?.path;
+  const canonical = seo?.canonical || seo?.url || null;
+  const url = seo?.url || canonical || null;
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(Head, { title: "Cipasa - Blog" }),
+    /* @__PURE__ */ jsxs(Head, { title, children: [
+      /* @__PURE__ */ jsx("meta", { name: "description", content: description }),
+      keywords && /* @__PURE__ */ jsx("meta", { name: "keywords", content: keywords }),
+      /* @__PURE__ */ jsx("meta", { name: "robots", content: robots }),
+      canonical && /* @__PURE__ */ jsx("link", { rel: "canonical", href: canonical }),
+      /* @__PURE__ */ jsx("meta", { property: "og:type", content: "website" }),
+      url && /* @__PURE__ */ jsx("meta", { property: "og:url", content: url }),
+      /* @__PURE__ */ jsx("meta", { property: "og:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { property: "og:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { property: "og:image", content: ogImageUrl }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { name: "twitter:image", content: ogImageUrl }),
+      seo?.scripts && /* @__PURE__ */ jsx(
+        "script",
+        {
+          dangerouslySetInnerHTML: { __html: seo.scripts?.code }
+        }
+      )
+    ] }),
     /* @__PURE__ */ jsxs(Box, { className: "container", children: [
       /* @__PURE__ */ jsx(BlogHeader, {}),
       /* @__PURE__ */ jsx(BlogList, { dados: blogList })
@@ -1297,9 +1351,36 @@ const __vite_glob_0_10 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   __proto__: null,
   default: ContactForm$1
 }, Symbol.toStringTag, { value: "Module" }));
-function Contact({ contato }) {
+function Contact({ contato, seo }) {
+  const title = seo?.meta_title || "Cipasa Urbanismo";
+  const description = seo?.breve_descricao || "";
+  const keywords = Array.isArray(seo?.keywords) ? seo.keywords.join(", ") : "";
+  const robots = seo?.meta_robots || "index,follow";
+  const ogImageUrl = seo?.og_image?.permalink || seo?.og_image?.url || seo?.og_image?.path;
+  const canonical = seo?.canonical || seo?.url || null;
+  const url = seo?.url || canonical || null;
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(Head, { title: "Cipasa - Contato" }),
+    /* @__PURE__ */ jsxs(Head, { title, children: [
+      /* @__PURE__ */ jsx("meta", { name: "description", content: description }),
+      keywords && /* @__PURE__ */ jsx("meta", { name: "keywords", content: keywords }),
+      /* @__PURE__ */ jsx("meta", { name: "robots", content: robots }),
+      canonical && /* @__PURE__ */ jsx("link", { rel: "canonical", href: canonical }),
+      /* @__PURE__ */ jsx("meta", { property: "og:type", content: "website" }),
+      url && /* @__PURE__ */ jsx("meta", { property: "og:url", content: url }),
+      /* @__PURE__ */ jsx("meta", { property: "og:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { property: "og:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { property: "og:image", content: ogImageUrl }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { name: "twitter:image", content: ogImageUrl }),
+      seo?.scripts && /* @__PURE__ */ jsx(
+        "script",
+        {
+          dangerouslySetInnerHTML: { __html: seo.scripts?.code }
+        }
+      )
+    ] }),
     /* @__PURE__ */ jsx(Box, { className: "contact", children: /* @__PURE__ */ jsxs(Box, { className: "container", children: [
       /* @__PURE__ */ jsx(ContactHeader, { contato }),
       /* @__PURE__ */ jsx(ContactForm$1, { contato })
@@ -1619,8 +1700,8 @@ function AreaMap() {
           children: "Carregando mapa…"
         }
       ) }) }),
-      /* @__PURE__ */ jsx("input", { hidden: true, type: "text", name: "coordenadas", value: "" }),
-      /* @__PURE__ */ jsx("input", { hidden: true, type: "text", name: "tamanho_area", value: "" })
+      /* @__PURE__ */ jsx("input", { hidden: true, type: "text", name: "coordenadas", readOnly: true }),
+      /* @__PURE__ */ jsx("input", { hidden: true, type: "text", name: "tamanho_area", readOnly: true })
     ] });
   }
   const {
@@ -1665,7 +1746,7 @@ function AreaMap() {
       }
     };
     return /* @__PURE__ */ jsx(Box, { className: "search_control", children: /* @__PURE__ */ jsxs(Box, { children: [
-      /* @__PURE__ */ jsx("input", { type: "text", value: cep, name: "cep", hidden: true }),
+      /* @__PURE__ */ jsx("input", { type: "text", value: cep, name: "cep", hidden: true, readOnly: true }),
       /* @__PURE__ */ jsxs(Stack, { direction: "row", spacing: 1, children: [
         /* @__PURE__ */ jsx(
           TextField,
@@ -1789,12 +1870,22 @@ function AreaMap() {
         hidden: true,
         type: "text",
         name: "coordenadas",
+        readOnly: true,
         value: featureGroupRef.current && featureGroupRef.current.getLayers().length > 0 ? JSON.stringify(
           featureGroupRef.current.getLayers()[0].getLatLngs()[0].map((p) => ({ lat: p.lat, lng: p.lng }))
         ) : ""
       }
     ),
-    /* @__PURE__ */ jsx("input", { hidden: true, type: "text", name: "tamanho_area", value: area || "" })
+    /* @__PURE__ */ jsx(
+      "input",
+      {
+        hidden: true,
+        type: "text",
+        name: "tamanho_area",
+        readOnly: true,
+        value: area || ""
+      }
+    )
   ] });
 }
 const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -1802,9 +1893,36 @@ const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   AreaMap,
   default: HaveLandForm
 }, Symbol.toStringTag, { value: "Module" }));
-function HaveLand({ dados }) {
+function HaveLand({ dados, seo }) {
+  const title = seo?.meta_title || "Cipasa Urbanismo";
+  const description = seo?.breve_descricao || "";
+  const keywords = Array.isArray(seo?.keywords) ? seo.keywords.join(", ") : "";
+  const robots = seo?.meta_robots || "index,follow";
+  const ogImageUrl = seo?.og_image?.permalink || seo?.og_image?.url || seo?.og_image?.path;
+  const canonical = seo?.canonical || seo?.url || null;
+  const url = seo?.url || canonical || null;
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(Head, { title: "Cipasa - Tenho uma área" }),
+    /* @__PURE__ */ jsxs(Head, { title, children: [
+      /* @__PURE__ */ jsx("meta", { name: "description", content: description }),
+      keywords && /* @__PURE__ */ jsx("meta", { name: "keywords", content: keywords }),
+      /* @__PURE__ */ jsx("meta", { name: "robots", content: robots }),
+      canonical && /* @__PURE__ */ jsx("link", { rel: "canonical", href: canonical }),
+      /* @__PURE__ */ jsx("meta", { property: "og:type", content: "website" }),
+      url && /* @__PURE__ */ jsx("meta", { property: "og:url", content: url }),
+      /* @__PURE__ */ jsx("meta", { property: "og:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { property: "og:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { property: "og:image", content: ogImageUrl }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { name: "twitter:image", content: ogImageUrl }),
+      seo?.scripts && /* @__PURE__ */ jsx(
+        "script",
+        {
+          dangerouslySetInnerHTML: { __html: seo.scripts?.code }
+        }
+      )
+    ] }),
     /* @__PURE__ */ jsxs(Box, { className: "container", children: [
       /* @__PURE__ */ jsx(HaveLandHeader, { dados }),
       /* @__PURE__ */ jsx(HowDoWeWork, { dados }),
@@ -2279,14 +2397,14 @@ function Projects({ list }) {
     ] })
   ] }) });
 }
-function Item$3({ item, key }) {
-  return /* @__PURE__ */ jsxs(Button, { className: "item", componenr: "a", draggable: false, children: [
+function Item$3({ item }) {
+  return /* @__PURE__ */ jsxs(Button, { className: "item", component: "a", draggable: false, children: [
     /* @__PURE__ */ jsx(Box, { className: "image", children: /* @__PURE__ */ jsx("img", { src: item.banner.permalink, alt: "" }) }),
     /* @__PURE__ */ jsxs(Box, { className: "item_content", children: [
       /* @__PURE__ */ jsx(Box, { className: "logo", children: /* @__PURE__ */ jsx("img", { src: item.logo.permalink, alt: "" }) }),
       /* @__PURE__ */ jsx("p", { children: item.descricao })
     ] })
-  ] }, key);
+  ] });
 }
 const __vite_glob_0_23 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
@@ -2403,7 +2521,7 @@ function VenturesList({ ventures, construtoras }) {
     /* @__PURE__ */ jsx(Box, { className: "pagination_content", children: /* @__PURE__ */ jsx(Pagination$1, { count: Math.ceil(ventures?.length / itensPerPage), page, onChange: handleChange, shape: "rounded" }) })
   ] }) });
 }
-function VentureItem({ item, construtora, key }) {
+function VentureItem({ item, construtora }) {
   return /* @__PURE__ */ jsxs(Box, { className: "venture_item", children: [
     /* @__PURE__ */ jsxs(Button, { component: Link, href: item.permalink, className: "image", children: [
       /* @__PURE__ */ jsx("img", { src: item.banner.permalink, alt: item.title }),
@@ -2438,7 +2556,7 @@ function VentureItem({ item, construtora, key }) {
         " Conheça"
       ] }) })
     ] })
-  ] }, key);
+  ] });
 }
 const __vite_glob_0_41 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
@@ -2483,9 +2601,37 @@ const __vite_glob_0_25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   __proto__: null,
   default: Ventures$1
 }, Symbol.toStringTag, { value: "Module" }));
-function Home({ banners, info, list_1, list_2, states, construtoras, blog }) {
+function Home({ banners, info, list_1, list_2, states, construtoras, blog, seo }) {
+  const title = seo?.meta_title || "Cipasa Urbanismo";
+  const description = seo?.breve_descricao || "";
+  const keywords = Array.isArray(seo?.keywords) ? seo.keywords.join(", ") : "";
+  const robots = seo?.meta_robots || "index,follow";
+  const ogImageUrl = seo?.og_image?.permalink || seo?.og_image?.url || seo?.og_image?.path;
+  const canonical = seo?.canonical || seo?.url || null;
+  const url = seo?.url || canonical || null;
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(Head, { title: "Cipasa Urbanismo" }),
+    /* @__PURE__ */ jsxs(Head, { title, children: [
+      /* @__PURE__ */ jsx("meta", { name: "description", content: description }),
+      keywords && /* @__PURE__ */ jsx("meta", { name: "keywords", content: keywords }),
+      /* @__PURE__ */ jsx("meta", { name: "robots", content: robots }),
+      canonical && /* @__PURE__ */ jsx("link", { rel: "canonical", href: canonical }),
+      /* @__PURE__ */ jsx("meta", { property: "og:type", content: "website" }),
+      url && /* @__PURE__ */ jsx("meta", { property: "og:url", content: url }),
+      /* @__PURE__ */ jsx("meta", { property: "og:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { property: "og:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { property: "og:image", content: ogImageUrl }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { name: "twitter:image", content: ogImageUrl }),
+      seo?.scripts && /* @__PURE__ */ jsx(
+        "script",
+        {
+          dangerouslySetInnerHTML: { __html: seo.scripts?.code }
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsx("h1", { style: { display: "none" }, children: title }),
     /* @__PURE__ */ jsxs(Box, { className: "container", children: [
       /* @__PURE__ */ jsx(BannerCarousel, { banners }),
       /* @__PURE__ */ jsx(InfoData, { info }),
@@ -3253,9 +3399,36 @@ const __vite_glob_0_32 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   __proto__: null,
   default: VentureContact
 }, Symbol.toStringTag, { value: "Module" }));
-function Venture({ dados, related, categoriesDif }) {
+function Venture({ dados, related, categoriesDif, seo }) {
+  const title = seo?.meta_title || "Cipasa Urbanismo";
+  const description = seo?.breve_descricao || "";
+  const keywords = Array.isArray(seo?.keywords) ? seo.keywords.join(", ") : "";
+  const robots = seo?.meta_robots || "index,follow";
+  const ogImageUrl = seo?.og_image?.permalink || seo?.og_image?.url || seo?.og_image?.path;
+  const canonical = seo?.canonical || seo?.url || null;
+  const url = seo?.url || canonical || null;
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(Head, { title: `Cipasa - ${dados.title}` }),
+    /* @__PURE__ */ jsxs(Head, { title, children: [
+      /* @__PURE__ */ jsx("meta", { name: "description", content: description }),
+      keywords && /* @__PURE__ */ jsx("meta", { name: "keywords", content: keywords }),
+      /* @__PURE__ */ jsx("meta", { name: "robots", content: robots }),
+      canonical && /* @__PURE__ */ jsx("link", { rel: "canonical", href: canonical }),
+      /* @__PURE__ */ jsx("meta", { property: "og:type", content: "website" }),
+      url && /* @__PURE__ */ jsx("meta", { property: "og:url", content: url }),
+      /* @__PURE__ */ jsx("meta", { property: "og:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { property: "og:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { property: "og:image", content: ogImageUrl }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { name: "twitter:image", content: ogImageUrl }),
+      seo?.scripts && /* @__PURE__ */ jsx(
+        "script",
+        {
+          dangerouslySetInnerHTML: { __html: seo.scripts?.code }
+        }
+      )
+    ] }),
     /* @__PURE__ */ jsxs(Box, { className: "container", children: [
       /* @__PURE__ */ jsx(VentureHeader, { venture: dados }),
       /* @__PURE__ */ jsx(VentureInfo, { venture: dados }),
@@ -3399,7 +3572,14 @@ const __vite_glob_0_40 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   __proto__: null,
   default: VenturesHeader
 }, Symbol.toStringTag, { value: "Module" }));
-function Ventures({ dados, construtoras, states, blog, currentFilters }) {
+function Ventures({ dados, construtoras, states, blog, currentFilters, seo }) {
+  const title = seo?.meta_title || "Cipasa Urbanismo";
+  const description = seo?.breve_descricao || "";
+  const keywords = Array.isArray(seo?.keywords) ? seo.keywords.join(", ") : "";
+  const robots = seo?.meta_robots || "index,follow";
+  const ogImageUrl = seo?.og_image?.permalink || seo?.og_image?.url || seo?.og_image?.path;
+  const canonical = seo?.canonical || seo?.url || null;
+  const url = seo?.url || canonical || null;
   const [data, setData] = useState({
     ventures: dados.filter((v) => v.published === true) ?? [],
     construtoras: construtoras ?? []
@@ -3411,7 +3591,27 @@ function Ventures({ dados, construtoras, states, blog, currentFilters }) {
     });
   }, [dados, construtoras]);
   return /* @__PURE__ */ jsxs(Fragment, { children: [
-    /* @__PURE__ */ jsx(Head, { title: "Cipasa - Empreendimentos" }),
+    /* @__PURE__ */ jsxs(Head, { title, children: [
+      /* @__PURE__ */ jsx("meta", { name: "description", content: description }),
+      keywords && /* @__PURE__ */ jsx("meta", { name: "keywords", content: keywords }),
+      /* @__PURE__ */ jsx("meta", { name: "robots", content: robots }),
+      canonical && /* @__PURE__ */ jsx("link", { rel: "canonical", href: canonical }),
+      /* @__PURE__ */ jsx("meta", { property: "og:type", content: "website" }),
+      url && /* @__PURE__ */ jsx("meta", { property: "og:url", content: url }),
+      /* @__PURE__ */ jsx("meta", { property: "og:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { property: "og:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { property: "og:image", content: ogImageUrl }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:card", content: "summary_large_image" }),
+      /* @__PURE__ */ jsx("meta", { name: "twitter:title", content: title }),
+      description && /* @__PURE__ */ jsx("meta", { name: "twitter:description", content: description }),
+      ogImageUrl && /* @__PURE__ */ jsx("meta", { name: "twitter:image", content: ogImageUrl }),
+      seo?.scripts && /* @__PURE__ */ jsx(
+        "script",
+        {
+          dangerouslySetInnerHTML: { __html: seo.scripts?.code }
+        }
+      )
+    ] }),
     /* @__PURE__ */ jsxs(Box, { className: "container", children: [
       /* @__PURE__ */ jsx(
         VenturesHeader,

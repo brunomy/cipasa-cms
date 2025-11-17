@@ -40,7 +40,6 @@ function ShowMap({
       return [lat, lng];
     }
 
-    // fallback genérico (Brasil)
     return [-15.78, -47.93];
   }, [center, initialPolygon]);
 
@@ -49,7 +48,6 @@ function ShowMap({
   const mapRef = useRef(null);
   const featureGroupRef = useRef(null);
 
-  // libs carregadas só no browser
   const [libsReady, setLibsReady] = useState(false);
   const libsRef = useRef(null);
 

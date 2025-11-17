@@ -305,8 +305,8 @@ export function AreaMap() {
             </div>
           </Box>
         </Paper>
-        <input hidden type="text" name="coordenadas" value="" />
-        <input hidden type="text" name="tamanho_area" value="" />
+        <input hidden type="text" name="coordenadas" readOnly />
+        <input hidden type="text" name="tamanho_area" readOnly />
       </Box>
     );
   }
@@ -361,7 +361,7 @@ export function AreaMap() {
     return (
       <Box className="search_control">
         <Box>
-          <input type="text" value={cep} name="cep" hidden />
+          <input type="text" value={cep} name="cep" hidden readOnly />
           <Stack direction="row" spacing={1}>
             <TextField
               size="small"
@@ -498,9 +498,9 @@ export function AreaMap() {
         hidden
         type="text"
         name="coordenadas"
+        readOnly
         value={
-          featureGroupRef.current &&
-          featureGroupRef.current.getLayers().length > 0
+          featureGroupRef.current && featureGroupRef.current.getLayers().length > 0
             ? JSON.stringify(
                 featureGroupRef.current
                   .getLayers()[0]
@@ -510,7 +510,14 @@ export function AreaMap() {
             : ""
         }
       />
-      <input hidden type="text" name="tamanho_area" value={area || ""} />
+
+      <input
+        hidden
+        type="text"
+        name="tamanho_area"
+        readOnly
+        value={area || ""}
+      />
     </Box>
   );
 }

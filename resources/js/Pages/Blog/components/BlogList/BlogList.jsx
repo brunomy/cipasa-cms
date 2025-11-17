@@ -31,7 +31,7 @@ export default function BlogList({ dados }) {
     <Box className="blog_list" component="section">
       <Box className="content">
         <Box className="list_content">
-          {dadosPage()?.map((item, index) => <Box className="blog_item"><BlogItem item={item} key={index} /></Box> )}
+          {dadosPage()?.map((item, index) => <Box className="blog_item" key={index}><BlogItem item={item} /></Box> )}
         </Box>
         <Box className="pagination_content">
           <Pagination count={Math.ceil(dados?.length / itensPerPage)} page={page} onChange={handleChange} shape="rounded" />

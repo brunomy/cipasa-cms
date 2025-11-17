@@ -42,7 +42,7 @@ export default function AboutVentures({ sobre }) {
             slidesPerView={'auto'}
             pagination={{ clickable: true }}
           >
-            { items.map((item, index) => <SwiperSlide><Item item={item} key={index} /></SwiperSlide>)}
+            { items?.map((item, index) => <SwiperSlide><Item item={item} /></SwiperSlide>)}
           </Swiper>
         </Box>
         <img src={icon1} className="icon" />

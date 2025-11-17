@@ -39,9 +39,9 @@ export default function VenturesList({ ventures, construtoras }) {
   )
 }
 
-export function VentureItem({ item, construtora, key }) {
+export function VentureItem({ item, construtora }) {
   return (
-    <Box className="venture_item" key={key}>
+    <Box className="venture_item">
       <Button component={Link} href={item.permalink} className="image">
         <img src={item.banner.permalink} alt={item.title} />
         <Box className="logo">
