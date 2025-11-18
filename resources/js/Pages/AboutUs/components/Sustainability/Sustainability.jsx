@@ -1,8 +1,6 @@
 import './Sustainability.scss';
 import { Box } from '@mui/material';
 
-import banner from './images/banner[1920x300].png';
-import img from './images/image[170x170].png';
 import icon from './icons/icon.svg';
 import { decodeBasic } from '../../../../Util';
 

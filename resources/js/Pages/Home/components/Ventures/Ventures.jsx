@@ -7,16 +7,6 @@ import Button1 from './../../../../components/Buttons/Button1/Button1'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 
-import img1 from './images/img1.png'
-import img2 from './images/img2.png'
-import img3 from '../BannerCarousel/images/banner1.png';
-import img4 from '../BannerCarousel/images/banner2.png';
-import img5 from '../BannerCarousel/images/banner3.png';
-
-import verana from './images/verana.png';
-import altavis from './images/altavis.png';
-import alvora from './images/alvora.png';
-
 import flower from './icons/flower.svg';
 import arrow from './icons/arrow.svg';
 import { VentureItem } from '../../../Ventures/components/VenturesList/VenturesList';

@@ -2,7 +2,6 @@ import './VentureHeader.scss';
 import { Box } from '@mui/material';
 import TitleBreadcrumbs from '../../../../components/TitleBreadcrumbs/TitleBreadcrumbs';
 
-import logo from './images/logo[160x160].png';
 import { Butterfly1 } from '../../../Home/components/BannerCarousel/BannerCarousel';
 import { Butterfly2 } from '../../../Home/components/BannerCarousel/BannerCarousel';
 

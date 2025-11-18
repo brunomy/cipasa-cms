@@ -5,9 +5,6 @@ import { useRef, useState, useEffect } from 'react';
 import { Pagination } from 'swiper/modules';
 import { Link } from '@inertiajs/react';
 
-import img1 from '../BannerCarousel/images/banner1.png';
-import img2 from '../BannerCarousel/images/banner2.png';
-import img3 from '../BannerCarousel/images/banner3.png';  
 import Button1 from '../../../../components/Buttons/Button1/Button1';
 
 export default function Blog({ blog }) {
@@ -46,7 +43,6 @@ export default function Blog({ blog }) {
 }
 
 export function BlogItem({ item }) {
-  // Função para formatar a data
   function formatDate(dateString) {
     const meses = [
       'janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',

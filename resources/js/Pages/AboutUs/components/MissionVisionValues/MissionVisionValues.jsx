@@ -4,7 +4,6 @@ import icon1 from './icons/icon1.svg';
 import icon2 from './icons/icon2.svg';
 import { decodeBasic } from '../../../../Util';
 
-
 export default function MissionVisionValues({ sobre }) {
   return (
     <Box component="section" className="mission_vision_values">

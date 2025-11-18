@@ -6,16 +6,6 @@ import { Pagination } from 'swiper/modules';
 import { useState } from "react";
 import { Link } from '@inertiajs/react';
 
-import img1 from './../../../Home/components/BannerCarousel/images/banner1.png';
-import img2 from './../../../Home/components/BannerCarousel/images/banner2.png';
-import img3 from './../../../Home/components/BannerCarousel/images/banner3.png';
-import img4 from './../../../Home/components/Highlights/images/image1[1250x450].png';
-
-import logo1 from './../../../Home/components/Projects/images/logo1.png';
-import logo2 from './../../../Home/components/Projects/images/logo2.png';
-import logo3 from './../../../Home/components/Projects/images/logo3.png';
-import logo4 from './../../../Home/components/Projects/images/logo4.png';
-
 import icon1 from './icons/icon1.svg'
 import { decodeBasic } from '../../../../Util';
 

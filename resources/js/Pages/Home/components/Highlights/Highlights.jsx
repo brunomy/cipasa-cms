@@ -2,10 +2,6 @@ import './Highlights.scss';
 import { Box, Button } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { Link } from '@inertiajs/react';
-import img1 from './images/image1[1250x450].png';
-import img2 from './images/image2[1250x450].png';
-import img3 from './images/image3[1250x450].png';
-import banner3 from '../BannerCarousel/images/banner3.png';
 import Carousel, { Dots } from '../../../../components/Carousel/Carousel';
 
 import arrow from './icons/arrow.svg'

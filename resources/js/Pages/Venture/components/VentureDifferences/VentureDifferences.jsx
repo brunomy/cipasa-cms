@@ -2,12 +2,6 @@ import './VentureDifferences.scss';
 import { Box } from '@mui/material';
 import { useState, useEffect, useMemo } from 'react';
 
-import icon1 from './images/icon1[55x45].png';
-import icon2 from './images/icon2[55x45].png';
-import icon3 from './images/icon3[55x45].png';
-import icon4 from './images/icon4[55x45].png';
-import icon5 from './images/icon5[55x45].png';
-import icon6 from './images/icon6[55x45].png';
 import ButtonFilter from '../../../../components/Buttons/ButtonFilter/ButtonFilter';
 
 export default function VentureDifferences({ venture, categoriesDif }) {

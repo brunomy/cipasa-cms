@@ -2,7 +2,6 @@ import TitleBreadcrumbs from '../../../../components/TitleBreadcrumbs/TitleBread
 import { Butterfly1, Butterfly2 } from '../../../Home/components/BannerCarousel/BannerCarousel';
 import { Box } from '@mui/material';
 
-import banner from './images/banner[1920x400].png';
 import HeaderDescription from '../../../../components/HeaderDescription/HeaderDescription';
 import HeaderPadding from '../../../../components/HeaderPadding/HeaderPadding';
 import HeaderBanner from '../../../../components/HeaderBanner/HeaderBanner';

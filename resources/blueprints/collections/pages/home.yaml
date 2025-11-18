@@ -51,9 +51,8 @@ tabs:
                 - bold
               remove_empty_nodes: false
               type: bard
-              instructions: 'Descubra nossos projetos por todo Brasil'
               localizable: false
-              display: 'Texto descubra'
+              display: 'Descubra nossos projetos por todo Brasil'
           -
             handle: text_espacos
             field:
@@ -61,9 +60,8 @@ tabs:
                 - bold
               remove_empty_nodes: false
               type: bard
-              instructions: 'Espaços para Viver e Investir'
               localizable: false
-              display: 'Texto espaços'
+              display: 'Espaços para Viver e Investir'
           -
             handle: text_contact
             field:
@@ -71,10 +69,9 @@ tabs:
                 - bold
               remove_empty_nodes: false
               type: bard
-              instructions: 'Não encontrou o que procurava?'
               localizable: false
               width: 66
-              display: 'Texto contato'
+              display: 'Não encontrou o que procurava?'
           -
             handle: imagem_contato
             field:

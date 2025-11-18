@@ -1,9 +1,6 @@
 import './BannerCarousel.scss';
 import { Box, Button } from '@mui/material';
 import { useState, useEffect, useRef } from 'react';
-import banner1 from './images/banner1.png'; //950x600
-import banner2 from './images/banner2.png';
-import banner3 from './images/banner3.png';
 import { Link } from '@inertiajs/react';
 import Button1 from '../../../../components/Buttons/Button1/Button1';
 import SwipeListener from '../../../../components/SwipeListener';
