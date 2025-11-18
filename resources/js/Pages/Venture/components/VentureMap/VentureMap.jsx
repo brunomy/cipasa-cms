@@ -18,29 +18,33 @@ export default function VentureMap({
     let cancelled = false;
 
     async function loadLibs() {
-      const [reactLeaflet, leaflet] = await Promise.all([
-        import("react-leaflet"),
-        import("leaflet"),
-      ]);
+      try {
+        const [reactLeaflet, leaflet] = await Promise.all([
+          import("react-leaflet"),
+          import("leaflet"),
+        ]);
 
-      if (cancelled) return;
+        if (cancelled) return;
 
-      const L = leaflet.default || leaflet;
+        const L = leaflet.default || leaflet;
 
-      const customIcon = new L.Icon({
-        iconUrl: pin,
-        iconSize: [38, 38],
-      });
+        const customIcon = new L.Icon({
+          iconUrl: pin,
+          iconSize: [38, 38],
+        });
 
-      libsRef.current = {
-        MapContainer: reactLeaflet.MapContainer,
-        TileLayer: reactLeaflet.TileLayer,
-        Marker: reactLeaflet.Marker,
-        Popup: reactLeaflet.Popup,
-        customIcon,
-      };
+        libsRef.current = {
+          MapContainer: reactLeaflet.MapContainer,
+          TileLayer: reactLeaflet.TileLayer,
+          Marker: reactLeaflet.Marker,
+          Popup: reactLeaflet.Popup,
+          customIcon,
+        };
 
-      setLibsReady(true);
+        setLibsReady(true);
+      } catch (error) {
+        console.error("Erro ao carregar as bibliotecas do Leaflet:", error);
+      }
     }
 
     loadLibs();
@@ -50,7 +54,7 @@ export default function VentureMap({
     };
   }, []);
 
-  if (!libsReady || !libsRef.current) {
+  if (!libsReady) {
     return (
       <Box className="venture_map" component="section">
         <Box className="content">

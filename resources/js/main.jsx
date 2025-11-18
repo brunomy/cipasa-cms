@@ -39,7 +39,12 @@ createInertiaApp({
     return pages[`./Pages/${name}.jsx`];
   },
   setup({ el, App, props }) {
-    createRoot(el).render(<App {...props} />);
-    hydrateRoot(el, <App {...props} />);
+    const app = <App {...props} />;
+
+    if (el.hasChildNodes()) {
+      hydrateRoot(el, app);
+    } else {
+      createRoot(el).render(app);
+    }
   },
 });

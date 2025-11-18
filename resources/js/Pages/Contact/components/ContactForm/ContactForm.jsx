@@ -125,7 +125,6 @@ function FormComponent() {
     }
   }, [form.cep]);
 
-  // Envio do formulário
   const handleSubmit = (e) => {
     e.preventDefault();
     if (sending) return;
@@ -134,7 +133,6 @@ function FormComponent() {
     setErrors({});
     setOk(false);
 
-    // validação básica
     const nome     = form.nome.trim();
     const cel      = form.celular.replace(/\D/g, '');
     const email    = form.email.trim();

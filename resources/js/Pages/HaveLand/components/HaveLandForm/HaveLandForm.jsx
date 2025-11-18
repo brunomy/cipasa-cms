@@ -1,6 +1,6 @@
 import "./HaveLandForm.scss";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 
 import Button1 from "../../../../components/Buttons/Button1/Button1";
 import {
@@ -60,6 +60,9 @@ export default function HaveLandForm() {
     const email = (data.get("email") || "").trim();
     const coords = (data.get("coordenadas") || "").trim();
     const area = (data.get("tamanho_area") || "").trim();
+
+    console.log(data);
+    
 
     const erros = [];
 
@@ -321,77 +324,6 @@ export function AreaMap() {
     OpenStreetMapProvider,
   } = libsRef.current;
 
-  function SearchControlInner({ onResult }) {
-    const [cep, setCep] = useState("");
-    const map = useMap();
-    const provider = new OpenStreetMapProvider();
-
-    const handleSearchCep = async () => {
-      const sanitizedCep = cep.replace(/\D/g, "");
-      if (sanitizedCep.length !== 8) {
-        alert("CEP inválido! Digite no formato 00000-000");
-        return;
-      }
-
-      try {
-        const res = await fetch(
-          `https://viacep.com.br/ws/${sanitizedCep}/json/`
-        );
-        const data = await res.json();
-        if (data.erro) {
-          alert("CEP não encontrado!");
-          return;
-        }
-
-        const endereco = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
-        const results = await provider.search({ query: endereco });
-
-        if (results.length > 0) {
-          const { x, y } = results[0];
-          map.setView([y, x], 17);
-          onResult(endereco);
-        } else {
-          alert("Não foi possível localizar o CEP no mapa.");
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    return (
-      <Box className="search_control">
-        <Box>
-          <input type="text" value={cep} name="cep" hidden readOnly />
-          <Stack direction="row" spacing={1}>
-            <TextField
-              size="small"
-              placeholder="CEP"
-              value={cep}
-              onChange={(e) =>
-                setCep(
-                  e.target.value
-                    .replace(/\D/g, "")
-                    .replace(/(\d{5})(\d)/, "$1-$2")
-                    .substring(0, 9)
-                )
-              }
-              fullWidth
-              inputProps={{ maxLength: 9 }}
-            />
-            <Button
-              variant="contained"
-              onClick={handleSearchCep}
-              size="small"
-              sx={{ background: "#62bb46" }}
-            >
-              <SearchIcon fontSize="small" />
-            </Button>
-          </Stack>
-        </Box>
-      </Box>
-    );
-  }
-
   const onCreated = (e) => {
     const layer = e.layer;
     const latlngs = layer.getLatLngs?.()[0] || [];
@@ -462,7 +394,11 @@ export function AreaMap() {
                 }}
               />
             </FeatureGroup>
-            <SearchControlInner onResult={setAddress} />
+            <SearchControl
+              onResult={setAddress}
+              useMapHook={useMap}
+              OpenStreetMapProvider={OpenStreetMapProvider}
+            />
           </MapContainer>
         </Box>
       </Paper>
@@ -518,6 +454,79 @@ export function AreaMap() {
         readOnly
         value={area || ""}
       />
+    </Box>
+  );
+}
+
+function SearchControl({ onResult, useMapHook, OpenStreetMapProvider }) {
+  const [cep, setCep] = useState("");
+  const map = useMapHook?.();
+  const provider = useMemo(() => {
+    return OpenStreetMapProvider ? new OpenStreetMapProvider() : null;
+  }, [OpenStreetMapProvider]);
+
+  const handleSearchCep = async () => {
+    const sanitizedCep = cep.replace(/\D/g, "");
+    if (sanitizedCep.length !== 8) {
+      alert("CEP inválido! Digite no formato 00000-000");
+      return;
+    }
+
+    if (!provider || !map) return;
+
+    try {
+      const res = await fetch(`https://viacep.com.br/ws/${sanitizedCep}/json/`);
+      const data = await res.json();
+      if (data.erro) {
+        alert("CEP não encontrado!");
+        return;
+      }
+
+      const endereco = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+      const results = await provider.search({ query: endereco });
+
+      if (results.length > 0) {
+        const { x, y } = results[0];
+        map.setView([y, x], 17);
+        onResult(endereco);
+      } else {
+        alert("Não foi possível localizar o CEP no mapa.");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  return (
+    <Box className="search_control">
+      <Box>
+        <input type="text" value={cep} name="cep" hidden readOnly />
+        <Stack direction="row" spacing={1}>
+          <TextField
+            size="small"
+            placeholder="CEP"
+            value={cep}
+            onChange={(e) =>
+              setCep(
+                e.target.value
+                  .replace(/\D/g, "")
+                  .replace(/(\d{5})(\d)/, "$1-$2")
+                  .substring(0, 9)
+              )
+            }
+            fullWidth
+            inputProps={{ maxLength: 9 }}
+          />
+          <Button
+            variant="contained"
+            onClick={handleSearchCep}
+            size="small"
+            sx={{ background: "#62bb46" }}
+          >
+            <SearchIcon fontSize="small" />
+          </Button>
+        </Stack>
+      </Box>
     </Box>
   );
 }

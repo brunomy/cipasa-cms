@@ -399,14 +399,14 @@ function BannerCarousel({ banners }) {
   return /* @__PURE__ */ jsxs(Box, { component: "section", className: "banner_carousel " + (loaded ? "loaded" : "notLoaded"), children: [
     /* @__PURE__ */ jsxs(Box, { className: "content", children: [
       /* @__PURE__ */ jsxs(Box, { className: "left", children: [
-        banners.map((banner2, index) => /* @__PURE__ */ jsxs(
+        banners.map((banner, index) => /* @__PURE__ */ jsxs(
           Box,
           {
             className: `content-layer ${index === currentBanner ? "active" : ""}`,
             children: [
-              banner2.titulo_banner != "<p></p>" ? /* @__PURE__ */ jsx("div", { dangerouslySetInnerHTML: { __html: banner2.titulo_banner } }) : /* @__PURE__ */ jsx("h2", { children: banner2.empreendimento.title }),
-              /* @__PURE__ */ jsx("p", { children: banner2.texto_banner ?? banner2.empreendimento.subtitulo }),
-              (banner2.link || banner2.empreendimento.permalink) && /* @__PURE__ */ jsx(Button1, { component: "a", href: banner2.link ?? banner2.empreendimento.permalink, target: banner2.target.value, children: banner2.title_button ? banner2.title_button : "Saiba mais" })
+              banner.title_banner && banner.title_banner != "<p></p>" ? /* @__PURE__ */ jsx("div", { className: "title", dangerouslySetInnerHTML: { __html: banner.title_banner } }) : /* @__PURE__ */ jsx("div", { className: "title", children: /* @__PURE__ */ jsx("h2", { children: banner.empreendimento?.title }) }),
+              /* @__PURE__ */ jsx("p", { children: banner.texto_banner ?? banner.empreendimento?.subtitulo }),
+              (banner.link || banner.empreendimento?.permalink) && /* @__PURE__ */ jsx(Button1, { component: "a", href: banner.link ?? banner.empreendimento?.permalink, target: banner.target.value, children: banner.title_button ? banner.title_button : "Saiba mais" })
             ]
           },
           "banner-" + index
@@ -416,11 +416,11 @@ function BannerCarousel({ banners }) {
         /* @__PURE__ */ jsx(Butterfly2, { seconds }),
         /* @__PURE__ */ jsx(Box, { className: "progress", sx: { width: `calc(${seconds} * 10%)`, transition: `all ${seconds != 0 ? 1 : 0}s linear` } })
       ] }),
-      /* @__PURE__ */ jsx(Box, { className: "right", children: banners.map((banner2, index) => /* @__PURE__ */ jsx(
+      /* @__PURE__ */ jsx(Box, { className: "right", children: banners.map((banner, index) => /* @__PURE__ */ jsx(
         Box,
         {
           className: `bg-image ${index === currentBanner ? "active" : ""}`,
-          style: { backgroundImage: `url(${banner2.imagem[0]?.permalink ?? banner2.empreendimento.og_image.permalink})` }
+          style: { backgroundImage: `url(${banner?.imagem?.permalink ?? banner?.empreendimento?.og_image?.permalink})` }
         },
         "bannerImage-" + index
       )) }),
@@ -495,7 +495,7 @@ function HeaderDescription({ title, breadcrumbs, right }) {
 function HeaderPadding({ children }) {
   return /* @__PURE__ */ jsx(Box, { className: "header_padding", children });
 }
-function HeaderBanner({ title, breadcrumbs, right, banner: banner2 }) {
+function HeaderBanner({ title, breadcrumbs, right, banner }) {
   return /* @__PURE__ */ jsx(Box, { className: "header_banner", children: /* @__PURE__ */ jsxs(HeaderPadding, { children: [
     /* @__PURE__ */ jsx(Box, { className: "content", children: /* @__PURE__ */ jsx(
       HeaderDescription,
@@ -505,7 +505,7 @@ function HeaderBanner({ title, breadcrumbs, right, banner: banner2 }) {
         right
       }
     ) }),
-    banner2 && /* @__PURE__ */ jsx(Box, { className: "banner", children: /* @__PURE__ */ jsx(Box, { className: "image", children: /* @__PURE__ */ jsx("img", { src: banner2 }) }) })
+    banner && /* @__PURE__ */ jsx(Box, { className: "banner", children: /* @__PURE__ */ jsx(Box, { className: "image", children: /* @__PURE__ */ jsx("img", { src: banner }) }) })
   ] }) });
 }
 function AboutHeader({ sobre }) {
@@ -956,31 +956,35 @@ function VentureMap({
     if (typeof window === "undefined") return;
     let cancelled = false;
     async function loadLibs() {
-      const [reactLeaflet, leaflet] = await Promise.all([
-        import("react-leaflet"),
-        import("leaflet")
-      ]);
-      if (cancelled) return;
-      const L = leaflet.default || leaflet;
-      const customIcon2 = new L.Icon({
-        iconUrl: pin$1,
-        iconSize: [38, 38]
-      });
-      libsRef.current = {
-        MapContainer: reactLeaflet.MapContainer,
-        TileLayer: reactLeaflet.TileLayer,
-        Marker: reactLeaflet.Marker,
-        Popup: reactLeaflet.Popup,
-        customIcon: customIcon2
-      };
-      setLibsReady(true);
+      try {
+        const [reactLeaflet, leaflet] = await Promise.all([
+          import("react-leaflet"),
+          import("leaflet")
+        ]);
+        if (cancelled) return;
+        const L = leaflet.default || leaflet;
+        const customIcon2 = new L.Icon({
+          iconUrl: pin$1,
+          iconSize: [38, 38]
+        });
+        libsRef.current = {
+          MapContainer: reactLeaflet.MapContainer,
+          TileLayer: reactLeaflet.TileLayer,
+          Marker: reactLeaflet.Marker,
+          Popup: reactLeaflet.Popup,
+          customIcon: customIcon2
+        };
+        setLibsReady(true);
+      } catch (error) {
+        console.error("Erro ao carregar as bibliotecas do Leaflet:", error);
+      }
     }
     loadLibs();
     return () => {
       cancelled = true;
     };
   }, []);
-  if (!libsReady || !libsRef.current) {
+  if (!libsReady) {
     return /* @__PURE__ */ jsx(Box, { className: "venture_map", component: "section", children: /* @__PURE__ */ jsx(Box, { className: "content", children: /* @__PURE__ */ jsx(Box, { className: "map", children: /* @__PURE__ */ jsx(
       "div",
       {
@@ -1477,6 +1481,7 @@ function HaveLandForm() {
     const email = (data.get("email") || "").trim();
     const coords = (data.get("coordenadas") || "").trim();
     const area = (data.get("tamanho_area") || "").trim();
+    console.log(data);
     const erros = [];
     if (!nome) erros.push("Preencha o nome completo.");
     if (!cel || cel.length < 10) erros.push("Informe um celular válido.");
@@ -1713,67 +1718,6 @@ function AreaMap() {
     L,
     OpenStreetMapProvider
   } = libsRef.current;
-  function SearchControlInner({ onResult }) {
-    const [cep, setCep] = useState("");
-    const map = useMap();
-    const provider = new OpenStreetMapProvider();
-    const handleSearchCep = async () => {
-      const sanitizedCep = cep.replace(/\D/g, "");
-      if (sanitizedCep.length !== 8) {
-        alert("CEP inválido! Digite no formato 00000-000");
-        return;
-      }
-      try {
-        const res = await fetch(
-          `https://viacep.com.br/ws/${sanitizedCep}/json/`
-        );
-        const data = await res.json();
-        if (data.erro) {
-          alert("CEP não encontrado!");
-          return;
-        }
-        const endereco = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
-        const results = await provider.search({ query: endereco });
-        if (results.length > 0) {
-          const { x, y } = results[0];
-          map.setView([y, x], 17);
-          onResult(endereco);
-        } else {
-          alert("Não foi possível localizar o CEP no mapa.");
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    return /* @__PURE__ */ jsx(Box, { className: "search_control", children: /* @__PURE__ */ jsxs(Box, { children: [
-      /* @__PURE__ */ jsx("input", { type: "text", value: cep, name: "cep", hidden: true, readOnly: true }),
-      /* @__PURE__ */ jsxs(Stack, { direction: "row", spacing: 1, children: [
-        /* @__PURE__ */ jsx(
-          TextField,
-          {
-            size: "small",
-            placeholder: "CEP",
-            value: cep,
-            onChange: (e) => setCep(
-              e.target.value.replace(/\D/g, "").replace(/(\d{5})(\d)/, "$1-$2").substring(0, 9)
-            ),
-            fullWidth: true,
-            inputProps: { maxLength: 9 }
-          }
-        ),
-        /* @__PURE__ */ jsx(
-          Button,
-          {
-            variant: "contained",
-            onClick: handleSearchCep,
-            size: "small",
-            sx: { background: "#62bb46" },
-            children: /* @__PURE__ */ jsx(SearchIcon, { fontSize: "small" })
-          }
-        )
-      ] })
-    ] }) });
-  }
   const onCreated = (e) => {
     const layer = e.layer;
     const latlngs = layer.getLatLngs?.()[0] || [];
@@ -1839,7 +1783,14 @@ function AreaMap() {
               }
             }
           ) }),
-          /* @__PURE__ */ jsx(SearchControlInner, { onResult: setAddress })
+          /* @__PURE__ */ jsx(
+            SearchControl,
+            {
+              onResult: setAddress,
+              useMapHook: useMap,
+              OpenStreetMapProvider
+            }
+          )
         ]
       }
     ) }) }),
@@ -1887,6 +1838,68 @@ function AreaMap() {
       }
     )
   ] });
+}
+function SearchControl({ onResult, useMapHook, OpenStreetMapProvider }) {
+  const [cep, setCep] = useState("");
+  const map = useMapHook?.();
+  const provider = useMemo(() => {
+    return OpenStreetMapProvider ? new OpenStreetMapProvider() : null;
+  }, [OpenStreetMapProvider]);
+  const handleSearchCep = async () => {
+    const sanitizedCep = cep.replace(/\D/g, "");
+    if (sanitizedCep.length !== 8) {
+      alert("CEP inválido! Digite no formato 00000-000");
+      return;
+    }
+    if (!provider || !map) return;
+    try {
+      const res = await fetch(`https://viacep.com.br/ws/${sanitizedCep}/json/`);
+      const data = await res.json();
+      if (data.erro) {
+        alert("CEP não encontrado!");
+        return;
+      }
+      const endereco = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
+      const results = await provider.search({ query: endereco });
+      if (results.length > 0) {
+        const { x, y } = results[0];
+        map.setView([y, x], 17);
+        onResult(endereco);
+      } else {
+        alert("Não foi possível localizar o CEP no mapa.");
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  return /* @__PURE__ */ jsx(Box, { className: "search_control", children: /* @__PURE__ */ jsxs(Box, { children: [
+    /* @__PURE__ */ jsx("input", { type: "text", value: cep, name: "cep", hidden: true, readOnly: true }),
+    /* @__PURE__ */ jsxs(Stack, { direction: "row", spacing: 1, children: [
+      /* @__PURE__ */ jsx(
+        TextField,
+        {
+          size: "small",
+          placeholder: "CEP",
+          value: cep,
+          onChange: (e) => setCep(
+            e.target.value.replace(/\D/g, "").replace(/(\d{5})(\d)/, "$1-$2").substring(0, 9)
+          ),
+          fullWidth: true,
+          inputProps: { maxLength: 9 }
+        }
+      ),
+      /* @__PURE__ */ jsx(
+        Button,
+        {
+          variant: "contained",
+          onClick: handleSearchCep,
+          size: "small",
+          sx: { background: "#62bb46" },
+          children: /* @__PURE__ */ jsx(SearchIcon, { fontSize: "small" })
+        }
+      )
+    ] })
+  ] }) });
 }
 const __vite_glob_0_14 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
@@ -2091,18 +2104,17 @@ const __vite_glob_0_13 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   __proto__: null,
   default: ShowMap
 }, Symbol.toStringTag, { value: "Module" }));
-const banner = "/build/assets/banner_940x495_-CHXdzBKu.png";
 const icon$2 = "/build/assets/icon-DqBWwavB.svg";
-function ContactBanner() {
+function ContactBanner({ dados }) {
   return /* @__PURE__ */ jsx(Box, { className: "contact_banner", component: "section", children: /* @__PURE__ */ jsxs(Box, { className: "content", children: [
-    /* @__PURE__ */ jsx(Box, { className: "left", children: /* @__PURE__ */ jsx(Box, { className: "image", children: /* @__PURE__ */ jsx("img", { src: banner }) }) }),
+    /* @__PURE__ */ jsx(Box, { className: "left", children: /* @__PURE__ */ jsx(Box, { className: "image", children: /* @__PURE__ */ jsx("img", { src: dados.imagem_contato?.permalink }) }) }),
     /* @__PURE__ */ jsxs(Box, { className: "right", children: [
       /* @__PURE__ */ jsxs("h2", { children: [
         "Não encontrou ",
         /* @__PURE__ */ jsx("br", {}),
         /* @__PURE__ */ jsx("b", { children: "o que procurava?" })
       ] }),
-      /* @__PURE__ */ jsx("p", { children: "Não se preocupe! Estamos aqui para ajudar você a encontrar a solução perfeirta" }),
+      /* @__PURE__ */ jsx("div", { className: "text", dangerouslySetInnerHTML: { __html: dados?.text_contact } }),
       /* @__PURE__ */ jsx(Button1, { component: Link, href: "/contato", children: "Entre em contato" })
     ] }),
     /* @__PURE__ */ jsx(Box, { className: "icon", children: /* @__PURE__ */ jsx("img", { src: icon$2 }) })
@@ -2268,8 +2280,8 @@ const __vite_glob_0_21 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
 const icon1 = "/build/assets/icon1-BKhjQeCb.svg";
 const icon2 = "/build/assets/icon2-C5eTxbcn.svg";
 const icon3 = "/build/assets/icon3-MTkMbEs5.svg";
-function InfoData({ info }) {
-  const targetValues = { dado1: info.info_1, dado2: info.info_2, dado3: info.info_3 };
+function InfoData({ dados }) {
+  const targetValues = { dado1: dados?.info_1, dado2: dados?.info_2, dado3: dados?.info_3 };
   const [dado1, setDado1] = useState(0);
   const [dado2, setDado2] = useState(0);
   const [dado3, setDado3] = useState(0);
@@ -2364,7 +2376,7 @@ function InfoData({ info }) {
         /* @__PURE__ */ jsx("b", { children: "sonhos em realidade" })
       ] }),
       /* @__PURE__ */ jsxs(Box, { children: [
-        /* @__PURE__ */ jsx("p", { children: info.text }),
+        /* @__PURE__ */ jsx("p", { children: dados.info_text }),
         /* @__PURE__ */ jsx(Button1, { component: Link, href: "/sobre", children: "Conheça a Cipasa" })
       ] })
     ] })
@@ -2375,7 +2387,7 @@ const __vite_glob_0_22 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   default: InfoData
 }, Symbol.toStringTag, { value: "Module" }));
 const icon = "/build/assets/icon-ZAwmYpkm.svg";
-function Projects({ list }) {
+function Projects({ list, dados }) {
   return /* @__PURE__ */ jsx(Box, { component: "section", className: "projects", children: /* @__PURE__ */ jsxs(Box, { className: "content", children: [
     /* @__PURE__ */ jsx(Box, { className: "left", children: /* @__PURE__ */ jsx(
       Swiper,
@@ -2398,7 +2410,7 @@ function Projects({ list }) {
   ] }) });
 }
 function Item$3({ item }) {
-  return /* @__PURE__ */ jsxs(Button, { className: "item", component: "a", draggable: false, children: [
+  return /* @__PURE__ */ jsxs(Button, { className: "item", draggable: false, children: [
     /* @__PURE__ */ jsx(Box, { className: "image", children: /* @__PURE__ */ jsx("img", { src: item.banner.permalink, alt: "" }) }),
     /* @__PURE__ */ jsxs(Box, { className: "item_content", children: [
       /* @__PURE__ */ jsx(Box, { className: "logo", children: /* @__PURE__ */ jsx("img", { src: item.logo.permalink, alt: "" }) }),
@@ -2425,7 +2437,7 @@ function IconLogo() {
 }
 const mapa = "/build/assets/map--pYwPMo3.svg";
 const logo$1 = "/build/assets/logo_bg-BvMbOwdr.svg";
-function ProjectsMap({ states }) {
+function ProjectsMap({ dados, states }) {
   const [selectedState, setSelectedState] = useState("");
   useEffect(() => {
     if (selectedState) {
@@ -2454,12 +2466,7 @@ function ProjectsMap({ states }) {
           /* @__PURE__ */ jsx("br", {}),
           /* @__PURE__ */ jsx("b", { children: "projetos por todo Brasil" })
         ] }),
-        /* @__PURE__ */ jsxs("p", { children: [
-          "Descubra os nossos projetos pelo Brasil e, especialmente, aqueles mais próximos de você.",
-          /* @__PURE__ */ jsx("br", {}),
-          /* @__PURE__ */ jsx("br", {}),
-          "Clique em um estado para explorar nossos projetos próximos a você"
-        ] }),
+        /* @__PURE__ */ jsx("div", { className: "text", dangerouslySetInnerHTML: { __html: dados?.text_descubra } }),
         /* @__PURE__ */ jsx(Box, { className: "selectors", children: /* @__PURE__ */ jsxs(
           "select",
           {
@@ -2563,7 +2570,7 @@ const __vite_glob_0_41 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   VentureItem,
   default: VenturesList
 }, Symbol.toStringTag, { value: "Module" }));
-function Ventures$1({ list, construtoras }) {
+function Ventures$1({ list, construtoras, dados }) {
   const swiperRef = useRef(null);
   return /* @__PURE__ */ jsx(Box, { className: "ventures", component: "section", children: /* @__PURE__ */ jsxs(Box, { className: "content", children: [
     /* @__PURE__ */ jsxs(Box, { className: "left", children: [
@@ -2572,7 +2579,7 @@ function Ventures$1({ list, construtoras }) {
         /* @__PURE__ */ jsx("br", {}),
         /* @__PURE__ */ jsx("b", { children: "Viver e Investir" })
       ] }),
-      /* @__PURE__ */ jsx("p", { children: "Empreendimentos sob medida com assinatura de alto padrão." }),
+      /* @__PURE__ */ jsx("div", { className: "text", dangerouslySetInnerHTML: { __html: dados?.text_espacos } }),
       /* @__PURE__ */ jsx(Button1, { component: Link, href: "/empreendimentos", children: "Ver empreendimentos" })
     ] }),
     /* @__PURE__ */ jsxs(Box, { className: "right", children: [
@@ -2601,7 +2608,7 @@ const __vite_glob_0_25 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.de
   __proto__: null,
   default: Ventures$1
 }, Symbol.toStringTag, { value: "Module" }));
-function Home({ banners, info, list_1, list_2, states, construtoras, blog, seo }) {
+function Home({ dados, banners, states, construtoras, blog, seo }) {
   const title = seo?.meta_title || "Cipasa Urbanismo";
   const description = seo?.breve_descricao || "";
   const keywords = Array.isArray(seo?.keywords) ? seo.keywords.join(", ") : "";
@@ -2634,12 +2641,12 @@ function Home({ banners, info, list_1, list_2, states, construtoras, blog, seo }
     /* @__PURE__ */ jsx("h1", { style: { display: "none" }, children: title }),
     /* @__PURE__ */ jsxs(Box, { className: "container", children: [
       /* @__PURE__ */ jsx(BannerCarousel, { banners }),
-      /* @__PURE__ */ jsx(InfoData, { info }),
-      /* @__PURE__ */ jsx(Highlights, { list: list_1 }),
-      /* @__PURE__ */ jsx(ProjectsMap, { states }),
+      /* @__PURE__ */ jsx(InfoData, { dados }),
+      /* @__PURE__ */ jsx(Highlights, { list: dados.lista_1 }),
+      /* @__PURE__ */ jsx(ProjectsMap, { dados, states }),
       /* @__PURE__ */ jsx(Projects, { list: construtoras }),
-      /* @__PURE__ */ jsx(Ventures$1, { list: list_2, construtoras }),
-      /* @__PURE__ */ jsx(ContactBanner, {}),
+      /* @__PURE__ */ jsx(Ventures$1, { list: dados.lista_2, construtoras, dados }),
+      /* @__PURE__ */ jsx(ContactBanner, { dados }),
       /* @__PURE__ */ jsx(Blog$1, { blog })
     ] })
   ] });
