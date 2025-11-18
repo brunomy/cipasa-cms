@@ -756,7 +756,10 @@ function Blog$1({ blog }) {
     link: item.link ?? null
   }));
   return /* @__PURE__ */ jsx(Box, { className: "blog_home", component: "section", children: /* @__PURE__ */ jsxs(Box, { className: "content", children: [
-    /* @__PURE__ */ jsx("h2", { children: "Cipasa na mídia" }),
+    /* @__PURE__ */ jsxs("h2", { children: [
+      "Cipasa ",
+      /* @__PURE__ */ jsx("b", { children: "na mídia" })
+    ] }),
     /* @__PURE__ */ jsx(
       Swiper,
       {
