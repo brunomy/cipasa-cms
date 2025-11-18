@@ -20,7 +20,7 @@ export default function Blog({ blog }) {
   return (
     <Box className="blog_home" component="section">
       <Box className="content">
-        <h2>Cipasa na mídia</h2>
+        <h2>Cipasa <b>na mídia</b></h2>
         <Swiper
           className="swiper_content"
           modules={[Pagination]}
