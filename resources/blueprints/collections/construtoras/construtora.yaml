@@ -29,7 +29,7 @@ tabs:
               max_files: 1
               mode: grid
               restrict: true
-              instructions: 'Tamanho: 160x160'
+              instructions: 'Tamanho: 80x80px'
               localizable: false
               listable: true
           -
