@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Inertia\Inertia;
 use Statamic\Facades\Entry;
 use Statamic\Facades\Site;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -22,16 +23,36 @@ class HomeController extends Controller
         }
 
         $home = $entry ? $entry->toAugmentedArray() : null;
-        $banners = $home['banner'] ?? [];
-        $info = [
-            'info_1' => $home['info_1'] ?? [],
-            'info_2' => $home['info_2'] ?? [],
-            'info_3' => $home['info_3'] ?? [],
-            'text' => $home['info_text'] ?? [],
-        ];
-        $list_1 = $home['lista_1'] ?? [];
-        $list_2 = $home['lista_2'] ?? [];
+        
+        $today = Carbon::today();
 
+        $banners = Entry::query()
+            ->whereCollection('banners')
+            ->orderBy('order', 'asc')
+            ->get()
+            ->filter(function ($entry) use ($today) {
+                $entrada = $entry->value('entrada');
+                $saida = $entry->value('saida');
+
+                $entradaDate = $entrada ? Carbon::parse($entrada)->startOfDay() : null;
+                $saidaDate = $saida ? Carbon::parse($saida)->endOfDay() : null;
+
+                if ($entradaDate && $entradaDate->gt($today)) {
+                    return false;
+                }
+
+                if ($saidaDate && $saidaDate->lt($today)) {
+                    return false;
+                }
+
+                return true;
+            })
+            ->values()
+            ->map(function ($entry) {
+                return $entry->toAugmentedArray();
+            })
+            ->all();
+  
         $construtoras = Entry::query()
             ->whereCollection('construtoras')
             ->orderBy('id', 'asc')
@@ -85,10 +106,8 @@ class HomeController extends Controller
             : $appUrl;
 
         return Inertia::render('Home/Home', [
+            'dados' => $home,
             'banners' => $banners,
-            'info' => $info,
-            'list_1' => $list_1,
-            'list_2' => $list_2,
             'states' => $states,
             'construtoras' => $construtoras,
             'blog' => $blog,

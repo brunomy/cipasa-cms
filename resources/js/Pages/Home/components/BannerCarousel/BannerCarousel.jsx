@@ -49,15 +49,15 @@ export default function BannerCarousel({ banners }) {
               key={"banner-"+index}
               className={`content-layer ${index === currentBanner ? 'active' : ''}`}
             >
-              { banner.titulo_banner != '<p></p>' ? (
-                <div dangerouslySetInnerHTML={{ __html: banner.titulo_banner }} />
+              { banner.title_banner && banner.title_banner != '<p></p>' ? (
+                <div className="title" dangerouslySetInnerHTML={{ __html: banner.title_banner }} />
               ) : (
-                <h2>{banner.empreendimento.title}</h2>
+                <div className="title"><h2>{banner.empreendimento?.title}</h2></div>
               )}
-              <p>{banner.texto_banner ?? banner.empreendimento.subtitulo}</p>
+              <p>{banner.texto_banner ?? banner.empreendimento?.subtitulo}</p>
               {
-                (banner.link || banner.empreendimento.permalink) && (
-                  <Button1 component="a" href={banner.link ?? banner.empreendimento.permalink} target={banner.target.value}>
+                (banner.link || banner.empreendimento?.permalink) && (
+                  <Button1 component="a" href={banner.link ?? banner.empreendimento?.permalink} target={banner.target.value}>
                     {banner.title_button ? banner.title_button : 'Saiba mais'}
                   </Button1>
                 )
@@ -77,7 +77,7 @@ export default function BannerCarousel({ banners }) {
             <Box
               key={"bannerImage-"+index}
               className={`bg-image ${index === currentBanner ? 'active' : ''}`}
-              style={{ backgroundImage: `url(${banner.imagem[0]?.permalink ?? banner.empreendimento.og_image.permalink})` }}
+              style={{ backgroundImage: `url(${banner?.imagem?.permalink ?? banner?.empreendimento?.og_image?.permalink})` }}
             />
           ))}
         </Box>

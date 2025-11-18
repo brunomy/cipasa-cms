@@ -21,7 +21,7 @@ import flower from './icons/flower.svg';
 import arrow from './icons/arrow.svg';
 import { VentureItem } from '../../../Ventures/components/VenturesList/VenturesList';
 
-export default function Ventures({ list, construtoras }) {
+export default function Ventures({ list, construtoras, dados }) {
   const swiperRef = useRef(null);
 
   return (
@@ -32,7 +32,7 @@ export default function Ventures({ list, construtoras }) {
             Espaços para <br/>
             <b>Viver e Investir</b>
           </h2>
-          <p>Empreendimentos sob medida com assinatura de alto padrão.</p>
+          <div className="text" dangerouslySetInnerHTML={{ __html: dados?.text_espacos }} />
           <Button1 component={Link} href="/empreendimentos">Ver empreendimentos</Button1>
         </Box>
         <Box className="right">

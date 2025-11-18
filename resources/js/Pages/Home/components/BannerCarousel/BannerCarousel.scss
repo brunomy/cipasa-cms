@@ -56,20 +56,21 @@
           opacity: 1;
           pointer-events: all;
         }
-        
-        h2{
-          color: #112A25;
-          font-family: fonts.$Montserrat !important;
-          font-weight: 400;
-          font-size: 42px;
-          line-height: 52px;
-          max-width: 460px;
-          text-transform: uppercase;
-          margin: 0 0 0;
-
-          b{
-            font-weight: 700;
-            font-family: inherit !important;
+        .title{
+          *{
+            color: #112A25;
+            font-family: fonts.$Montserrat !important;
+            font-weight: 400;
+            font-size: 42px;
+            line-height: 52px;
+            max-width: 460px;
+            text-transform: uppercase;
+            margin: 0 0 0;
+  
+            b, strong{
+              font-weight: 700;
+              font-family: inherit !important;
+            }
           }
         }
 
@@ -183,10 +184,12 @@
         .content-layer {
           padding: 0 0 35px;
 
-          h2{
-            font-size: 38px;
-            line-height: 47px;
-            margin: 0 0 0;
+          .title{
+            *{
+              font-size: 38px;
+              line-height: 47px;
+              margin: 0 0 0;
+            }
           }
 
           p{
@@ -221,10 +224,12 @@
         width: 475px;
 
         .content-layer {
-          h2{
-            font-size: 30px;
-            line-height: 41px;
-            margin: 0 0 0;
+          .title{
+            *{
+              font-size: 30px;
+              line-height: 41px;
+              margin: 0 0 0;
+            }
           }
 
           p{
@@ -285,9 +290,11 @@
 
       .left{
         .content-layer {
-          h2{
-            font-size: 24px;
-            line-height: 31px;
+          .title{
+            *{
+              font-size: 24px;
+              line-height: 31px;
+            }
           }
 
           p{

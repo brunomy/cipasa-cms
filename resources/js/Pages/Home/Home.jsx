@@ -10,7 +10,7 @@ import Projects from './components/Projects/Projects';
 import ProjectsMap from './components/ProjectsMap/ProjectsMap';
 import Ventures from './components/Ventures/Ventures';
 
-function Home({ banners, info, list_1, list_2, states, construtoras, blog, seo }) {
+function Home({ dados, banners, states, construtoras, blog, seo }) {
   const title       = seo?.meta_title || 'Cipasa Urbanismo';
   const description = seo?.breve_descricao || '';
   const keywords    = Array.isArray(seo?.keywords) ? seo.keywords.join(', ') : '';
@@ -45,17 +45,18 @@ function Home({ banners, info, list_1, list_2, states, construtoras, blog, seo }
       <h1 style={{ display: 'none' }}>{title}</h1>
       <Box className="container">
         <BannerCarousel banners={banners} />
-        <InfoData info={info} />
-        <Highlights list={list_1} />
-        <ProjectsMap states={states} />
+        <InfoData dados={dados} />
+        <Highlights list={dados.lista_1} />
+        <ProjectsMap dados={dados} states={states} />
         <Projects list={construtoras} />
-        <Ventures list={list_2} construtoras={construtoras} />
-        <ContactBanner />
+        <Ventures list={dados.lista_2} construtoras={construtoras} dados={dados} />
+        <ContactBanner dados={dados} />
         <Blog blog={blog} />
       </Box>
     </>
   );
 }
+{/* <div className="text" dangerouslySetInnerHTML={{ __html: dados?.text_descubra }} /> */}
 
 Home.layout = (page) => <AppLayout>{page}</AppLayout>;
 

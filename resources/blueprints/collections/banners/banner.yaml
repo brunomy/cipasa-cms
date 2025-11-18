@@ -1,0 +1,122 @@
+title: Banner
+tabs:
+  banner:
+    display: Banners
+    sections:
+      -
+        fields:
+          -
+            handle: title
+            field:
+              type: text
+              required: true
+              localizable: false
+              validate:
+                - required
+              listable: true
+              display: 'Título de listagem'
+              instructions: 'Esse título irá aparecer no sistema'
+              always_save: false
+          -
+            handle: empreendimento
+            field:
+              max_items: 1
+              mode: select
+              collections:
+                - empreendimentos
+              type: entries
+              display: Empreendimento
+              localizable: false
+              listable: true
+          -
+            handle: title_banner
+            field:
+              type: bard
+              buttons:
+                - h2
+                - bold
+              remove_empty_nodes: false
+              display: 'Título banner'
+              localizable: false
+              character_limit: 50
+              save_html: true
+          -
+            handle: texto_banner
+            field:
+              type: textarea
+              display: 'Texto banner'
+              localizable: false
+          -
+            handle: link
+            field:
+              type: text
+              display: Link
+              localizable: false
+              width: 50
+          -
+            handle: title_button
+            field:
+              type: text
+              display: Título
+              localizable: false
+              width: 25
+          -
+            handle: target
+            field:
+              options:
+                -
+                  key: _self
+                  value: Não
+                -
+                  key: _blank
+                  value: Sim
+              max_items: 1
+              type: select
+              display: 'Nova aba?'
+              localizable: false
+              width: 25
+              default: _self
+          -
+            handle: imagem
+            field:
+              container: assets
+              type: assets
+              display: Imagem
+              instructions: 'Tamanho: 950x600'
+              localizable: false
+              max_files: 1
+  sidebar:
+    display: Sidebar
+    sections:
+      -
+        fields:
+          -
+            handle: slug
+            field:
+              type: slug
+              localizable: true
+              validate: 'max:200'
+              sortable: false
+              replicator_preview: false
+              duplicate: false
+              listable: false
+              visibility: hidden
+      -
+        display: Datas
+        fields:
+          -
+            handle: entrada
+            field:
+              type: date
+              display: Entrada
+              localizable: false
+              width: 50
+              listable: true
+          -
+            handle: saida
+            field:
+              type: date
+              display: Saida
+              localizable: false
+              width: 50
+              listable: true

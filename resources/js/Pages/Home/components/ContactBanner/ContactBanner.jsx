@@ -3,18 +3,16 @@ import { Box } from '@mui/material';
 import Button1 from './../../../../components/Buttons/Button1/Button1';
 import { Link } from '@inertiajs/react';
 
-import banner from './image/banner[940x495].png';
-
 import icon from './icon/icon.svg'
 
-export default function ContactBanner() {
+export default function ContactBanner({ dados }) {
 
   return (
     <Box className="contact_banner" component="section">
       <Box className="content">
         <Box className="left">
           <Box className="image">
-            <img src={banner} />
+            <img src={dados.imagem_contato?.permalink} />
           </Box>
         </Box>
         <Box className="right">
@@ -22,7 +20,7 @@ export default function ContactBanner() {
             Não encontrou <br />
             <b>o que procurava?</b>
           </h2>
-          <p>Não se preocupe! Estamos aqui para ajudar você a encontrar a solução perfeirta</p>
+          <div className="text" dangerouslySetInnerHTML={{ __html: dados?.text_contact }} />
           <Button1 component={Link} href="/contato">Entre em contato</Button1>
         </Box>
         <Box className="icon"><img src={icon} /></Box>

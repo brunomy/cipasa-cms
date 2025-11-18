@@ -121,6 +121,15 @@ administrador:
     - 'edit other authors blog entries'
     - 'publish other authors blog entries'
     - 'delete other authors blog entries'
+    - 'view banners entries'
+    - 'edit banners entries'
+    - 'create banners entries'
+    - 'delete banners entries'
+    - 'publish banners entries'
+    - 'reorder banners entries'
+    - 'edit other authors banners entries'
+    - 'publish other authors banners entries'
+    - 'delete other authors banners entries'
     - 'configure asset containers'
     - 'view assets assets'
     - 'upload assets assets'
@@ -166,6 +175,7 @@ administrador:
         content:
           reorder:
             - 'content::collections::pages'
+            - 'content::collections::banners'
             - 'content::collections::empreendimentos'
             - 'content::collections::blog'
             - 'content::assets'
@@ -173,6 +183,7 @@ administrador:
             - 'content::navigation'
           items:
             'content::collections::pages': '@move'
+            'content::collections::banners': '@move'
             'content::collections::empreendimentos':
               action: '@move'
               children:

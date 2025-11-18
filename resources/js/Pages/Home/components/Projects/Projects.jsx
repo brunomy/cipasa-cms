@@ -8,18 +8,7 @@ import { Pagination  } from 'swiper/modules';
 
 import icon from './icons/icon.svg';
 
-import img1 from '../BannerCarousel/images/banner1.png';
-import img2 from '../BannerCarousel/images/banner2.png';
-import img3 from '../BannerCarousel/images/banner3.png';
-import img4 from '../Highlights/images/image1[1250x450].png';
-
-import logo1 from './images/logo1.png';
-import logo2 from './images/logo2.png';
-import logo3 from './images/logo3.png';
-import logo4 from './images/logo4.png';
-
-
-export default function Projects({ list }) {
+export default function Projects({ list, dados }) {
   return (
     <Box component="section" className="projects">
       <Box className="content">
@@ -49,7 +38,7 @@ export default function Projects({ list }) {
 
 function Item({ item }) {
   return (
-    <Button className="item" component="a" draggable={false}>
+    <Button className="item" draggable={false}>
       <Box className="image">
         <img src={item.banner.permalink} alt="" />
       </Box>

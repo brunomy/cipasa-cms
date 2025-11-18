@@ -6,7 +6,7 @@ import mapa from "./icons/map.svg";
 import logo from "./icons/logo_bg.svg";
 import { Link, router } from "@inertiajs/react";
 
-export default function ProjectsMap({ states }) {
+export default function ProjectsMap({ dados, states }) {
   const [selectedState, setSelectedState] = useState("");
 
   useEffect(() => {
@@ -38,13 +38,7 @@ export default function ProjectsMap({ states }) {
             <br />
             <b>projetos por todo Brasil</b>
           </h2>
-          <p>
-            Descubra os nossos projetos pelo Brasil e, especialmente, aqueles
-            mais próximos de você.
-            <br />
-            <br />
-            Clique em um estado para explorar nossos projetos próximos a você
-          </p>
+          <div className="text" dangerouslySetInnerHTML={{ __html: dados?.text_descubra }} />
           <Box className="selectors">
             <select
               name="estado"

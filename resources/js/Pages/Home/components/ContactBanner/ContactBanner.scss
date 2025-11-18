@@ -36,9 +36,16 @@
         @include mixins.Title();
         margin:  0 0 30px;
       }
-      p{
-        @include mixins.Text();
-        margin: 0 0 30px;
+      .text{
+        padding: 0 0 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        p{
+          @include mixins.Text();
+          margin: 0 0 0;
+        }
       }
     }
     .icon{
@@ -93,8 +100,8 @@
         h2{
           margin: 0 0 10px;
         }
-        p{
-          margin: 0 0 30px;
+        .text{
+          padding: 0 0 30px;
           max-width: 500px;
         }
       }
