@@ -93,10 +93,16 @@ export default function Footer({ contato, ref }) {
                 <Button component={Link} href="/contato">Contato</Button>
               </Box>
               <Box className="has_in_menu">
-                <h4>Portal do cliente</h4>
-                <Button component={'a'} target="_blank" href="https://portal.capys.com.br/Default.aspx?id={62E17A16-0146-465F-A732-250E42D94678}">Cliente</Button>
-                <Button component={'a'} target="_blank" href="https://parceiro.cipasa.com/">Parceiro</Button>
-                <Button component={'a'} target="_blank" href="https://cipasa.emobi.com.br/awf/paginas/sgn_in.aspx">Corretor</Button>
+                <h4>Fazer login</h4>
+                { contato.cliente && 
+                  <Button component={'a'} target="_blank" href={contato.cliente}>Cliente</Button>
+                }
+                { contato.parceiro && 
+                  <Button component={'a'} target="_blank" href="https://parceiro.cipasa.com/">Parceiro</Button>
+                }
+                { contato.corretor && 
+                  <Button component={'a'} target="_blank" href={contato.corretor}>Corretor</Button>
+                }
               </Box>
               <Box>
                 <h4>Quero Comprar</h4>

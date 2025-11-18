@@ -219,6 +219,30 @@ tabs:
               display: Longitude
               localizable: false
               width: 50
+  nova_aba:
+    display: 'Link dos portais'
+    sections:
+      -
+        display: Links
+        fields:
+          -
+            handle: cliente
+            field:
+              type: text
+              display: Cliente
+              localizable: false
+          -
+            handle: parceiro
+            field:
+              type: text
+              display: Parceiro
+              localizable: false
+          -
+            handle: corretor
+            field:
+              type: text
+              display: Corretor
+              localizable: false
   seo:
     display: SEO
     sections:

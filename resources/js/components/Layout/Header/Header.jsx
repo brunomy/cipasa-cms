@@ -1,8 +1,7 @@
 import Logo from '../../Logo/Logo';
 import './Header.scss';
 import { Box, Button } from '@mui/material';
-import { Link } from '@inertiajs/react';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 
 import { useState, useEffect } from 'react';
 import portal_icon from './../../../assets/icons/portal_icon.svg';
@@ -55,6 +54,7 @@ export default function Header({ ref }) {
 }
 
 function PortalButton() {
+  const { contato } = usePage().props;
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -78,14 +78,20 @@ function PortalButton() {
     <Box className="portal_content">
       <Button className="portal_button" onClick={() => setOpen(!open)}>
         <img src={portal_icon} />
-        Portal do cliente
+        Fazer login
         <img src={bottom_arrow} />
       </Button>
 
       <Box className={`portal_dropdown ${open ? 'open' : 'closed'}`}>
-        <Button onClick={() => setOpen(false)} component={'a'} target="_blank" href="https://portal.capys.com.br/Default.aspx?id={62E17A16-0146-465F-A732-250E42D94678}">Cliente</Button>
-        <Button onClick={() => setOpen(false)} component={'a'} target="_blank" href="https://parceiro.cipasa.com/">Parceiro</Button>
-        <Button onClick={() => setOpen(false)} component={'a'} target="_blank" href="https://cipasa.emobi.com.br/awf/paginas/sgn_in.aspx">Corretor</Button>
+        { contato.cliente && 
+          <Button onClick={() => setOpen(false)} component={'a'} target="_blank" href={contato.cliente}>Cliente</Button>
+        }
+        { contato.parceiro && 
+          <Button onClick={() => setOpen(false)} component={'a'} target="_blank" href="https://parceiro.cipasa.com/">Parceiro</Button>
+        }
+        { contato.corretor && 
+          <Button onClick={() => setOpen(false)} component={'a'} target="_blank" href={contato.corretor}>Corretor</Button>
+        }
       </Box>
     </Box>
   );

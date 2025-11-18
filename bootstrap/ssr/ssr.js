@@ -136,10 +136,10 @@ function Footer({ contato, ref }) {
             /* @__PURE__ */ jsx(Button, { component: Link, href: "/contato", children: "Contato" })
           ] }),
           /* @__PURE__ */ jsxs(Box, { className: "has_in_menu", children: [
-            /* @__PURE__ */ jsx("h4", { children: "Portal do cliente" }),
-            /* @__PURE__ */ jsx(Button, { component: "a", target: "_blank", href: "https://portal.capys.com.br/Default.aspx?id={62E17A16-0146-465F-A732-250E42D94678}", children: "Cliente" }),
-            /* @__PURE__ */ jsx(Button, { component: "a", target: "_blank", href: "https://parceiro.cipasa.com/", children: "Parceiro" }),
-            /* @__PURE__ */ jsx(Button, { component: "a", target: "_blank", href: "https://cipasa.emobi.com.br/awf/paginas/sgn_in.aspx", children: "Corretor" })
+            /* @__PURE__ */ jsx("h4", { children: "Fazer login" }),
+            contato.cliente && /* @__PURE__ */ jsx(Button, { component: "a", target: "_blank", href: contato.cliente, children: "Cliente" }),
+            contato.parceiro && /* @__PURE__ */ jsx(Button, { component: "a", target: "_blank", href: "https://parceiro.cipasa.com/", children: "Parceiro" }),
+            contato.corretor && /* @__PURE__ */ jsx(Button, { component: "a", target: "_blank", href: contato.corretor, children: "Corretor" })
           ] }),
           /* @__PURE__ */ jsxs(Box, { children: [
             /* @__PURE__ */ jsx("h4", { children: "Quero Comprar" }),
@@ -245,6 +245,7 @@ function Header({ ref }) {
   ] }) }) });
 }
 function PortalButton() {
+  const { contato } = usePage().props;
   const [open, setOpen] = useState(false);
   useEffect(() => {
     if (!open) return;
@@ -261,13 +262,13 @@ function PortalButton() {
   return /* @__PURE__ */ jsxs(Box, { className: "portal_content", children: [
     /* @__PURE__ */ jsxs(Button, { className: "portal_button", onClick: () => setOpen(!open), children: [
       /* @__PURE__ */ jsx("img", { src: portal_icon }),
-      "Portal do cliente",
+      "Fazer login",
       /* @__PURE__ */ jsx("img", { src: bottom_arrow })
     ] }),
     /* @__PURE__ */ jsxs(Box, { className: `portal_dropdown ${open ? "open" : "closed"}`, children: [
-      /* @__PURE__ */ jsx(Button, { onClick: () => setOpen(false), component: "a", target: "_blank", href: "https://portal.capys.com.br/Default.aspx?id={62E17A16-0146-465F-A732-250E42D94678}", children: "Cliente" }),
-      /* @__PURE__ */ jsx(Button, { onClick: () => setOpen(false), component: "a", target: "_blank", href: "https://parceiro.cipasa.com/", children: "Parceiro" }),
-      /* @__PURE__ */ jsx(Button, { onClick: () => setOpen(false), component: "a", target: "_blank", href: "https://cipasa.emobi.com.br/awf/paginas/sgn_in.aspx", children: "Corretor" })
+      contato.cliente && /* @__PURE__ */ jsx(Button, { onClick: () => setOpen(false), component: "a", target: "_blank", href: contato.cliente, children: "Cliente" }),
+      contato.parceiro && /* @__PURE__ */ jsx(Button, { onClick: () => setOpen(false), component: "a", target: "_blank", href: "https://parceiro.cipasa.com/", children: "Parceiro" }),
+      contato.corretor && /* @__PURE__ */ jsx(Button, { onClick: () => setOpen(false), component: "a", target: "_blank", href: contato.corretor, children: "Corretor" })
     ] })
   ] });
 }
